@@ -20,11 +20,48 @@
       })
       .state('home', {
         url: "/home",
+        abstract: true,
         templateUrl: "views/home.html",
         controller: 'HomeController',
         data: {
           requiresLogin: true
         }
+      .state('home.feed', {
+        url: "/feed",
+        views: {
+          'home-tab': {
+            templateUrl: "views/feed.html",
+            controller: 'FeedController',
+            data: {
+              requiresLogin: true
+            }
+          }
+        }
+      })
+      .state('home.publish', {
+        url: "/publish",
+        views: {
+          'home-tab': {
+            templateUrl: "views/publish.html",
+            controller: 'PublishController',
+            data: {
+              requiresLogin: true
+            }
+          }
+        }
+      })
+      .state('home.profile', {
+        url: "/profile",
+        views: {
+          'home-tab': {
+            templateUrl: "views/profile.html",
+            controller: 'ProfileController',
+            data: {
+              requiresLogin: true
+            }
+          }
+        }
+      })
       });
 
       $urlRouterProvider.otherwise("/");
