@@ -3,7 +3,7 @@
     'sellit',
   ['ionic', 'sellit.controllers', 'auth0'])
 
-  .config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProvider) {
+  .config(function (authProvider, $httpProvider) {
       authProvider
       .init({
         domain: 'sellit.auth0.com',
@@ -12,61 +12,60 @@
         loginState: 'login'
       });
 
-      $stateProvider
-      .state('login', {
-        url: '/',
-        templateUrl: 'views/login.html',
-        controller: 'LoginController',
-      })
-      .state('home', {
-        url: "/home",
-        abstract: true,
-        templateUrl: "views/home.html",
-        controller: 'HomeController',
-        data: {
-          requiresLogin: true
-        }
-      .state('home.feed', {
-        url: "/feed",
-        views: {
-          'home-tab': {
-            templateUrl: "views/feed.html",
-            controller: 'FeedController',
-            data: {
-              requiresLogin: true
-            }
-          }
-        }
-      })
-      .state('home.publish', {
-        url: "/publish",
-        views: {
-          'home-tab': {
-            templateUrl: "views/publish.html",
-            controller: 'PublishController',
-            data: {
-              requiresLogin: true
-            }
-          }
-        }
-      })
-      .state('home.profile', {
-        url: "/profile",
-        views: {
-          'home-tab': {
-            templateUrl: "views/profile.html",
-            controller: 'ProfileController',
-            data: {
-              requiresLogin: true
-            }
-          }
-        }
-      })
-      });
-
-      $urlRouterProvider.otherwise("/");
-
       $httpProvider.interceptors.push('authInterceptor');
+  })
+
+  .config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+    .state('login', {
+      url: '/',
+      templateUrl: 'views/login.html',
+      controller: 'LoginController',
+    })
+    .state('home', {
+      url: "/home",
+      abstract: true,
+      templateUrl: 'views/home.html',
+      controller: 'HomeController'
+    })
+    .state('home.feed', {
+      url: "/feed",
+      views: {
+        'feed-tab': {
+          templateUrl: 'views/feed.html',
+          controller: 'FeedController',
+          data: {
+            requiresLogin: true
+          }
+        }
+      }
+    })
+    .state('home.publish', {
+      url: "/home/publish",
+      views: {
+        'publish-tab': {
+          templateUrl: "views/publish.html",
+          controller: 'PublishController',
+          data: {
+            requiresLogin: true
+          }
+        }
+      }
+    })
+    .state('home.profile', {
+      url: "/home/profile",
+      views: {
+        'profile-tab': {
+          templateUrl: "views/profile.html",
+          controller: 'ProfileController',
+          data: {
+            requiresLogin: true
+          }
+        }
+      }
+    })
+
+    $urlRouterProvider.otherwise("/");
   })
 
   .run(function($ionicPlatform) {
