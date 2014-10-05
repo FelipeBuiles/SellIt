@@ -3,7 +3,7 @@
     'sellit',
   ['ionic', 'sellit.controllers', 'auth0'])
 
-  .config(function (authProvider, $httpProvider) {
+  .config(function (authProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
       authProvider
       .init({
         domain: 'sellit.auth0.com',
@@ -12,63 +12,55 @@
         loginState: 'login'
       });
 
+      $stateProvider
+      .state('login', {
+        url: '/',
+        templateUrl: 'templates/login.html',
+        controller: 'LoginController',
+      })
+      .state('home', {
+        url: "/home",
+        abstract: true,
+        templateUrl: 'templates/home.html',
+        controller: 'HomeController',
+        data: {
+          requiresLogin: true
+        }
+      })
+      .state('home.feed', {
+        url: '/feed',
+        views: {
+          'feed-tab': {
+            templateUrl: 'templates/feed.html',
+            controller: 'FeedController'
+          }
+        }
+      })
+      .state('home.publish', {
+        url: "/publish",
+        views: {
+          'publish-tab': {
+            templateUrl: "templates/publish.html",
+            controller: 'PublishController'
+          }
+        }
+      })
+      .state('home.profile', {
+        url: "/profile",
+        views: {
+          'profile-tab': {
+            templateUrl: "templates/profile.html",
+            controller: 'ProfileController'
+          }
+        }
+      })
+
+      $urlRouterProvider.otherwise("/");
+
       $httpProvider.interceptors.push('authInterceptor');
   })
 
-  .config(function ($stateProvider, $urlRouterProvider) {
-    $stateProvider
-    .state('login', {
-      url: '/',
-      templateUrl: 'views/login.html',
-      controller: 'LoginController',
-    })
-    .state('home', {
-      url: "/home",
-      abstract: true,
-      templateUrl: 'views/home.html',
-      controller: 'HomeController'
-    })
-    .state('home.feed', {
-      url: "/feed",
-      views: {
-        'feed-tab': {
-          templateUrl: 'views/feed.html',
-          controller: 'FeedController',
-          data: {
-            requiresLogin: true
-          }
-        }
-      }
-    })
-    .state('home.publish', {
-      url: "/home/publish",
-      views: {
-        'publish-tab': {
-          templateUrl: "views/publish.html",
-          controller: 'PublishController',
-          data: {
-            requiresLogin: true
-          }
-        }
-      }
-    })
-    .state('home.profile', {
-      url: "/home/profile",
-      views: {
-        'profile-tab': {
-          templateUrl: "views/profile.html",
-          controller: 'ProfileController',
-          data: {
-            requiresLogin: true
-          }
-        }
-      }
-    })
-
-    $urlRouterProvider.otherwise("/");
-  })
-
-  .run(function($ionicPlatform) {
+  .run(function($ionicPlatform, auth) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -77,8 +69,8 @@
         StatusBar.styleDefault();
       }
     });
-  })
-  .run(function(auth) {
+
     auth.hookEvents();
-  });
+  })
+
 })();
