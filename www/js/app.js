@@ -1,19 +1,48 @@
-// Ionic Starter App
+(function() {
+  angular.module(
+    'sellit',
+  ['ionic', 'sellit.controllers', 'auth0'])
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+  .config(function ($stateProvider, $urlRouterProvider, authProvider, $httpProvider) {
+      authProvider
+      .init({
+        domain: 'sellit.auth0.com',
+        clientID: 'JEEpuyCpk4TaG0iExkfOl7gUUa3TP1dH',
+        callbackURL: location.href,
+        loginState: 'login'
+      });
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
+      $stateProvider
+      .state('login', {
+        url: '/',
+        templateUrl: 'views/login.html',
+        controller: 'LoginController',
+      })
+      .state('home', {
+        url: "/home",
+        templateUrl: "views/home.html",
+        controller: 'HomeController',
+        data: {
+          requiresLogin: true
+        }
+      });
+
+      $urlRouterProvider.otherwise("/");
+
+      $httpProvider.interceptors.push('authInterceptor');
+  })
+
+  .run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+      if(window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+      }
+      if(window.StatusBar) {
+        StatusBar.styleDefault();
+      }
+    });
+  })
+  .run(function(auth) {
+    auth.hookEvents();
   });
-})
+})();

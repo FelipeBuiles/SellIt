@@ -2,10 +2,10 @@
 <widget id="com.ionicframework.sellit337139" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>SellIt</name>
   <description>
-        An Ionic Framework and Cordova project.
+        Práctica Proyecto Integrador 2
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">
-      Ionic Framework Team
+  <author email="jbuiles4@eafit.edu.co">
+      Pipe y sus amigos.
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -15,5 +15,9 @@
   <preference name="BackupWebStorage" value="none"/>
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
+  </feature>
+  <feature name="InAppBrowser">
+    <param name="ios-package" value="CDVInAppBrowser"/>
+    <param name="android-package" value="org.apache.cordova.InAppBrowser"/>
   </feature>
 </widget>
