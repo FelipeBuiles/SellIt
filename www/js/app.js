@@ -1,6 +1,5 @@
 (function() {
-  angular.module(
-    'sellit',
+  angular.module( 'sellit',
   ['ionic', 'sellit.controllers', 'auth0'])
 
   .config(function (authProvider, $httpProvider, $stateProvider, $urlRouterProvider) {

@@ -6,6 +6,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
+var karma = require('karma').server;
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -29,15 +30,26 @@ gulp.task('watch', function() {
   gulp.watch(paths.sass, ['sass']);
 });
 
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+gulp.task('autotest', function() {
+  return gulp.watch(['www/js/**/*.js', 'test/spec/*.js'], ['test']);
+});
+
+gulp.task('heroku:production', function() {
+  // heroku me obliga a poner esto.
+});
+
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
       gutil.log('bower', gutil.colors.cyan(data.id), data.message);
     });
-});
-
-gulp.task('heroku:production', function() {
-  console.log('sisas');
 });
 
 gulp.task('git-check', function(done) {
