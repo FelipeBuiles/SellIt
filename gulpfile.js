@@ -36,6 +36,10 @@ gulp.task('install', ['git-check'], function() {
     });
 });
 
+gulp.task('heroku:production', function() {
+  console.log('sisas');
+});
+
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
     console.log(
