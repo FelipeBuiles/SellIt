@@ -1,6 +1,6 @@
 (function() {
   angular.module( 'sellit',
-  ['ionic', 'sellit.controllers', 'auth0'])
+  ['ionic', 'sellit.controllers', 'auth0', 'ngCordova'])
 
   .config(function (authProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
       authProvider

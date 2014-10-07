@@ -1,5 +1,30 @@
 <ion-view title="Publish">
   <ion-content>
-    Publish.
+    <div class="card">
+      <div class="item item-image" ng-show="taken" ng-click="takePicture()">
+        <img src="{{imgSrc}}">
+      </div>
+      <a class="item item-icon-center" ng-hide="taken" ng-click="takePicture()">
+        <i class="ion-ios7-plus-outline"></i>
+      </a>
+    </div>
+    <div class="list">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Publication name</span>
+        <input type="text" placeholder="Name">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Description</span>
+        <input type="text" placeholder="Enter a description">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Price</span>
+        <input type="number" placeholder="Price">
+      </label>
+      <br>
+      <button class="button button-full button-positive" ng-click="publish()">
+        Publish
+      </button>
+    </div>
   </ion-content>
 </ion-view>
