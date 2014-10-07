@@ -17,6 +17,14 @@
         templateUrl: 'templates/login.html',
         controller: 'LoginController',
       })
+      .state('preferences',{
+        url: '/preferences',
+        templateUrl: 'templates/preferences.html',
+        controller: 'PreferencesController',
+        data: {
+          requiresLogin: true
+        }
+      })
       .state('home', {
         url: "/home",
         abstract: true,

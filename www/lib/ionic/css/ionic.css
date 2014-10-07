@@ -5187,7 +5187,7 @@ input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="rad
   .checkbox input:before, .checkbox .checkbox-icon:before {
     border-color: #4a87ee; }
   .checkbox input:checked:before, .checkbox input:checked + .checkbox-icon:before {
-    background: #4a87ee; }
+    background: #03a9f4; }
 
 .checkbox-light input:before, .checkbox-light .checkbox-icon:before {
   border-color: #ddd; }

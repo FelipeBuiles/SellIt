@@ -9,10 +9,22 @@
       offline_mode: true,
       device: 'Phone'
     }, function() {
-      $state.go('home.feed');
+      $state.go('preferences');
     }, function(error) {
       console.log(":( ", error);
     });
+  })
+  .controller('PreferencesController', function($scope, $state){
+    $scope.preferences = [
+      {nombre:'Salud y belleza', id: 1},
+      {nombre:'Libros', id: 2},
+      {nombre:'Videojuegos', id: 3},
+      {nombre:'Electronicos y computación', id: 4},
+      {nombre:'Hogar', id: 5},
+      {nombre:'Juguetes, Niños y Bebes', id: 6},
+      {nombre:'Ropa y Zapatos', id: 7},
+      {nombre:'Deportes', id: 8}
+    ];
   })
 
   .controller('HomeController', function($scope, $state) {
