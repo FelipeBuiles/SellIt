@@ -16,14 +16,14 @@
   })
   .controller('PreferencesController', function($scope, $state){
     $scope.preferences = [
-      {nombre:'Salud y belleza', id: 1},
-      {nombre:'Libros', id: 2},
-      {nombre:'Videojuegos', id: 3},
-      {nombre:'Electronicos y computación', id: 4},
-      {nombre:'Hogar', id: 5},
-      {nombre:'Juguetes, Niños y Bebes', id: 6},
-      {nombre:'Ropa y Zapatos', id: 7},
-      {nombre:'Deportes', id: 8}
+      {nombre:'Health and Beauty', id: 1},
+      {nombre:'Books', id: 2},
+      {nombre:'Videogames', id: 3},
+      {nombre:'Computers and Electronics', id: 4},
+      {nombre:'Home', id: 5},
+      {nombre:'Kids', id: 6},
+      {nombre:'Clothes and Shoes', id: 7},
+      {nombre:'Sports', id: 8}
     ];
   })
 
@@ -36,11 +36,13 @@
     feedService.all()
       .then(function(data){
         $scope.feedProducts = data;
+        console.log($scope.feedProducts);
       });
   })
 
   .controller('PublishController', function($scope, $state, $cordovaCamera) {
     $scope.picTaken = false;
+    $scope.product = {};
     $scope.takePicture = function() {
       var options = {
           quality : 75,
@@ -60,6 +62,10 @@
       }, function(err) {
         console.log(':(', err);
       });
+    }
+
+    $scope.publish = function() {
+
     }
   })
 

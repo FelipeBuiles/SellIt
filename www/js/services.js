@@ -6,7 +6,7 @@
     function all(){
       var deferred = $q.defer();
 
-      $http.get('/products.json')
+      $http.get('http://192.168.1.10:8100/products.json')
         .success(function(data){
           deferred.resolve(data);
         });

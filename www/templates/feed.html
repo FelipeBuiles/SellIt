@@ -1,12 +1,12 @@
 <ion-view title="Feed">
   <ion-content>
   	<ul>
-      <li class="feedItem" ng-repeat="products in feedProducts">
-        <img src="{{products.imgurl}}" />
+      <li class="list card feedItem" ng-repeat="product in feedProducts">
+        <img src="{{product.imgurl}}" />
         <div class="productFeed">
-          <img src="{{products.imgUser}}"/>
-          <p id="nombre">{{products.nombre}}</p>
-          <p id="precio">{{products.precio | currency}}</p>
+          <img src="{{product.imgUser}}"/>
+          <p id="nombre">{{product.nombre}}</p>
+          <p id="precio">{{product.precio | currency}}</p>
         </div>
       </li>
   	</ul>
