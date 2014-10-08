@@ -1,4 +1,4 @@
-SellIt  [![Build Status](https://secure.travis-ci.org/username/reponame.png?branch=master)](https://travis-ci.org/username/reponame)
+SellIt  [![Build Status](https://secure.travis-ci.com/FelipeBuiles/Sellit.png?branch=master)](https://travis-ci.com/FelipeBuiles/Sellit)
 ======
 
 Esto es un readme.
