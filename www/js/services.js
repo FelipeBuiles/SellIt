@@ -1,5 +1,5 @@
 (function(){
-  angular.module("sellit.services", [])
+  angular.module('sellit.services', [])
 
   .factory('feedService', ['$http', '$q', function($http, $q){
 

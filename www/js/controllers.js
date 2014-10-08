@@ -40,7 +40,7 @@
   })
 
   .controller('PublishController', function($scope, $state, $cordovaCamera) {
-    $scope.taken = false;
+    $scope.picTaken = false;
     $scope.takePicture = function() {
       var options = {
           quality : 75,
@@ -56,7 +56,7 @@
 
       $cordovaCamera.getPicture(options).then(function(imageData) {
         $scope.imgSrc = imageData;
-        $scope.taken = true;
+        $scope.picTaken = true;
       }, function(err) {
         console.log(':(', err);
       });
