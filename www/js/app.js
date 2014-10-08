@@ -8,7 +8,12 @@
         domain: 'sellit.auth0.com',
         clientID: 'JEEpuyCpk4TaG0iExkfOl7gUUa3TP1dH',
         callbackURL: location.href,
-        loginState: 'login'
+        loginState: 'login',
+        dict: {
+          signin: {
+            title: 'Link with another account'
+          }
+        }
       });
 
       $stateProvider

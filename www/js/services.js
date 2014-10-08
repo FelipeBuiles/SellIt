@@ -13,6 +13,10 @@
       return deferred.promise;
     }
 
+    function byUser(){
+      
+    }
+
     return{
       all: all
     };
