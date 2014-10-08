@@ -1,8 +1,36 @@
-<ion-view title="Profile">
+<ion-view title="{{profile.name}}">
   <ion-content>
-    <a class="item item-avatar">
-      <img src="{{profile.picture}}">
-      <h2>{{profile.name}}</h2>
-    </a>
+    <section class="row information">
+      <div class="col col-25">
+        <a class="item item-avatar">
+          <img src="{{profile.picture}}">
+        </a>
+      </div>
+      <div id="infoProfile" class="col col-75">
+        <div class="col col-33">
+          <strong>{{productos.length}}</strong>
+          <span>Productos</span>
+        </div>
+        <div class="col col-33">
+          <strong>0</strong>
+          <span>Seguidores</span>
+        </div>
+        <div class="col col-33">
+          <strong>0</strong>
+          <span>Seguidos</span>
+        </div>
+      </div>
+    </section>
+    <section id= "productosProfile">
+      <figure class= "card" ng-repeat= "producto in productos">
+        <div class="imageContainer">
+          <img src="{{producto.imgurl}}" />
+        </div>
+        <div class="info">
+          <figcaption id="nombre">{{producto.nombre}}</figcaption>
+          <figcaption id="precio">{{producto.precio | currency}}</figcaption>
+        </div>
+      </div>
+    </section>
   </ion-content>
 </ion-view>

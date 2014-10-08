@@ -2,14 +2,17 @@
   angular.module('sellit.controllers',
   ['ionic', 'auth0'])
 
-  .controller('LoginController', function($scope, auth, $state) {
+  .controller('LoginController', function($scope, auth, $state, $window) {
+    var sessionStogare = $window.sessionStogare;
+
     auth.signin({
       popup: true,
       standalone: true,
       offline_mode: true,
       device: 'Phone'
-    }, function() {
+    }, function(data) {
       $state.go('preferences');
+      sessionStorage.userInfo = JSON.stringify(data);
     }, function(error) {
       console.log(":( ", error);
     });
@@ -69,8 +72,17 @@
     }
   })
 
-  .controller('ProfileController', function($scope, $state, auth) {
-    $scope.profile = auth.profile;
+  .controller('ProfileController', function($scope, $state, $window, auth, feedService) {
+    if(auth.profile === undefined){
+      $scope.profile = JSON.parse($window.sessionStorage.userInfo)
+    }else{
+      $scope.profile = auth.profile;
+    }
+    $scope.productos = {}
+    feedService.all()
+      .then(function(data){
+        $scope.productos = data;
+      });
   })
 
 })();
