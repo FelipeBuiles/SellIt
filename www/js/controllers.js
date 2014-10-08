@@ -31,8 +31,12 @@
 
   })
 
-  .controller('FeedController', function($scope, $state) {
-
+  .controller('FeedController', function($scope, $state, feedService) {
+    $scope.feedProducts = {}
+    feedService.all()
+      .then(function(data){
+        $scope.feedProducts = data;
+      });
   })
 
   .controller('PublishController', function($scope, $state, $cordovaCamera) {

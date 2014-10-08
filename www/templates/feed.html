@@ -1,5 +1,14 @@
 <ion-view title="Feed">
   <ion-content>
-  	Feed.
+  	<ul>
+      <li class="feedItem" ng-repeat="products in feedProducts">
+        <img src="{{products.imgurl}}" />
+        <div class="productFeed">
+          <img src="{{products.imgUser}}"/>
+          <p id="nombre">{{products.nombre}}</p>
+          <p id="precio">{{products.precio}}</p>
+        </div>
+      </li>
+  	</ul>
   </ion-content>
 </ion-view>
