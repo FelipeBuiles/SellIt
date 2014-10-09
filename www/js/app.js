@@ -1,6 +1,6 @@
 (function() {
   angular.module( 'sellit',
-  ['ionic', 'sellit.controllers', 'auth0', 'ngCordova', 'sellit.services'])
+  ['ionic', 'sellit.controllers', 'auth0', 'ngCordova', 'sellit.services', 'sellit.directives'])
 
   .config(function (authProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
       authProvider
@@ -47,6 +47,11 @@
             controller: 'FeedController'
           }
         }
+      })
+      .state('product', {
+        url: '/product/:id',
+        templateUrl: 'templates/product.html',
+        controller: 'ProductController'
       })
       .state('home.publish', {
         url: "/publish",

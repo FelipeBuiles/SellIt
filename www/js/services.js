@@ -38,6 +38,6 @@
       all: all,
       one: one,
       range: range
-    };
+    }
   }]);
 })();
