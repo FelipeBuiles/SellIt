@@ -11,7 +11,7 @@
         loginState: 'login',
         dict: {
           signin: {
-            title: 'Link with another account'
+            title: 'Login'
           }
         }
       });

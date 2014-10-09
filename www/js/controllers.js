@@ -33,11 +33,38 @@
 
   .controller('FeedController', function($scope, $state, feedService) {
     $scope.feedProducts = {}
-    feedService.all()
-      .then(function(data){
-        $scope.feedProducts = data;
-        console.log($scope.feedProducts);
-      });
+    $scope.currentIndex = 0;
+    $scope.init = function() {
+      feedService.all()
+        .then(function(data) {
+          $scope.feedProducts = data.slice(0, 4);
+          $scope.currentIndex = 4;
+        });
+    };
+    $scope.refresh = function() {
+      feedService.all()
+        .then(function(data) {
+          $scope.feedProducts = data.slice(0, 4);
+          $scope.currentIndex = 4;
+        })
+        .finally(function() {
+          $scope.$broadcast('scroll.refreshComplete');
+        });
+    };
+    $scope.canLoadMore = function(currentIndex) {
+      return $scope.currentIndex < 16;
+    }
+    $scope.more = function() {
+      feedService.all()
+        .then(function(data) {
+          $scope.feedProducts = $scope.feedProducts
+          .concat(data.slice($scope.currentIndex, $scope.currentIndex+4));
+          $scope.currentIndex += 4;
+        })
+        .finally(function() {
+          $scope.$broadcast('scroll.infiniteScrollComplete');
+        });
+    }
   })
 
   .controller('PublishController', function($scope, $state, $cordovaCamera) {

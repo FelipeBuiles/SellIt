@@ -6,19 +6,38 @@
     function all(){
       var deferred = $q.defer();
 
-      $http.get('http://192.168.1.10:8100/products.json')
+      $http.get('https://api.myjson.com/bins/351bd')
         .success(function(data){
           deferred.resolve(data);
         });
       return deferred.promise;
     }
 
-    function byUser(){
+    function one(id) {
+      var deferred = $q.defer();
 
+      $http.get('https://api.myjson.com/bins/351bd')
+        .success(function(data){
+          deferred.resolve(data);
+        });
+      return deferred.promise[id];
+    }
+
+    function range(from, thisMany) {
+      var deferred = $q.defer();
+
+      $http.get('https://api.myjson.com/bins/351bd')
+        .success(function(data){
+          deferred.resolve(data);
+        });
+      console.log(deferred.promise);
+      return deferred.promise;
     }
 
     return{
-      all: all
+      all: all,
+      one: one,
+      range: range
     };
   }]);
 })();
