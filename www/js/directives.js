@@ -15,4 +15,11 @@
       };
     })
 
+    .directive('comment', function(){
+      return{
+        restrict: 'E',
+        templateUrl: 'partials/comments.html' 
+      }
+    })
+
 })();

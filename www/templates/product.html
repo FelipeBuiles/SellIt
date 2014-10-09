@@ -1,16 +1,9 @@
-<ion-view title="Product">
+<ion-view title="{{products.nombre}}">
   <ion-content>
     <div>
-      <img src="{{product.imgurl}}" />
-      <div class="productFeed">
-        <img src="{{product.imgUser}}"/>
-        <p id="nombre">{{product.nombre}}</p>
-        <p id="precio">{{product.precio | currency}}</p>
-      </div>
-      <div id="comments">
-
-      </div>
-
+    <feed-image></feed-image>
+    <feed-profile></feed-profile>
+    <comments></comments>
     </div>
   </ion-content>
 </ion-view>

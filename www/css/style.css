@@ -72,6 +72,9 @@
 .feedItem img {
   width: 100%;
 }
+.imageFeed img {
+  width: 100%;
+}
 .productFeed {
   position: relative;
 }

@@ -67,14 +67,17 @@
     }
   })
 
-  .controller('ProductController', function($scope, $stateParams, feedService) {
-    var id = $stateParams.id;
-    $scope.product = {};
-    feedService.one(id)
-    .then(function (data) {
-      $scope.product = data;
-    });
-  })
+  .controller('ProductController', ['$scope', '$stateParams', 'feedService',function($scope, $stateParams, feedService){
+    $scope.idProduct = $stateParams.id;
+    console.log($scope.idProduct);
+
+    $scope.products = {};
+    feedService.byId($scope.idProduct)
+      .then(function(data){
+        $scope.products = data;
+      });
+
+  }])
 
   .controller('PublishController', function($scope, $state, $cordovaCamera) {
     $scope.picTaken = false;
