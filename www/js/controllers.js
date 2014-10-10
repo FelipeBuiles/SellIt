@@ -67,20 +67,15 @@
     }
   })
 
-  .controller('ProductController', ['$scope', '$stateParams', 'feedService',function($scope, $stateParams, feedService){
+  .controller('ProductController', ['$scope', '$stateParams', 'feedService',function($scope, $stateParams, feedService, auth){
     $scope.idProduct = $stateParams.id;
     $scope.rate = 3;
     $scope.max = 5;
-    $scope.stateOff = false;
-
     $scope.products = {};
     feedService.byId($scope.idProduct)
       .then(function(data){
         $scope.products = data;
-        console.log($scope.products);
       });
-    console.log($scope.products.nombre);
-
   }])
 
   .controller('PublishController', function($scope, $state, $cordovaCamera) {
