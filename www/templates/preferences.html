@@ -1,14 +1,15 @@
 <ion-view title="Preferencias">
   <ion-content>
   	<ul class="list">
-      <li class="item item-checkbox" id="preference{{preference.id}}" ng-repeat= "preference in preferences">
+      <li class="item item-checkbox" id="preference{{preference.id}}"
+        ng-repeat= "preference in preferences">
          <label class="checkbox">
-           <input class= "checkSellit" type="checkbox">
+           <input class= "checkSellit" type="checkbox" ng-model="preference.value">
          </label>
          {{preference.nombre}}
       </li>
     </ul>
-    <a id="buttonContainer" href="#/home/feed">
+    <a ng-click="selected()" id="buttonContainer" href="#/suggestions">
       <article id = "nextButton" class="ion-arrow-right-c">
       </article>
     </a>

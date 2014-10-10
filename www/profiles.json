@@ -3,20 +3,24 @@
     "UserId": 1,
     "userName": "Carlo deFranco",
     "imgUser":"http://media-cache-ec0.pinimg.com/736x/d4/45/20/d4452035f501e05adf90c63af107bb1a.jpg",
+    "preferences": [1,2,6]
   },
   {
     "UserId": 2,
     "userName": "Sara Mandela",
     "imgUser":"http://www.shecreativehair.com.au/wp-content/uploads/noProfilePicture.png",
+    "preferences": [8,2,4]
   },
   {
     "UserId": 3,
     "userName": "Tito Banana",
     "imgUser":"https://lh4.googleusercontent.com/-69y8pZ-sgQo/AAAAAAAAAAI/AAAAAAAAAAA/G7Jq2QQZb9g/photo.jpg",
+    "preferences": [4,3]
   },
   {
     "UserId": 4,
-    "userName": "Juancho Pelaes",
+    "userName": "Juancho Pelaez",
     "imgUser":"http://www.theoptimisticdivorcees.com/wp-content/uploads/2014/08/noprofile.jpg",
+    "preferences": [4,7,5]
   }
 ]

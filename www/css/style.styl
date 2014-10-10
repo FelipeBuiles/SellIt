@@ -14,6 +14,8 @@
 .checkbox input:before, .checkbox .checkbox-icon:before {
   border-color: #03a9f4 !important
 }
+.card
+  margin: 10px 10px !important
 
 .scroll
   height 100% !important
@@ -33,7 +35,7 @@
 
 #buttonContainer
   position: absolute
-  bottom: 15px
+  bottom: 30px
   right: 15px
   #nextButton
     background-color: #03a9f4
@@ -73,7 +75,7 @@
 #productosProfile
   figure
     width 47%
-    margin: 2px 5px;
+    margin: 2px 5px !important
     display inline-flex
     flex-direction column
     max-height: 200px;
@@ -151,3 +153,32 @@
   #title
     color #03a9f4
     font-weight bold
+.profileList
+  .profileItem
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position relative
+    .deleteProfile
+      position absolute
+      z-index: 10;
+      right: 10px;
+      color: #d6d6d6;
+    .imgContainer
+      width 40%
+      position relative
+      .followButton
+        position absolute
+        bottom 4px
+        left 30%
+        background-color #03a9f4
+        border-radius 4px
+        color #FFF
+        padding 2px 8px
+      img
+        width 100%
+    .profileInfo
+      width 60%
+      margin: 10px;
+      color: #03a9f4;
+      text-align: center;

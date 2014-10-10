@@ -14,17 +14,33 @@
       console.log(":( ", error);
     });
   })
+  .controller('SuggestionsController', function($scope, $state, feedService){
+    $scope.profiles = {};
+    feedService.profiles()
+      .then(function(data){
+        $scope.profiles = data;
+      });
+  })
   .controller('PreferencesController', function($scope, $state){
     $scope.preferences = [
-      {nombre:'Health and Beauty', id: 1},
-      {nombre:'Books', id: 2},
-      {nombre:'Videogames', id: 3},
-      {nombre:'Computers and Electronics', id: 4},
-      {nombre:'Home', id: 5},
-      {nombre:'Kids', id: 6},
-      {nombre:'Clothes and Shoes', id: 7},
-      {nombre:'Sports', id: 8}
+      {nombre:'Health and Beauty', id: 1, value: false},
+      {nombre:'Books', id: 2, value: false},
+      {nombre:'Videogames', id: 3, value: false},
+      {nombre:'Computers and Electronics', id: 4, value: false},
+      {nombre:'Home', id: 5, value: false},
+      {nombre:'Kids', id: 6, value: false},
+      {nombre:'Clothes and Shoes', id: 7, value: false},
+      {nombre:'Sports', id: 8, value: false}
     ];
+
+    $scope.array = [];
+    $scope.selected = function(){
+      for(var i = 0; i < $scope.preferences.length; i++){
+        if($scope.preferences[i].value === true){
+          $scope.array[$scope.array.length] = $scope.preferences[i];
+        }
+      }
+    };
   })
 
   .controller('HomeController', function($scope, $state) {

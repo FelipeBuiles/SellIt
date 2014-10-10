@@ -30,6 +30,11 @@
           requiresLogin: true
         }
       })
+      .state('suggestions',{
+        url: '/suggestions',
+        templateUrl: 'templates/suggestions.html',
+        controller: 'SuggestionsController',
+      })
       .state('home', {
         url: "/home",
         abstract: true,
