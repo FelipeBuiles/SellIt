@@ -1,9 +1,24 @@
-<ion-view title="{{products.nombre}}">
-  <ion-content>
+<ion-view hide-nav-bar="true">
+  <ion-content has-header="false">
     <div>
-    <feed-image></feed-image>
-    <feed-profile></feed-profile>
-    <comments></comments>
+      <figure id= "productImage">
+        <feed-image></feed-image>
+      </figure>
+      <figcaption id= "productInfo">
+        <section>
+          <rating class="stars" ng-model="rate" max="max"></rating>
+          <p id="nombre">{{products.nombre}}</p>
+          <p id="precio">{{products.precio | currency}}</p>
+        </section>
+        <section>
+          <img ng-src="{{products.imgUser}}"/>
+        </section>
+      </figcaption>
+      <article id="productDesciption" class="card">
+        <h4 id="title">Detalles</h4>
+        {{products.descripcion}}
+      </article>
+      <comments></comments>
     </div>
   </ion-content>
 </ion-view>

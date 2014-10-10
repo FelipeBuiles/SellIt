@@ -6,7 +6,7 @@
     function all(){
       var deferred = $q.defer();
 
-      $http.get('https://api.myjson.com/bins/4rsa9')
+      $http.get('https://api.myjson.com/bins/3q29d')
         .success(function(data){
           deferred.resolve(data);
         });
@@ -31,7 +31,7 @@
     function one(id) {
       var deferred = $q.defer();
 
-      $http.get('https://api.myjson.com/bins/4rsa9')
+      $http.get('https://api.myjson.com/bins/3q29d')
         .success(function(data){
           deferred.resolve(data);
         });
@@ -41,7 +41,7 @@
     function range(from, thisMany) {
       var deferred = $q.defer();
 
-      $http.get('https://api.myjson.com/bins/4rsa9')
+      $http.get('https://api.myjson.com/bins/3q29d')
         .success(function(data){
           deferred.resolve(data);
         });

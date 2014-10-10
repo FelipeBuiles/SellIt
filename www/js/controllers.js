@@ -1,6 +1,6 @@
 (function() {
   angular.module('sellit.controllers',
-  ['ionic', 'auth0'])
+  ['ionic', 'auth0', 'ionic.rating'])
 
   .controller('LoginController', function($scope, auth, $state) {
     auth.signin({
@@ -69,13 +69,17 @@
 
   .controller('ProductController', ['$scope', '$stateParams', 'feedService',function($scope, $stateParams, feedService){
     $scope.idProduct = $stateParams.id;
-    console.log($scope.idProduct);
+    $scope.rate = 3;
+    $scope.max = 5;
+    $scope.stateOff = false;
 
     $scope.products = {};
     feedService.byId($scope.idProduct)
       .then(function(data){
         $scope.products = data;
+        console.log($scope.products);
       });
+    console.log($scope.products.nombre);
 
   }])
 
@@ -108,8 +112,17 @@
     }
   })
 
-  .controller('ProfileController', function($scope, $state, auth) {
-    $scope.profile = auth.profile;
+  .controller('ProfileController', function($scope, $state, $window,auth, feedService) {
+    if(auth.profile === undefined){
+      $scope.profile = JSON.parse($window.sessionStorage.userInfo)
+    }else{
+      $scope.profile = auth.profile;
+    }
+    $scope.productos = {}
+    feedService.all()
+      .then(function(data){
+        $scope.productos = data;
+      });
   })
 
 })();

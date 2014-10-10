@@ -1,4 +1,14 @@
-.navbarSellIt {
+.pane {
+  background-color: #f2f2f2;
+}
+.tab-item-active {
+  color: #03a9f4 !important;
+  border-color: #03a9f4 !important;
+}
+.tabs-positive .tabs {
+  background-color: #3a3c3f !important;
+}
+.bar.bar-positive {
   background-color: #03a9f4 !important;
 }
 .checkbox input:before,
@@ -8,10 +18,25 @@
 .scroll {
   height: 100% !important;
 }
+.publishButton {
+  background-color: #03a9f4;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  padding-top: 12px;
+  color: #fff;
+  font-size: 25px;
+  z-index: 10;
+  position: absolute;
+  bottom: 40px;
+  right: 15px;
+}
 #buttonContainer {
   position: absolute;
   bottom: 15px;
   right: 15px;
+  font-size: 25px;
 }
 #buttonContainer #nextButton {
   background-color: #03a9f4;
@@ -21,11 +46,11 @@
   text-align: center;
   padding-top: 25%;
   color: #fff;
-  font-size: 25px;
 }
 .information {
   box-shadow: 0px 0px 2px 0px rgba(50,50,50,0.75);
   margin-bottom: 5px;
+  background-color: #fff;
 }
 .item-avatar {
   padding-left: 0px;
@@ -58,25 +83,45 @@
 #productosProfile figure {
   width: 47%;
   margin: 2px 5px;
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
+  max-height: 200px;
+  min-height: 200px;
+  position: relative;
+  padding: 0;
 }
 #productosProfile figure .imageContainer {
   max-width: 100%;
+  min-height: 160px;
+  max-height: 160px;
+  background-color: #000;
+  display: inline-flex;
+  flex-direction: row;
 }
 #productosProfile figure .imageContainer img {
   width: 100%;
 }
+#productosProfile figure .info {
+  min-height: 40px;
+  max-height: 40px;
+}
 #productosProfile figure .info figcaption {
   text-align: center;
 }
-.feedItem img {
-  width: 100%;
+.feedItem {
+  padding: 0;
 }
 .imageFeed img {
   width: 100%;
+  display: inherit;
 }
 .productFeed {
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 10px;
 }
 .productFeed img {
   width: 50px;
@@ -85,8 +130,44 @@
 }
 .productFeed #nombre {
   display: inline-block;
+  font-weight: bold;
+  margin: 0;
+  color: #03a9f4;
 }
 .productFeed #precio {
   display: inline-block;
   background: #03a9f4;
+  color: #fff;
+  border-radius: 30px;
+  padding: 5px 10px;
+  font-weight: bold;
+}
+#productInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #03a9f4;
+  padding: 4px 15px;
+}
+#productInfo section {
+  color: #fff;
+}
+#productInfo section .stars {
+  color: #fff;
+}
+#productInfo section .stars li {
+  padding: 0;
+}
+#productInfo section img {
+  width: 50px;
+  height: 50px;
+  border-radius: 60px;
+}
+#productDesciption {
+  padding: 15px;
+}
+#productDesciption #title {
+  color: #03a9f4;
+  font-weight: bold;
 }

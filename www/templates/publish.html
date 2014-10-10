@@ -8,7 +8,7 @@
         <i class="ion-ios7-plus-outline"> Take a picture.</i>
       </a>
     </div>
-    <div class="list">
+    <div class="list card">
       <label class="item item-input item-floating-label">
         <span class="input-label">Product name</span>
         <input type="text" placeholder="your product name">
@@ -21,11 +21,8 @@
         <span class="input-label">Price</span>
         <input type="number" placeholder="your product price">
       </label>
-      <br>
-      <button class="button button-full button-positive" ng-click="publish()">
-        Publish
-      </button>
-      <br>
     </div>
+    <article class="ion-paper-airplane publishButton" ng-click="publish()">
+    </article>
   </ion-content>
 </ion-view>
