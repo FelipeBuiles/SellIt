@@ -67,10 +67,10 @@
     }
   })
 
-  .controller('ProductController', ['$scope', '$stateParams', 'feedService',function($scope, $stateParams, feedService){
+  .controller('ProductController', ['$scope', '$stateParams', 'feedService',function($scope, $stateParams, feedService, auth){
     $scope.idProduct = $stateParams.id;
     console.log($scope.idProduct);
-
+    $scope.profileProd = $stateParams.profile;
     $scope.products = {};
     feedService.byId($scope.idProduct)
       .then(function(data){

@@ -1,8 +1,12 @@
-<ion-view title="{{products.nombre}}">
+<ion-view title="{{products.name}}">
   <ion-content>
-    <div>
+    <div class="list card">
     <feed-image></feed-image>
     <feed-profile></feed-profile>
+    <p>Description</p>
+    <p>
+      {{products.description}}
+    </p>
     <comments></comments>
     </div>
   </ion-content>
