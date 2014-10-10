@@ -71,6 +71,7 @@
     $scope.idProduct = $stateParams.id;
     $scope.rate = 3;
     $scope.max = 5;
+    $scope.profileProd = $stateParams.profile;
     $scope.products = {};
     feedService.byId($scope.idProduct)
       .then(function(data){
