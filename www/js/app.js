@@ -77,6 +77,12 @@
         }
       })
 
+      .state('followers', {
+        url: '/profile/followers',
+        templateUrl: 'templates/followers.html',
+        controller: 'FollowersController'
+      })
+
       $urlRouterProvider.otherwise("/");
 
       $httpProvider.interceptors.push('authInterceptor');

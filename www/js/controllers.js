@@ -124,6 +124,14 @@
     }
   })
 
+  .controller('FollowersController', function($scope, $state, $window,auth, feedService) {
+      $scope.followersProfile = {}
+        feedService.all()
+          .then(function(data){
+            $scope.followersProfile = data;
+          });
+  })
+
   .controller('ProfileController', function($scope, $state, $window,auth, feedService) {
     if(auth.profile === undefined){
       $scope.profile = JSON.parse($window.sessionStorage.userInfo)
