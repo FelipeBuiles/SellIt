@@ -1,0 +1,13 @@
+<?php
+
+namespace Productos\ImagenesBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class DefaultController extends Controller
+{
+    public function indexAction($name)
+    {
+        return $this->render('ProductosImagenesBundle:Default:index.html.twig', array('name' => $name));
+    }
+}

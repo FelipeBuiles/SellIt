@@ -1,0 +1,4 @@
+services:
+#    usuarios_reputacion.example:
+#        class: Usuarios\ReputacionBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

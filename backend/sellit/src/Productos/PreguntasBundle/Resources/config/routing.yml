@@ -1,0 +1,3 @@
+productos_preguntas_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ProductosPreguntasBundle:Default:index }

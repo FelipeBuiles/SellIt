@@ -1,0 +1,33 @@
+Productos\ManagerBundle\Entity\ProductoImagenes:
+    type: entity
+    table: producto_imagenes
+    indexes:
+        producto_fk_idx:
+            columns:
+                - id_producto
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+    fields:
+        rutaImagen:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: ruta_imagen
+    oneToOne:
+        idProducto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_producto:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

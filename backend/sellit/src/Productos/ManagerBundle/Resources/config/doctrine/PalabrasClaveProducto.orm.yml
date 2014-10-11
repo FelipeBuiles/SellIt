@@ -1,0 +1,34 @@
+Productos\ManagerBundle\Entity\PalabrasClaveProducto:
+    type: entity
+    table: palabras_clave_producto
+    indexes:
+        producto_fk_idx:
+            columns:
+                - id_producto
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        palabra:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+            comment: ''
+    manyToOne:
+        idProducto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_producto:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

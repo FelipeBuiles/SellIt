@@ -1,0 +1,18 @@
+Usuarios\ManagerBundle\Entity\Usuarios:
+    type: entity
+    table: usuarios
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+        idFront:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_front
+    lifecycleCallbacks: {  }

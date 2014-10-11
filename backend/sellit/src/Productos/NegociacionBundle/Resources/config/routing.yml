@@ -1,0 +1,3 @@
+productos_negociacion_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ProductosNegociacionBundle:Default:index }

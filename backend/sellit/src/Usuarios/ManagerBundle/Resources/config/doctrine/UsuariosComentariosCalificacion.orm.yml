@@ -1,0 +1,32 @@
+Usuarios\ManagerBundle\Entity\UsuariosComentariosCalificacion:
+    type: entity
+    table: usuarios_comentarios_calificacion
+    indexes:
+        calificacion_fk_idx:
+            columns:
+                - id_calificacion
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+    fields:
+        comentario:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+    oneToOne:
+        idCalificacion:
+            targetEntity: UsuarioCalificacion
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_calificacion:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

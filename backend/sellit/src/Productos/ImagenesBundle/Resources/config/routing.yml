@@ -1,0 +1,3 @@
+productos_imagenes_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ProductosImagenesBundle:Default:index }

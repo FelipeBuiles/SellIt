@@ -1,0 +1,3 @@
+application_generico_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ApplicationGenericoBundle:Default:index }

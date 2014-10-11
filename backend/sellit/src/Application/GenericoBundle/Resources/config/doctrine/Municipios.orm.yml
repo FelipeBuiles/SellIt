@@ -1,0 +1,44 @@
+Application\GenericoBundle\Entity\Municipios:
+    type: entity
+    table: municipios
+    indexes:
+        departamento_fk_idx:
+            columns:
+                - id_departamento
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+        idDane:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_dane
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: ''
+        activo:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
+    manyToOne:
+        idDepartamento:
+            targetEntity: Departamentos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_departamento:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

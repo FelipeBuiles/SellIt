@@ -1,0 +1,3 @@
+productos_creacion_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: ProductosCreacionBundle:Default:index }
