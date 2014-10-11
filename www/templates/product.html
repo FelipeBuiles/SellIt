@@ -18,7 +18,17 @@
         <h4 id="title">Detalles</h4>
         {{products.descripcion}}
       </article>
-      <comments></comments>
+      <figcaption id= "productInfo">
+        <section>
+          <p>
+            Comments
+          </p>
+        </section>
+      </figcaption>
+      <article id="productDesciption" class="card">
+        <feed-comments name="{{products.nombre}}"></feed-comments>
+      </article>
+
     </div>
   </ion-content>
 </ion-view>

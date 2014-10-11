@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+  <div class="panel-body">
+    <form name="commentsForm" class="form-horizontal" role="form" ng-submit="commentsForm.$valid && addComment()" novalidate>
+      <div class="form-group">
+        <div class="bubble-list">
+          <textarea ng-model="comment.body" placeholder="Write a comment..." class="form-control" required></textarea>
+        </div class="bubble-list">
+        <div>
+          <button type="submit" class="btn btn-lg">Send</button>
+        </div>
+      </div>
+    </form>
+    <blockquote ng-repeat="comment in comments">
+      <p>{{comment.body}}</p>
+      <footer>
+        Comment by
+        <p>{{products.userName}}</p>
+        on <span>{{comment.date | date : 'medium'}}</span>
+      </footer>
+    </blockquote>
+  </div>
+</div>

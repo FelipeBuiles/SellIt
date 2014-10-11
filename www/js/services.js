@@ -1,7 +1,7 @@
 (function(){
   angular.module('sellit.services', [])
 
-  .factory('feedService', ['$http', '$q', function($http, $q){
+  .factory('feedService', ['$http', '$q', '$window', function($http, $q, $window){
 
     function all(){
       var deferred = $q.defer();
@@ -37,14 +37,23 @@
       return deferred.promise;
     }
 
-    function one(id) {
-      var deferred = $q.defer();
+    function saveComment(product, comment){
+      var comments = getComments(product);
 
-      $http.get('https://api.myjson.com/bins/3q29d')
-        .success(function(data){
-          deferred.resolve(data);
-        });
-      return deferred.promise[id];
+      comments.push(comment);
+      localStorage.setItem(product, JSON.stringify(comments));
+    }
+
+    function getComments(product){
+      var comments = localStorage.getItem(product);
+
+      if(!comments){
+        comments = [];
+      }else{
+        comments = JSON.parse(comments);
+      }
+
+      return comments;
     }
 
     function range(from, thisMany) {
@@ -62,7 +71,8 @@
       all: all,
       profiles: profiles,
       byId: byId,
-      one: one,
+      saveComment: saveComment,
+      getComments: getComments,
       range: range
     }
   }]);
