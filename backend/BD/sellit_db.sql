@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2014 a las 00:13:49
+-- Tiempo de generación: 13-10-2014 a las 01:10:33
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -30,7 +30,21 @@ CREATE TABLE IF NOT EXISTS `categoria_producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `categoria` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=9 ;
+
+--
+-- Volcado de datos para la tabla `categoria_producto`
+--
+
+INSERT INTO `categoria_producto` (`id`, `categoria`) VALUES
+(1, 'health&beauty'),
+(2, 'books'),
+(3, 'videogames'),
+(4, ' computers&electronics'),
+(5, 'home'),
+(6, 'kids'),
+(7, 'clothes&shoes'),
+(8, 'sports');
 
 -- --------------------------------------------------------
 
@@ -1321,6 +1335,23 @@ INSERT INTO `producto` (`id`, `id_usuario`, `nombre`, `descripcion`, `precio`, `
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `producto_comentarios`
+--
+
+CREATE TABLE IF NOT EXISTS `producto_comentarios` (
+  `id` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `comentario` longtext COLLATE utf8_spanish_ci NOT NULL,
+  `fecha_comentrio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `producto_fk_idx` (`id_producto`),
+  KEY `usuario_comentarios_fk_idx` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `producto_imagenes`
 --
 
@@ -1425,6 +1456,13 @@ ALTER TABLE `producto`
   ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `categoria_fk` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `producto_comentarios`
+--
+ALTER TABLE `producto_comentarios`
+  ADD CONSTRAINT `usuario_comentarios_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `producto_comentarios_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `producto_imagenes`

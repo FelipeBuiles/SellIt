@@ -76,3 +76,16 @@ imagenes de los productos
 /***************************************************************************************/
 /**************************INSTRUCCIONES PARA COMPRAR PRODUCTOS*************************/
 /***************************************************************************************/
+
+
+/***************************************************************************************/
+/****************INSTRUCCIONES PARA LISTAR CATEGORIAS PRODUCTOS*************************/
+/***************************************************************************************/
+1. La peticion entrante debe ser un tipo Ajax GET
+2. El GET debe ser hecho en la URL %HOST_EJECUCION%/productos/listarcategorias
+. El formato de la respuesta es el siguiente
+
+{
+    id: ID de la categoria,
+    nombre: Nombre de la categoria,
+}

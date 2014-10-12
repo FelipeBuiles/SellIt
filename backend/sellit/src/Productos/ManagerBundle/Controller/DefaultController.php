@@ -72,9 +72,8 @@ class DefaultController extends Controller {
                 
                 if (!is_null($productos)) {
                     $json = array();
-
                     foreach ($productos as $p) {
-                        if ($include_images) {
+                        if ($include_images==true) {
                             $json_child = array(
                                 'id' => $p->getId(),
                                 'nombre' => $p->getNombre(),
@@ -121,6 +120,32 @@ class DefaultController extends Controller {
             return $response;
         }
 
+        $response->setData($json);
+        $response->setStatusCode(200);
+        return $response;
+    }
+    
+    public function listarcategoriasAction(){
+        $request = $this->get('request');
+        $response = new JsonResponse();
+
+        if ($request->getMethod() == 'GET') {
+            $categorias = $this->getDoctrine()->getRepository('ProductosManagerBundle:CategoriaProducto')
+                    ->findBy(array(), array('categoria' => 'ASC'));
+            
+            $json = array();
+            
+            foreach($categorias as $c){
+                $json_child = array('id' => $c->getId(), 'nombre' => $c->getCategoria());
+                array_push($json, $json_child);                
+            }
+            
+        } else {
+            $response->setData(array('error' => 'ONLY GET METHOD ALLOWED'));
+            $response->setStatusCode(500);
+            return $response;
+        }
+        
         $response->setData($json);
         $response->setStatusCode(200);
         return $response;
