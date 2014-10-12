@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2014 a las 19:17:24
+-- Tiempo de generación: 12-10-2014 a las 20:23:31
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1310,6 +1310,7 @@ CREATE TABLE IF NOT EXISTS `producto_imagenes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_producto` int(11) NOT NULL,
   `ruta_imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `nombre_imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`,`id_producto`),
   KEY `producto_fk_idx` (`id_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
