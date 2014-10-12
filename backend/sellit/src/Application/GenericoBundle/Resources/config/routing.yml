@@ -1,3 +1,12 @@
+application_generico_getDepartamentos:
+    path:     /application/getdepartamentos/{toArray}   
+    defaults: { _controller: ApplicationGenericoBundle:Default:getDepartamentos , toArray:false}
+    
+application_generico_getMunicipios:
+    path:     /application/getmunicipios/{departamento}/{toArray}
+    defaults: { _controller: ApplicationGenericoBundle:Default:getMunicipios, departamento: null, toArray:false }
+        
 application_generico_homepage:
     path:     /hello/{name}
     defaults: { _controller: ApplicationGenericoBundle:Default:index }
+

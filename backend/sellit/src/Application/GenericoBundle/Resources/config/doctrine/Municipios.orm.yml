@@ -12,14 +12,15 @@ Application\GenericoBundle\Entity\Municipios:
             unsigned: false
             comment: ''
             id: true
+            generator:
+                strategy: IDENTITY
+    fields:
         idDane:
             type: integer
             nullable: false
             unsigned: false
             comment: ''
-            id: true
             column: id_dane
-    fields:
         nombre:
             type: string
             nullable: false

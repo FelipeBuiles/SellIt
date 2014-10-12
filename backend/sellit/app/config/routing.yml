@@ -1,0 +1,32 @@
+productos_preguntas:
+    resource: "@ProductosPreguntasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+productos_negociacion:
+    resource: "@ProductosNegociacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+productos_imagenes:
+    resource: "@ProductosImagenesBundle/Resources/config/routing.yml"
+    prefix:   /
+
+productos_manager:
+    resource: "@ProductosManagerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+productos_creacion:
+    resource: "@ProductosCreacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+usuarios_reputacion:
+    resource: "@UsuariosReputacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
+usuarios_manager:
+    resource: "@UsuariosManagerBundle/Resources/config/routing.yml"
+    prefix:   /
+
+application_generico:
+    resource: "@ApplicationGenericoBundle/Resources/config/routing.yml"
+    prefix:   /
+
