@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2014 a las 03:41:55
+-- Tiempo de generación: 12-10-2014 a las 19:17:24
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1317,6 +1317,25 @@ CREATE TABLE IF NOT EXISTS `producto_imagenes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `producto_preguntas`
+--
+
+CREATE TABLE IF NOT EXISTS `producto_preguntas` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_producto` int(11) NOT NULL DEFAULT '0',
+  `id_usuario` int(11) NOT NULL DEFAULT '0',
+  `texto` longtext COLLATE utf8_spanish_ci NOT NULL,
+  `tipo` varchar(2) COLLATE utf8_spanish_ci NOT NULL COMMENT 'R para respuesta, P para pregunta',
+  `id_respuesta_pregunta` int(11) DEFAULT NULL COMMENT 'Solo se usa si el tipo es R, aqui se pone el ID de la pregunta inicial',
+  PRIMARY KEY (`id`,`id_producto`,`id_usuario`),
+  KEY `producto_fk_idx` (`id_producto`),
+  KEY `usuario_fk_idx` (`id_usuario`),
+  KEY `pregunta_fk_idx` (`id_respuesta_pregunta`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -1325,7 +1344,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_front` int(11) NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`,`id_front`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -1385,6 +1404,14 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `producto_imagenes`
   ADD CONSTRAINT `producto_imagen_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `producto_preguntas`
+--
+ALTER TABLE `producto_preguntas`
+  ADD CONSTRAINT `usuario_pregunta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `pregunta_fk` FOREIGN KEY (`id_respuesta_pregunta`) REFERENCES `producto_preguntas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `producto_preguntas_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `usuarios_comentarios_calificacion`
