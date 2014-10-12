@@ -5,3 +5,7 @@ productos_ver:
 productos_usuario_ver:
     path:     /productos/listarusuario/{idusuario}
     defaults: { _controller: ProductosManagerBundle:Default:listarusuario, (idusuario:null) }
+    
+productos_usuario_listar:
+    path:     /productos/listarvendedor/{idvendedor}/{limit}/{offset}/{include_images}
+    defaults: { _controller: ProductosManagerBundle:Default:listarvendedor, limit: 10, offset: 0, include_images: true, idvendedor: null }    
