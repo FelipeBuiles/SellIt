@@ -22,16 +22,16 @@ class DefaultController extends Controller
         $response = new JsonResponse();
         
         if($request->getMethod()=='POST'){  
-            $data = json_decode(file_get_contents('php://input'));    
+            $data = json_decode(file_get_contents('php://input'), true);
             
             $this->parsePost($data);
             
             $name = $data['name'];
             $description = $data['description'];
             $price = $data['price'];
-            $category = $data['category'];
-            $keywords = $data['keywords']; //Must be array
-            $images = $data['images']; //Must be array of BASE64
+            $category = (!empty($data['category'])) ? $data['category'] : null;
+            $keywords = (!empty($data['keywords'])) ? $data['keywords'] : null;//Must be array
+            $images = (!empty($data['images'])) ? $data['images'] : null; //Must be array of BASE64
             
             $estado_producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:EstadosProducto')
                     ->findBy(array(), array('id' => 'ASC'))[0];
@@ -42,7 +42,11 @@ class DefaultController extends Controller
             $product->setPrecio($price);            
             $product->setIdEstado($estado_producto);
             $product->setFechaPublicacion(new \DateTime('now'));
+            $product->setActivo(true);
             
+            $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find(1);
+            $product->setIdUsuario($usuario);
+            //$product->set
             if(!is_null($category)){
                 $category = $this->getDoctrine()->getRepository('ProductosManagerBundle:CategoriaProducto')->findOneBy(array('id' => $category));
                 $product->setIdCategoria($category);
@@ -64,28 +68,30 @@ class DefaultController extends Controller
             if(!is_null($keywords) && sizeof($keywords)>0)
                 $this->processKeyWords ($keyWords, $product);
             
-            if(!is_null($keywords) && sizeof($keywords)>0)
+            if(!is_null($images) && sizeof($images)>0)
                 $this->processImages ($images, $product);
+            
             
         } else {
             $response->setData(array('error' => 'ONLY POST METHOD ALLOWED'));
             $response->setStatusCode(500);
+            return $response;
         }
         
-        
+        $response->setData(array('result' => true,'message' => 'Product successfully created', 'id' => $product->getId()));
+        $response->setStatusCode(200);
         return $response;
         
     }
     
-    public function parsePost($post){
+    public function parsePost($data){
         $badParseResponse = new JsonResponse();
         $badParseResponse->setStatusCode(500);
-        
-        if(is_null($post['name']) || empty($post['name'])){
+        if(is_null($data['name']) || empty($data['name'])){
             $badParseResponse->setData(array('error' => 'missing input parameter', 'details' => '"NAME" parameter is missing or empty'));
             $badParseResponse->send();
             exit;
-        } else if (is_null($post['price']) || empty($post['price'])) {
+        } else if (is_null($data['price']) || empty($data['price'])) {
             $badParseResponse->setData(array('error' => 'missing input parameter', 'details' => '"PRICE" parameter is missing or empty'));
             $badParseResponse->send();
             exit;
@@ -99,13 +105,15 @@ class DefaultController extends Controller
             mkdir($this->container->getParameter('product_images_folder'), 0777);
         
         foreach ($images as $i) {
-            $fileName = ApplicationGenericoBundle::RandomString().".png";
-            $file = $this->container->getParameter('product_images_folder').$filename;
-            ApplicationGenericoBundle::base64_to_file($i, $file);
+            $fileName = self::RandomString().".png";
+            $file = $this->container->getParameter('product_images_folder').$fileName;
+            //echo $i; exit;
+            self::base64_to_file($i, $file);
             
             $imagen = new ProductoImagenes();
             $imagen->setIdProducto($product);
             $imagen->setNombreImagen($fileName);
+            $imagen->setRutaImagen($file);
             
             try{
                 $em = $this->getDoctrine()->getManager();
@@ -120,6 +128,25 @@ class DefaultController extends Controller
                 exit;
             }
         }
+    }
+    
+    public static function RandomString() {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < 20; $i++)
+            $randstring .= $characters[rand(0, strlen($characters))];
+
+        return $randstring;
+    }
+    
+    public static function base64_to_file($base64, $outputFile) {
+        $data = explode(',', $base64);
+
+        //$base64_string = $data[1];
+        $base64_string = $base64;
+        $file = fopen($outputFile, "wb");
+        fwrite($file, base64_decode($base64_string));
+        fclose($file);
     }
     
     public function processKeyWords(Array &$keyWords, Producto &$product){

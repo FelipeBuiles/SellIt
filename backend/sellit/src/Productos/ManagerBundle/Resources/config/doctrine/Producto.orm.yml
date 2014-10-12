@@ -8,6 +8,9 @@ Productos\ManagerBundle\Entity\Producto:
         estado_fk_idx:
             columns:
                 - id_estado
+        usuario_fk_idx:
+            columns:
+                - id_usuario
     id:
         id:
             type: integer
@@ -48,6 +51,15 @@ Productos\ManagerBundle\Entity\Producto:
             default: CURRENT_TIMESTAMP
             column: fecha_publicacion
     manyToOne:
+        idUsuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id
+            orphanRemoval: false
         idCategoria:
             targetEntity: CategoriaProducto
             cascade: {  }

@@ -93,4 +93,32 @@ class ProductoImagenes
     {
         return $this->idProducto;
     }
+    /**
+     * @var string
+     */
+    private $nombreImagen;
+
+
+    /**
+     * Set nombreImagen
+     *
+     * @param string $nombreImagen
+     * @return ProductoImagenes
+     */
+    public function setNombreImagen($nombreImagen)
+    {
+        $this->nombreImagen = $nombreImagen;
+
+        return $this;
+    }
+
+    /**
+     * Get nombreImagen
+     *
+     * @return string 
+     */
+    public function getNombreImagen()
+    {
+        return $this->nombreImagen;
+    }
 }

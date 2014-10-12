@@ -1,6 +1,6 @@
 <?php
 
-namespace Usuarios\ManagerBundle\Entity;
+namespace Productos\ManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,19 +19,16 @@ class Usuarios
      */
     private $idFront;
 
+    /**
+     * @var string
+     */
+    private $nombre;
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     * @return Usuarios
+     * @var \DateTime
      */
-    public function setId($id)
-    {
-        $this->id = $id;
+    private $fechaRegistro;
 
-        return $this;
-    }
 
     /**
      * Get id
@@ -65,16 +62,6 @@ class Usuarios
     {
         return $this->idFront;
     }
-    /**
-     * @var string
-     */
-    private $nombre;
-
-    /**
-     * @var \DateTime
-     */
-    private $fechaRegistro;
-
 
     /**
      * Set nombre

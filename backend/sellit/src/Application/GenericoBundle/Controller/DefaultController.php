@@ -72,5 +72,10 @@ class DefaultController extends Controller {
         fwrite($file, base64_decode($base64_string));
         fclose($file);
     }
+    
+    public static function file_to_base64($inputFile){
+        $content = file_get_contents($inputFile);
+        return base64_encode($content);
+    }
 
 }

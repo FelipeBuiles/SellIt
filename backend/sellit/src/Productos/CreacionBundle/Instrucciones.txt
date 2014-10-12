@@ -1,12 +1,10 @@
 /***************************************************************************************/
 /****************************INSTRUCCIONES PARA CREAR PRODUCTOS*************************/
 /***************************************************************************************/
-
-
 PARA CREAR UN PRODUCTO DESDE EL FRONT END DEBE TENER EN CUENTA LOS SIGUIENTES PUNTOS
 
 1. La peticion entrante debe ser un tipo Ajax POST
-2. El formato del POST debe ser JSON sin estilos
+2. El formato del POST debe ser JSON sin estilos asociados
 3. La imagen a ser enviada (en caso de haberla) debe encontrarse codificada en formato BASE64
 4. Los nombres de las variables deben ser las siguientes
     -name para el nombre (obligatorio)
@@ -16,13 +14,25 @@ PARA CREAR UN PRODUCTO DESDE EL FRONT END DEBE TENER EN CUENTA LOS SIGUIENTES PU
     -keywords como array para las palabras clave del producto, en cada posicion del array debe encontrarse una palabra sin formato en la KEY del array
     -images como array para las imagenes en base64 que va a tener el producto
 
-5. El POST debe ser enviado a la url 
+5. El POST debe ser enviado a la url %HOST_EJECUCION%/productos/nuevo
 
 
 /***************************************************************************************/
 /***************************INSTRUCCIONES PARA LLAMAR PRODUCTOS*************************/
 /***************************************************************************************/
+1. La peticion entrante debe ser un tipo Ajax GET
+2. El GET debe ser hecho en la URL %HOST_EJECUCION%/productos/ver/IDPRODUCTO
+3. La variable IDPRODUCTO debe contener el id del producto solicitado
+4. El formato de la respuesta es el siguiente
 
+{
+    name: Nombre del producto,
+    description: Descripcion del producto,
+    price: Precio del producto
+    category: Nombre categoria del producto,
+    keywords: [Array con las keyword del proucto],
+    images: [Array con las imagenes en base64 del proucto],
+}
 
 /***************************************************************************************/
 /**************************INSTRUCCIONES PARA OFERTAR PRODUCTOS*************************/

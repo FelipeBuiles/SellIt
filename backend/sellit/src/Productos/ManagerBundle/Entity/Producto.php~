@@ -220,4 +220,32 @@ class Producto
     {
         return $this->idEstado;
     }
+    /**
+     * @var \Productos\ManagerBundle\Entity\Usuarios
+     */
+    private $idUsuario;
+
+
+    /**
+     * Set idUsuario
+     *
+     * @param \Productos\ManagerBundle\Entity\Usuarios $idUsuario
+     * @return Producto
+     */
+    public function setIdUsuario(\Productos\ManagerBundle\Entity\Usuarios $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Productos\ManagerBundle\Entity\Usuarios 
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
+    }
 }

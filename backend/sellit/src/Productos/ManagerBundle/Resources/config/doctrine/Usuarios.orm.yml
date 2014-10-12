@@ -1,4 +1,4 @@
-Usuarios\ManagerBundle\Entity\Usuarios:
+Productos\ManagerBundle\Entity\Usuarios:
     type: entity
     table: usuarios
     id:

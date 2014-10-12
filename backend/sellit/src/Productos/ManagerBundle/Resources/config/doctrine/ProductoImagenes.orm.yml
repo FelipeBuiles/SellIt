@@ -12,6 +12,8 @@ Productos\ManagerBundle\Entity\ProductoImagenes:
             unsigned: false
             comment: ''
             id: true
+            generator:
+                strategy: IDENTITY
     fields:
         rutaImagen:
             type: string
@@ -27,7 +29,7 @@ Productos\ManagerBundle\Entity\ProductoImagenes:
             fixed: false
             comment: ''
             column: nombre_imagen
-    oneToOne:
+    manyToOne:
         idProducto:
             targetEntity: Producto
             cascade: {  }

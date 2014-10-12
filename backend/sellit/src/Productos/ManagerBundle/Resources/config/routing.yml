@@ -1,3 +1,7 @@
-productos_manager_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: ProductosManagerBundle:Default:index }
+productos_ver:
+    path:     /productos/ver/{idproducto}
+    defaults: { _controller: ProductosManagerBundle:Default:ver , (idproducto:null)}
+    
+productos_usuario_ver:
+    path:     /productos/listarusuario/{idusuario}
+    defaults: { _controller: ProductosManagerBundle:Default:listarusuario, (idusuario:null) }
