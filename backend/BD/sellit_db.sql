@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-10-2014 a las 07:50:17
+-- Tiempo de generación: 12-10-2014 a las 02:52:41
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1294,6 +1294,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `id_estado` int(11) NOT NULL,
   `id_categoria` int(11) DEFAULT NULL,
   `activo` tinyint(1) NOT NULL DEFAULT '1',
+  `fecha_publicacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `categoria_fk_idx` (`id_categoria`),
   KEY `estado_fk_idx` (`id_estado`)
@@ -1322,6 +1323,8 @@ CREATE TABLE IF NOT EXISTS `producto_imagenes` (
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_front` int(11) NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`,`id_front`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
@@ -1374,8 +1377,8 @@ ALTER TABLE `palabras_clave_producto`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `categoria_fk` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `categoria_fk` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `producto_imagenes`
