@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-10-2014 a las 20:23:31
+-- Tiempo de generación: 13-10-2014 a las 00:13:49
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1278,7 +1278,16 @@ CREATE TABLE IF NOT EXISTS `palabras_clave_producto` (
   `palabra` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `producto_fk_idx` (`id_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `palabras_clave_producto`
+--
+
+INSERT INTO `palabras_clave_producto` (`id`, `id_producto`, `palabra`) VALUES
+(1, 1, 'apple'),
+(2, 1, 'ipad'),
+(3, 1, 'tablet');
 
 -- --------------------------------------------------------
 
@@ -1288,6 +1297,7 @@ CREATE TABLE IF NOT EXISTS `palabras_clave_producto` (
 
 CREATE TABLE IF NOT EXISTS `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) NOT NULL,
   `nombre` varchar(80) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` longtext COLLATE utf8_spanish_ci,
   `precio` float NOT NULL,
@@ -1297,8 +1307,16 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `fecha_publicacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `categoria_fk_idx` (`id_categoria`),
-  KEY `estado_fk_idx` (`id_estado`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+  KEY `estado_fk_idx` (`id_estado`),
+  KEY `usuario_fk_idx` (`id_usuario`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=28 ;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id`, `id_usuario`, `nombre`, `descripcion`, `precio`, `id_estado`, `id_categoria`, `activo`, `fecha_publicacion`) VALUES
+(1, 1, 'iPad Mini Retina 2', 'Look, just because I don''t be givin'' no man a foot massage don''t make it right for Marsellus to throw Antwone into a glass motherfuckin'' house, fuckin'' up the way the nigger talks. Motherfucker do that shit to me, he better paralyze my ass, ''cause I''ll kill the motherfucker, know what I''m  sayin''?', 850000, 1, NULL, 1, '2014-10-12 19:00:04');
 
 -- --------------------------------------------------------
 
@@ -1311,9 +1329,9 @@ CREATE TABLE IF NOT EXISTS `producto_imagenes` (
   `id_producto` int(11) NOT NULL,
   `ruta_imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `nombre_imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`,`id_producto`),
+  PRIMARY KEY (`id`),
   KEY `producto_fk_idx` (`id_producto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -1346,7 +1364,14 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id`, `id_front`, `nombre`, `fecha_registro`) VALUES
+(1, 1, 'Carlo deFranco', '2014-10-12 19:02:38');
 
 -- --------------------------------------------------------
 
@@ -1397,6 +1422,7 @@ ALTER TABLE `palabras_clave_producto`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `categoria_fk` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
