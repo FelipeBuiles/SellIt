@@ -20,6 +20,13 @@ Productos\ManagerBundle\Entity\ProductoImagenes:
             fixed: false
             comment: ''
             column: ruta_imagen
+        nombreImagen:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: nombre_imagen
     oneToOne:
         idProducto:
             targetEntity: Producto

@@ -5,3 +5,11 @@ productos_creacion_homepage:
 productos_crear:
     path:     /productos/nuevo
     defaults: { _controller: ProductosCreacionBundle:Default:crear }
+    
+productos_ver:
+    path:     /productos/ver/{id}
+    defaults: { _controller: ProductosCreacionBundle:Default:crear, (id:null) }
+    
+productos_usuario_ver:
+    path:     /productos/listarusuario/{idusuario}
+    defaults: { _controller: ProductosCreacionBundle:Default:crear, (idusuario:null) }

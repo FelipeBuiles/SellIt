@@ -55,4 +55,22 @@ class DefaultController extends Controller {
         
     }
 
+    public static function RandomString() {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < 15; $i++)
+            $randstring = $characters[rand(0, strlen($characters))];
+
+        return $randstring;
+    }
+
+    public static function base64_to_file($base64, $outputFile) {
+        $data = explode(',', $base64);
+
+        $base64_string = $data[1];
+        $file = fopen($outputFile, "wb");
+        fwrite($file, base64_decode($base64_string));
+        fclose($file);
+    }
+
 }
