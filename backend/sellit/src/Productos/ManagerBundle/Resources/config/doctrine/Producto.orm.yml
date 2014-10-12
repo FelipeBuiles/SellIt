@@ -41,16 +41,13 @@ Productos\ManagerBundle\Entity\Producto:
             nullable: false
             comment: ''
             default: '1'
+        fechaPublicacion:
+            type: datetime
+            nullable: true
+            comment: ''
+            default: CURRENT_TIMESTAMP
+            column: fecha_publicacion
     manyToOne:
-        idEstado:
-            targetEntity: EstadosProducto
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_estado:
-                    referencedColumnName: id
-            orphanRemoval: false
         idCategoria:
             targetEntity: CategoriaProducto
             cascade: {  }
@@ -58,6 +55,15 @@ Productos\ManagerBundle\Entity\Producto:
             inversedBy: null
             joinColumns:
                 id_categoria:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idEstado:
+            targetEntity: EstadosProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_estado:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

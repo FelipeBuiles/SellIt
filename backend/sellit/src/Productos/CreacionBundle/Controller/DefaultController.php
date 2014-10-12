@@ -10,4 +10,13 @@ class DefaultController extends Controller
     {
         return $this->render('ProductosCreacionBundle:Default:index.html.twig', array('name' => $name));
     }
+    
+    public function crearAction(){
+        
+        
+    }
+    
+    public function procesarImagen(){
+        
+    }
 }

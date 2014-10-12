@@ -1,3 +1,7 @@
 productos_creacion_homepage:
     path:     /hello/{name}
     defaults: { _controller: ProductosCreacionBundle:Default:index }
+
+productos_crear:
+    path:     /productos/nuevo
+    defaults: { _controller: ProductosCreacionBundle:Default:crear }
