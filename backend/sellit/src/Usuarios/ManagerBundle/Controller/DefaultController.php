@@ -34,7 +34,7 @@ class DefaultController extends Controller {
 
         if (is_null($usuario)) {
             try {
-                $sql = "INSERT INTO usuarios (id, nombre, fecha_registro, ruta_avatar) VALUES ('".$id."', '".$nombre."',now(), '".$ruta_avatar."')";
+                $sql = "INSERT INTO usuarios (id_front, nombre, fecha_registro, ruta_avatar) VALUES ('".$id."', '".$nombre."',now(), '".$ruta_avatar."')";
                 $this->getDoctrine()->getEntityManager()->getConnection()->prepare($sql)->execute();
                 
             } catch (ORMException $ex) {

@@ -1,3 +1,7 @@
+productos_comentarios:
+    resource: "@ProductosComentariosBundle/Resources/config/routing.yml"
+    prefix:   /
+
 productos_preguntas:
     resource: "@ProductosPreguntasBundle/Resources/config/routing.yml"
     prefix:   /

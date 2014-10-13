@@ -79,17 +79,27 @@ imagenes de los productos
 /***************************************************************************************/
 1. La peticion entrante debe ser un tipo Ajax POST
 2. El formato del POST debe ser JSON sin estilos asociados
+3. Los nombres de las variables deben ser las siguientes
+    -comentario para el texto del comentario
+    -idusuario para el id del usuario que esta posteando el comentario
+    -idproducto para el id del producto donde va a ser posteado el comentario
 
+4. El POST debe ser hecho a la url %HOST_EJECUCION%/productos/comentarios/crear
 /***************************************************************************************/
 /*************************INSTRUCCIONES PARA BORRAR COMENTARIO *************************/
 /***************************************************************************************/
 1. La peticion entrante debe ser un tipo Ajax POST
 2. El formato del POST debe ser JSON sin estilos asociados
+3. Los nombres de las variables deben ser las siguientes
+    -comentario para el id del comentario que se desea borrar
 
+4. El POST debe ser hecho a la url %HOST_EJECUCION%/productos/comentarios/borrar
 /***************************************************************************************/
 /************************INSTRUCCIONES PARA LISTAR COMENTARIOS *************************/
 /***************************************************************************************/
 1. La peticion entrante debe ser un tipo Ajax GET
+2. El GET debe ser hecho en la URL %HOST_EJECUCION%/productos/comentarios/listar/IDPRODUCTO
+3. La variable IDPRODUCTO debe tener el ID del producto al cual le desea listar los comentarios
 
 /***************************************************************************************/
 /****************INSTRUCCIONES PARA LISTAR CATEGORIAS PRODUCTOS*************************/
