@@ -1,17 +1,27 @@
 Usuarios\ManagerBundle\Entity\Usuarios:
     type: entity
     table: usuarios
+    uniqueConstraints:
+        ID_UNIQUE:
+            columns:
+                - id_front
     id:
         id:
-            type: string
+            type: integer
             nullable: false
-            length: 255
-            fixed: false
+            unsigned: false
             comment: ''
             id: true
             generator:
                 strategy: IDENTITY
     fields:
+        idFront:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: id_front
         nombre:
             type: string
             nullable: false

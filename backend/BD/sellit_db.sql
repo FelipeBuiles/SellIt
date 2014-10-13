@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2014 a las 02:07:40
+-- Tiempo de generación: 13-10-2014 a las 04:03:10
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1391,18 +1391,20 @@ CREATE TABLE IF NOT EXISTS `producto_preguntas` (
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_front` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ruta_avatar` longtext COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ID_UNIQUE` (`id_front`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `nombre`, `fecha_registro`, `ruta_avatar`) VALUES
-(1, 'Carlo deFranco', '2014-10-12 19:02:38', NULL);
+INSERT INTO `usuarios` (`id`, `id_front`, `nombre`, `fecha_registro`, `ruta_avatar`) VALUES
+(1, 'A5', 'BBB', '2014-10-13 01:54:47', 'BB');
 
 -- --------------------------------------------------------
 
@@ -1429,7 +1431,7 @@ CREATE TABLE IF NOT EXISTS `usuario_calificacion` (
   `id_usuario` int(11) NOT NULL,
   `calificacion` int(11) NOT NULL,
   `comentario` longtext COLLATE utf8_spanish_ci,
-  PRIMARY KEY (`id`,`id_usuario`),
+  PRIMARY KEY (`id`),
   KEY `usuario_fk_idx` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
@@ -1453,7 +1455,7 @@ ALTER TABLE `palabras_clave_producto`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `categoria_fk` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
@@ -1461,7 +1463,7 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `producto_comentarios`
 --
 ALTER TABLE `producto_comentarios`
-  ADD CONSTRAINT `usuario_comentarios_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `usuario_comentarios_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `producto_comentarios_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -1474,21 +1476,15 @@ ALTER TABLE `producto_imagenes`
 -- Filtros para la tabla `producto_preguntas`
 --
 ALTER TABLE `producto_preguntas`
-  ADD CONSTRAINT `usuario_pregunta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `usuario_pregunta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `pregunta_fk` FOREIGN KEY (`id_respuesta_pregunta`) REFERENCES `producto_preguntas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `producto_preguntas_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `usuarios_comentarios_calificacion`
---
-ALTER TABLE `usuarios_comentarios_calificacion`
-  ADD CONSTRAINT `calificacion_fk` FOREIGN KEY (`id_calificacion`) REFERENCES `usuario_calificacion` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_calificacion`
 --
 ALTER TABLE `usuario_calificacion`
-  ADD CONSTRAINT `usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `usuario_calificacion_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
