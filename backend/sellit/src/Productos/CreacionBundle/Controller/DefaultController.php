@@ -32,9 +32,12 @@ class DefaultController extends Controller
             $category = (!empty($data['category'])) ? $data['category'] : null;
             $keywords = (!empty($data['keywords'])) ? $data['keywords'] : null;//Must be array
             $images = (!empty($data['images'])) ? $data['images'] : null; //Must be array of BASE64
+            $idusuario = $data['idusuario'];
             
             $estado_producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:EstadosProducto')
                     ->findBy(array(), array('id' => 'ASC'))[0];
+            
+            $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find($idusuario);
 
             $product = new Producto();
             $product->setNombre($name);
@@ -44,7 +47,6 @@ class DefaultController extends Controller
             $product->setFechaPublicacion(new \DateTime('now'));
             $product->setActivo(true);
             
-            $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find(1);
             $product->setIdUsuario($usuario);
             //$product->set
             if(!is_null($category)){
