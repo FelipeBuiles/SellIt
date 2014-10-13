@@ -1,0 +1,14 @@
+productos_comentarios_crear:
+    path:     /productos/comentarios/crear
+    defaults: { _controller: ProductosComentariosBundle:Default:crear }
+    methods:  [POST]
+
+productos_comentarios_borrar:
+    path:     /productos/comentarios/borrar
+    defaults: { _controller: ProductosComentariosBundle:Default:borrar }
+    methods:  [POST]
+
+productos_comentarios_vercomentarios_producto:
+    path:     /productos/comentarios/listar/{idproducto}
+    defaults: { _controller: ProductosComentariosBundle:Default:listar, idproducto: null }
+    methods:  [GET]

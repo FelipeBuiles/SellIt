@@ -7,6 +7,7 @@ PARA CREAR UN PRODUCTO DESDE EL FRONT END DEBE TENER EN CUENTA LOS SIGUIENTES PU
 2. El formato del POST debe ser JSON sin estilos asociados
 3. La imagen a ser enviada (en caso de haberla) debe encontrarse codificada en formato BASE64
 4. Los nombres de las variables deben ser las siguientes
+    -idusuario para el id del usuario que esta posteando el producto
     -name para el nombre (obligatorio)
     -description para la descripcion
     -price para el precio (obligatorio y en float)
@@ -74,9 +75,21 @@ imagenes de los productos
 /***************************************************************************************/
 
 /***************************************************************************************/
-/**************************INSTRUCCIONES PARA COMPRAR PRODUCTOS*************************/
+/**************************INSTRUCCIONES PARA CREAR COMENTARIO *************************/
 /***************************************************************************************/
+1. La peticion entrante debe ser un tipo Ajax POST
+2. El formato del POST debe ser JSON sin estilos asociados
 
+/***************************************************************************************/
+/*************************INSTRUCCIONES PARA BORRAR COMENTARIO *************************/
+/***************************************************************************************/
+1. La peticion entrante debe ser un tipo Ajax POST
+2. El formato del POST debe ser JSON sin estilos asociados
+
+/***************************************************************************************/
+/************************INSTRUCCIONES PARA LISTAR COMENTARIOS *************************/
+/***************************************************************************************/
+1. La peticion entrante debe ser un tipo Ajax GET
 
 /***************************************************************************************/
 /****************INSTRUCCIONES PARA LISTAR CATEGORIAS PRODUCTOS*************************/

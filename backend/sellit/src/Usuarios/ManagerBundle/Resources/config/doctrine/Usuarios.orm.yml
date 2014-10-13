@@ -11,15 +11,9 @@ Usuarios\ManagerBundle\Entity\Usuarios:
             generator:
                 strategy: IDENTITY
     fields:
-        idFront:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
-            column: id_front
         nombre:
             type: string
-            nullable: true
+            nullable: false
             length: 100
             fixed: false
             comment: ''
@@ -29,4 +23,11 @@ Usuarios\ManagerBundle\Entity\Usuarios:
             comment: ''
             default: CURRENT_TIMESTAMP
             column: fecha_registro
+        rutaAvatar:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: ruta_avatar
     lifecycleCallbacks: {  }

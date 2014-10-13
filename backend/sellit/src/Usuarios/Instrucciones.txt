@@ -1,0 +1,12 @@
+/***************************************************************************************/
+/********************************INSTRUCCIONES PARA LOGIN******************************/
+/***************************************************************************************/
+
+1. La peticion entrante debe ser un tipo Ajax POST
+2. El formato del POST debe ser JSON sin estilos asociados
+3. Los nombres de las variables deben ser las siguientes
+    -id para el id del usuario que esta ingresando
+    -nombre para el nombre (obligatorio)
+    -ruta_avatar para el avatar
+ 
+4. El POST debe ser enviado a la url %HOST_EJECUCION%/usuarios/validar

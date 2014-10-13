@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2014 a las 01:10:33
+-- Tiempo de generación: 13-10-2014 a las 02:07:40
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1391,9 +1391,9 @@ CREATE TABLE IF NOT EXISTS `producto_preguntas` (
 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_front` int(11) NOT NULL,
-  `nombre` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta_avatar` longtext COLLATE utf8_spanish_ci,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
@@ -1401,8 +1401,8 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `id_front`, `nombre`, `fecha_registro`) VALUES
-(1, 1, 'Carlo deFranco', '2014-10-12 19:02:38');
+INSERT INTO `usuarios` (`id`, `nombre`, `fecha_registro`, `ruta_avatar`) VALUES
+(1, 'Carlo deFranco', '2014-10-12 19:02:38', NULL);
 
 -- --------------------------------------------------------
 

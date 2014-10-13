@@ -1,3 +1,4 @@
-usuarios_manager_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: UsuariosManagerBundle:Default:index }
+usuarios_validar:
+    path:     /usuarios/validar
+    defaults: { _controller: UsuariosManagerBundle:Default:validateOnLogin }
+    methods:  [POST]
