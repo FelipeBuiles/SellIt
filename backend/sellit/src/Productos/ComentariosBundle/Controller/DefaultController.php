@@ -25,7 +25,7 @@ class DefaultController extends Controller {
         $idusuario = $data['idusuario'];
         $idproducto = $data['idproducto'];
 
-        $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find($idusuario);
+        $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' =>$idusuario));
         $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($idproducto);
 
         try {

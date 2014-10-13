@@ -39,7 +39,7 @@ class DefaultController extends Controller
             $estado_producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:EstadosProducto')
                     ->findBy(array(), array('id' => 'ASC'))[0];
             
-            $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find($idusuario);
+            $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idusuario));
 
             $product = new Producto();
             $product->setNombre($name);

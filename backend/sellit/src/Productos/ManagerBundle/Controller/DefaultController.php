@@ -65,7 +65,7 @@ class DefaultController extends Controller {
 
         if ($request->getMethod() == 'GET') {
             if (!is_null($idvendedor)) {
-                $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find($idvendedor);
+                $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' =>$idvendedor));
                 $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
                         ->findBy(array('idUsuario' => $vendedor), array('id' => 'ASC'), $limit, $offset);
                 $categoria = null;

@@ -30,7 +30,7 @@ class DefaultController extends Controller {
         $nombre = $data['nombre'];
         $ruta_avatar = $data['ruta_avatar'];
 
-        $usuario = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')->find($id);
+        $usuario = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')->findOneBy(array('idFront' => $id));
 
         if (is_null($usuario)) {
             try {
@@ -54,4 +54,14 @@ class DefaultController extends Controller {
         return $response;
     }
 
+    
+    public function frontPKtoSystem($key){
+        $key = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')->findOneBy(array('idFront' => $key));
+        
+        if(is_null($key))
+            return false;
+        else
+            return $key->getId();
+    }
+    
 }
