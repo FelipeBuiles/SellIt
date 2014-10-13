@@ -7,7 +7,7 @@ PARA CREAR UN PRODUCTO DESDE EL FRONT END DEBE TENER EN CUENTA LOS SIGUIENTES PU
 2. El formato del POST debe ser JSON sin estilos asociados
 3. La imagen a ser enviada (en caso de haberla) debe encontrarse codificada en formato BASE64
 4. Los nombres de las variables deben ser las siguientes
-    -idusuario para el id del usuario que esta posteando el producto
+    -id para el id del usuario que esta posteando el producto
     -name para el nombre (obligatorio)
     -description para la descripcion
     -price para el precio (obligatorio y en float)
@@ -39,14 +39,16 @@ PARA CREAR UN PRODUCTO DESDE EL FRONT END DEBE TENER EN CUENTA LOS SIGUIENTES PU
 /*********************INSTRUCCIONES PARA LISTAR PRODUCTOS VENDEDOR**********************/
 /***************************************************************************************/
 1. La peticion entrante debe ser un tipo Ajax GET
-2. El GET debe ser hecho en la URL %HOST_EJECUCION%/productos/listarvendedor/IDVENDEDOR/LIMIT/OFFSET/INCLUDE_IMAGES
-3. La variable IDVENDEDOR debe contener el id del vendedor  que va ser consultado 
+2. El GET debe ser hecho en la URL %HOST_EJECUCION%/productos/listarvendedor/IDVENDEDOR/LIMIT/OFFSET/INCLUDE_IMAGES/ORDER
+3. La variable IDVENDEDOR debe contener el id del vendedor  que va ser consultado, SI SE QUIERE TRAER TODOS LOS VENDEDORES ESTA VARIABLE DEBE TENER EL VALOR "false"
 4. La variable LIMIT debe contener el limite de la consulta, es decir, cuantos de los productos del vendedor desea consultar en el hit 
 5. La variable OFFSET es util para acciones tipo paginacion, debe contener el intervalo que desea consultar.
     EJEMPLO: Si tenemos 6 productos con los IDS {0,1,2,3,4,5} y ponemos un LIMIT de 2 en el primer HIT va a devolver
     los ids {0,1}  pero si ponemos un offset de 2 va a devolver {2,3} sin haber cambiado el LIMIT
 
-6. La variable INCLUDE_IMAGES debe contener un valor true o false, esta variable controla si en la peticion hecha se van a incluir las 
+6. La variable ORDER define el orden de los productos a devolver, por defecto es TRUE, si se especific como FALSE los productos se traeran del mas nuevo al mas antiguo
+
+7. La variable INCLUDE_IMAGES debe contener un valor true o false, esta variable controla si en la peticion hecha se van a incluir las 
 imagenes de los productos
 {
     id_vendedor: Nombre del producto,
@@ -96,7 +98,7 @@ imagenes de los productos
 4. El POST debe ser hecho a la url %HOST_EJECUCION%/productos/comentarios/borrar
 /***************************************************************************************/
 /************************INSTRUCCIONES PARA LISTAR COMENTARIOS *************************/
-/***************************************************************************************/
+/***************************************************************************************, 
 1. La peticion entrante debe ser un tipo Ajax GET
 2. El GET debe ser hecho en la URL %HOST_EJECUCION%/productos/comentarios/listar/IDPRODUCTO
 3. La variable IDPRODUCTO debe tener el ID del producto al cual le desea listar los comentarios

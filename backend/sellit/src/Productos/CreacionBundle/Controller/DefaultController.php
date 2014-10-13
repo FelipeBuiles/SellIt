@@ -22,7 +22,8 @@ class DefaultController extends Controller
         $response = new JsonResponse();
         
         if($request->getMethod()=='POST'){  
-            //$data = json_decode(file_get_contents('php://input'), true);
+            $data = json_decode(file_get_contents('php://input'), true);
+            var_dump($data); exit;
             
             $data = $this->get('request')->request->all();
             
@@ -34,7 +35,7 @@ class DefaultController extends Controller
             $category = (!empty($data['category'])) ? $data['category'] : null;
             $keywords = (!empty($data['keywords'])) ? $data['keywords'] : null;//Must be array
             $images = (!empty($data['images'])) ? $data['images'] : null; //Must be array of BASE64
-            $idusuario = $data['idusuario'];
+            $idusuario = $data['id'];
             
             $estado_producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:EstadosProducto')
                     ->findBy(array(), array('id' => 'ASC'))[0];

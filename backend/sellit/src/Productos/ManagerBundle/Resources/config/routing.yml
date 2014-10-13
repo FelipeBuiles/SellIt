@@ -7,8 +7,8 @@ productos_usuario_ver:
     defaults: { _controller: ProductosManagerBundle:Default:listarusuario, (idusuario:null) }
     
 productos_usuario_listar:
-    path:     /productos/listarvendedor/{idvendedor}/{limit}/{offset}/{include_images}
-    defaults: { _controller: ProductosManagerBundle:Default:listarvendedor, limit: 10, offset: 0, include_images: true, idvendedor: null }    
+    path:     /productos/listarvendedor/{idvendedor}/{limit}/{offset}/{include_images}/{orderASC}
+    defaults: { _controller: ProductosManagerBundle:Default:listarvendedor, limit: 10, offset: 0, include_images: true, idvendedor: false, orderASC: true }    
     
 productos_categorias_listar:
     path:     /productos/listarcategorias
