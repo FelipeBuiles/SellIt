@@ -26,7 +26,7 @@ class DefaultController extends Controller {
         $idproducto = $data['idproducto'];
 
         $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->find($idusuario);
-        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($idusuario);
+        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($idproducto);
 
         try {
             $comentario = new ProductoComentarios();
