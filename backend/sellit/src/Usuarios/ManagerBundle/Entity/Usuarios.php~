@@ -121,4 +121,32 @@ class Usuarios
     {
         return $this->fechaRegistro;
     }
+    /**
+     * @var string
+     */
+    private $rutaAvatar;
+
+
+    /**
+     * Set rutaAvatar
+     *
+     * @param string $rutaAvatar
+     * @return Usuarios
+     */
+    public function setRutaAvatar($rutaAvatar)
+    {
+        $this->rutaAvatar = $rutaAvatar;
+
+        return $this;
+    }
+
+    /**
+     * Get rutaAvatar
+     *
+     * @return string 
+     */
+    public function getRutaAvatar()
+    {
+        return $this->rutaAvatar;
+    }
 }

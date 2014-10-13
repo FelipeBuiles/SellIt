@@ -12,6 +12,13 @@ Usuarios\ManagerBundle\Entity\UsuariosComentariosCalificacion:
             unsigned: false
             comment: ''
             id: true
+        idCalificacion:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_calificacion
     fields:
         comentario:
             type: text
@@ -19,14 +26,4 @@ Usuarios\ManagerBundle\Entity\UsuariosComentariosCalificacion:
             length: null
             fixed: false
             comment: ''
-    oneToOne:
-        idCalificacion:
-            targetEntity: UsuarioCalificacion
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_calificacion:
-                    referencedColumnName: id
-            orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -3,9 +3,10 @@ Usuarios\ManagerBundle\Entity\Usuarios:
     table: usuarios
     id:
         id:
-            type: integer
+            type: string
             nullable: false
-            unsigned: false
+            length: 255
+            fixed: false
             comment: ''
             id: true
             generator:

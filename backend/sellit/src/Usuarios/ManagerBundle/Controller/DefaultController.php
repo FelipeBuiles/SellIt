@@ -17,8 +17,15 @@ class DefaultController extends Controller {
         $request = $this->get('request');
         $response = new JsonResponse();
 
-        $data = json_decode(file_get_contents('php://input'), true);
-
+        //$data = json_decode(file_get_contents('php://input'), true);
+        /*$data = explode('&', file_get_contents('php://input'));
+        
+        $id = explode('=',$data[0])[1];
+        $nombre = explode('=',$data[1])[1];
+        $ruta_avatar = explode('=',$data[2])[1];*/
+        
+        $data = $this->get('request')->request->all();
+        
         $id = $data['id'];
         $nombre = $data['nombre'];
         $ruta_avatar = $data['ruta_avatar'];
@@ -27,15 +34,9 @@ class DefaultController extends Controller {
 
         if (is_null($usuario)) {
             try {
-                $usuario = new Usuarios();
-                $usuario->setId($id);
-                $usuario->setNombre($nombre);
-                $usuario->setFechaRegistro(new \DateTime('now'));
-                $usuario->setRutaAvatar($ruta_avatar);
-
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($usuario);
-                $em->flush();
+                $sql = "INSERT INTO usuarios (id, nombre, fecha_registro, ruta_avatar) VALUES ('".$id."', '".$nombre."',now(), '".$ruta_avatar."')";
+                $this->getDoctrine()->getEntityManager()->getConnection()->prepare($sql)->execute();
+                
             } catch (ORMException $ex) {
                 $errorResponse = new JsonResponse();
                 $errorResponse->setStatusCode(500);
@@ -48,8 +49,7 @@ class DefaultController extends Controller {
         } else {
             $response->setData(array('result' => true, 'message' => "The user already was in the database"));
         }
-
-
+        
         $response->setStatusCode(200);
         return $response;
     }

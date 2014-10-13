@@ -22,7 +22,9 @@ class DefaultController extends Controller
         $response = new JsonResponse();
         
         if($request->getMethod()=='POST'){  
-            $data = json_decode(file_get_contents('php://input'), true);
+            //$data = json_decode(file_get_contents('php://input'), true);
+            
+            $data = $this->get('request')->request->all();
             
             $this->parsePost($data);
             

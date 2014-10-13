@@ -17,8 +17,8 @@ class DefaultController extends Controller {
         $request = $this->get('request');
         $response = new JsonResponse();
 
-        $data = json_decode(file_get_contents('php://input'), true);
-
+        //$data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->get('request')->request->all();
         $this->parsePost($data);
 
         $comentario = $data['comentario'];
@@ -55,7 +55,8 @@ class DefaultController extends Controller {
         $request = $this->get('request');
         $response = new JsonResponse();
 
-        $data = json_decode(file_get_contents('php://input'), true);
+        //$data = json_decode(file_get_contents('php://input'), true);
+        $data = $this->get('request')->request->all();
         $id_comentario = $data['comentario'];
 
         $comentario = $this->getDoctrine()->getRepository('ProductosManagerBundle:ProductoComentarios')->find($id_comentario);
