@@ -1,4 +1,4 @@
-<ion-view title="Preferencias">
+<ion-view title="What do you want to see?">
   <ion-content>
   	<ul class="list">
       <li class="item item-checkbox" id="preference{{preference.id}}"
@@ -9,9 +9,9 @@
          {{preference.nombre}}
       </li>
     </ul>
-    <a ng-click="selected()" id="buttonContainer" href="#/suggestions">
-      <article id = "nextButton" class="ion-arrow-right-c">
-      </article>
-    </a>
   </ion-content>
+  <a ng-click="selected()" id="buttonContainer" href="#/suggestions">
+    <article id = "nextButton" class="ion-arrow-right-c">
+    </article>
+  </a>
 </ion-view>
