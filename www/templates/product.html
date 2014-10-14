@@ -1,22 +1,24 @@
 <ion-view hide-nav-bar="true">
   <ion-content has-header="false">
     <div>
-      <figure id= "productImage">
-        <feed-image></feed-image>
+      <figure id="productImage">
+        <div class="imageFeed">
+          <img ng-src="data:image/jpeg;base64,{{product.images[0]}}">
+        </div>
       </figure>
-      <figcaption id= "productInfo">
+      <figcaption id="productInfo">
         <section>
           <rating class="stars" ng-model="rate" max="max"></rating>
-          <p id="nombre">{{products.nombre}}</p>
-          <p id="precio">{{products.precio | currency}}</p>
+          <p id="nombre">{{product.nombre}}</p>
+          <p id="precio">{{product.precio | currency}}</p>
         </section>
         <section>
-          <img ng-src="{{products.imgUser}}"/>
+          <img ng-src="{{product.id_usuario.ruta_avatar}}"/>
         </section>
       </figcaption>
       <article id="productDesciption" class="card">
         <h4 id="title">Detalles</h4>
-        {{products.descripcion}}
+        {{product.descripcion}}
       </article>
       <figcaption id= "productInfo">
         <section>
@@ -26,7 +28,7 @@
         </section>
       </figcaption>
       <article id="productDesciption" class="card">
-        <feed-comments name="{{products.nombre}}"></feed-comments>
+        <feed-comments name="{{product.nombre}}"></feed-comments>
       </article>
 
     </div>

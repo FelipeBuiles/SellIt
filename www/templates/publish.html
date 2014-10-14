@@ -2,7 +2,7 @@
   <ion-content>
     <div class="card">
       <div class="item item-image" ng-show="picTaken" ng-click="takePicture()">
-        <img src="{{imgSrc}}">
+        <img ng-src="data:image/jpeg;base64,{{imgSrc}}">
       </div>
       <a class="item item-icon-center" ng-hide="picTaken" ng-click="takePicture()">
         <i class="ion-ios7-plus-outline"> Take a picture.</i>
@@ -11,16 +11,37 @@
     <div class="list card">
       <label class="item item-input item-floating-label">
         <span class="input-label">Product name</span>
-        <input type="text" placeholder="your product name">
+        <input type="text" placeholder="your product name" ng-model="product.name">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Description</span>
-        <input type="text" placeholder="your product description">
+        <input type="text" placeholder="your product description" ng-model="product.description">
+      </label>
+      <label class="item item-input item-select">
+        <div class="input-label">
+          Category
+        </div>
+        <select ng-model="product.category">
+          <option selected>Health and Beauty</option>
+          <option>Books</option>
+          <option>Videogames</option>
+          <option>Computers and Electronics</option>
+          <option>Home</option>
+          <option>Kids</option>
+          <option>Clothes and Shoes</option>
+          <option>Sports</option>
+        </select>
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Keywords</span>
+        <input type="text" placeholder="your product's tags separated by commas" ng-model="product.tags">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Price</span>
-        <input type="number" placeholder="your product price">
+        <input type="number" placeholder="your product price" ng-model="product.price">
       </label>
+      <br>
+      <br>
     </div>
     <article class="ion-paper-airplane publishButton" ng-click="publish()">
     </article>

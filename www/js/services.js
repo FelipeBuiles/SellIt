@@ -1,16 +1,52 @@
 (function(){
+  var URL = "http://192.99.168.215/sellit/web/app_dev.php/";
+
   angular.module('sellit.services', [])
 
-  .factory('feedService', ['$http', '$q', '$window', function($http, $q, $window){
+  .factory('feedService', ['$http', '$q', '$window', '$state', function($http, $q, $window, $state){
 
     function all(){
       var deferred = $q.defer();
 
-      $http.get('https://api.myjson.com/bins/3q29d')
+      $http.get(URL+'productos/listarvendedor/false/1000/0/true/false')
         .success(function(data){
           deferred.resolve(data);
         });
       return deferred.promise;
+    }
+
+    function login(id, n, r) {
+      $.ajax({
+        type: "POST",
+        url: URL + 'usuarios/validar',
+        data: { id: id, nombre: n, ruta_avatar: r },
+        success: function(data) {
+          $state.go('preferences');
+        },
+        error: function(err) {
+          if(err.message == "The user already was in the database") {
+            $state.go('preferences');
+          } else {
+            console.log(JSON.parse(err));
+          }
+        }
+      });
+    }
+
+    function publish(id, n, d, p, c, k, i) {
+      return $.ajax({
+        type: "POST",
+        url: URL + 'productos/nuevo',
+        data: {
+          id: id,
+          name: n,
+          description: d,
+          price: p,
+          category: c,
+          keywords: k,
+          images: i
+        }
+      })
     }
 
     function profiles(){
@@ -23,18 +59,16 @@
     }
 
     function byId(id){
-      var deferred = $q.defer();
-      all().then(function(data){
-        var results = data.filter(function(products){
-          return products.id == id;
-        });
-        if(results.length > 0){
-          deferred.resolve(results[0]);
-        }else{
-          deferred.reject();
-        }
-      });
-      return deferred.promise;
+      return $.get(URL+'productos/ver/'+id);
+    }
+
+    function count(idVendedor) {
+      this.idVendedor = idVendedor || null;
+      if(this.idVendedor == null) {
+        return $.get(URL+'productos/contar');
+      } else {
+        return $.get(URL+'productos/contar/'+idVendedor);
+      }
     }
 
     function saveComment(product, comment){
@@ -56,24 +90,27 @@
       return comments;
     }
 
-    function range(from, thisMany) {
-      var deferred = $q.defer();
-
-      $http.get('https://api.myjson.com/bins/3q29d')
-        .success(function(data){
-          deferred.resolve(data);
-        });
-      console.log(deferred.promise);
-      return deferred.promise;
+    function range(offset, limit) {
+      return $.get(URL+'productos/listarvendedor/false/'+limit+'/'+offset+'/true/false',
+        function(data) {
+          console.log(':)', data);
+        },
+        function(err) {
+          console.log(':(', err);
+        }
+      )
     }
 
     return{
       all: all,
+      login: login,
       profiles: profiles,
       byId: byId,
+      count: count,
       saveComment: saveComment,
       getComments: getComments,
-      range: range
+      range: range,
+      publish: publish
     }
   }]);
 })();
