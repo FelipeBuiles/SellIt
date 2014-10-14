@@ -19,7 +19,9 @@
   margin: 10px 10px !important;
 }
 .scroll {
-  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 100% !important;
+  position: relative !important;
 }
 .publishButton {
   background-color: #03a9f4;
@@ -124,7 +126,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 0 10px;
+  margin: 5px 10px;
 }
 .productFeed img {
   width: 50px;
