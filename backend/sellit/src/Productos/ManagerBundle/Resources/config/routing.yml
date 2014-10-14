@@ -14,5 +14,7 @@ productos_categorias_listar:
     path:     /productos/listarcategorias
     defaults: { _controller: ProductosManagerBundle:Default:listarcategorias }    
     
-    
+productos_contar:
+    path:     /productos/contar/{idVendedor}
+    defaults: { _controller: ProductosManagerBundle:Default:contarProductos, idVendedor: null }    
     

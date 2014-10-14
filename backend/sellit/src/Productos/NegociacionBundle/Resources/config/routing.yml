@@ -1,19 +1,19 @@
 productos_negociacion_ofertar:
     path:     /ofertas/ofertar
-    defaults: { _controller: ProductosNegociacionBundle:Default:ofertar }
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:ofertar }
     methods:  [POST]
     
 productos_negociacion_aceptar:
     path:     /ofertas/aceptar
-    defaults: { _controller: ProductosNegociacionBundle:Default:rechazarOferta }
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:rechazarOferta }
     methods:  [POST]
     
 productos_negociacion_rechazar:
     path:     /ofertas/rechazar
-    defaults: { _controller: ProductosNegociacionBundle:Default:aceptarOferta }
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:aceptarOferta }
     methods:  [POST]
     
 productos_negociacion_ver_ofertas_productos:
     path:     /ofertas/listar/{idproducto}
-    defaults: { _controller: ProductosNegociacionBundle:Default:listar, idproducto: null }
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:listar, idproducto: null }
     methods:  [GET]
