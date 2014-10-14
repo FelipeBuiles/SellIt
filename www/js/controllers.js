@@ -92,7 +92,12 @@
     };
   })
 
-  .controller('ProductController', function($scope, $stateParams, feedService){
+  .controller('ProductController', function($scope, $stateParams, $window, auth, feedService){
+    if(auth.profile === undefined){
+      $scope.profile = JSON.parse($window.sessionStorage.userInfo)
+    }else{
+      $scope.profile = auth.profile;
+    };
     $scope.idProduct = $stateParams.id;
     $scope.rate = 3;
     $scope.max = 5;
@@ -101,7 +106,9 @@
     feedService.byId($scope.idProduct)
       .always(function(data){
         $scope.product = data;
+        console.log(data);
       });
+
   })
 
   .controller('PublishController', function($scope, $cordovaCamera, feedService) {

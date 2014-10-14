@@ -24,6 +24,7 @@
           name: '@name'
         },
         link: function (scope, element, attributes) {
+
           attributes.$observe('name', function (value) {
             if (value) {
               scope.name = value;

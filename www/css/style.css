@@ -208,15 +208,7 @@
   color: #03a9f4;
   text-align: center;
 }
-.commentPost {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 10px;
-}
-.commentPost #btnSend {
+#btnSend {
   display: inline-block;
   background: #03a9f4;
   color: #fff;
