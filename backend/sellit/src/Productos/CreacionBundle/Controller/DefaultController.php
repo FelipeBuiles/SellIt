@@ -22,9 +22,6 @@ class DefaultController extends Controller
         $response = new JsonResponse();
         
         if($request->getMethod()=='POST'){  
-            $data = json_decode(file_get_contents('php://input'), true);
-            var_dump($data); exit;
-            
             $data = $this->get('request')->request->all();
             
             $this->parsePost($data);
@@ -71,7 +68,7 @@ class DefaultController extends Controller
             }
             
             if(!is_null($keywords) && sizeof($keywords)>0)
-                $this->processKeyWords ($keyWords, $product);
+                $this->processKeyWords ($keywords, $product);
             
             if(!is_null($images) && sizeof($images)>0)
                 $this->processImages ($images, $product);
