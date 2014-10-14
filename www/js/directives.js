@@ -21,7 +21,8 @@
         restrict: 'E',
         templateUrl: 'partials/feed-comments.html',
         scope: {
-          name: '@name'
+          name: '@name',
+          profile: '@profile'
         },
         link: function (scope, element, attributes) {
 
@@ -31,6 +32,11 @@
               scope.comments = feedService.getComments(value);
             }
           });
+          attributes.$observe('profile', function (value) {
+            if (value) {
+              scope.profile = JSON.parse(value);
+            }
+          })
         },
         controller: function ($scope) {
           $scope.comments = feedService.getComments($scope.name);

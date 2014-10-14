@@ -106,7 +106,6 @@
     feedService.byId($scope.idProduct)
       .always(function(data){
         $scope.product = data;
-        console.log(data);
       });
 
   })

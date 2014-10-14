@@ -46,6 +46,7 @@
       return $.ajax({
         type: "POST",
         url: URL + 'productos/nuevo',
+        async: false,
         data: {
           id: id,
           name: n,
@@ -56,6 +57,9 @@
           images: i
         }
       })
+      .always(
+        $state.go('home.feed')
+      );
     }
 
     function byId(id){

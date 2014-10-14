@@ -13,9 +13,8 @@
     <blockquote ng-repeat="comment in comments">
       <p>{{comment.body}}</p>
       <footer>
-        Comment by
-        <p>{{perfile.name}}</p>
-        on <span>{{comment.date | date : 'medium'}}</span>
+        <p>-- {{profile.name}}</p>
+        on <span>{{comment.date | date : 'short'}}</span>
       </footer>
     </blockquote>
   </div>
