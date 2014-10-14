@@ -1,3 +1,14 @@
-productos_preguntas_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: ProductosPreguntasBundle:Default:index }
+productos_preguntas_publicar:
+    path:     /preguntas/publicar
+    defaults: { _controller: ProductosPreguntasBundle:Default:publicar }
+    methods:  [POST]
+
+productos_preguntas_borrar:
+    path:     /preguntas/borrar
+    defaults: { _controller: ProductosPreguntasBundle:Default:borrar }
+    methods:  [POST]
+    
+productos_preguntas_ver:
+    path:     /preguntas/ver/{idproducto}
+    defaults: { _controller: ProductosPreguntasBundle:Default:ver, idproducto: null }
+    methods:  [GET]
