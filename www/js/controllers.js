@@ -62,7 +62,7 @@
 
       feedService.range(0,10)
       .always(function(data) {
-        $scope.feedProducts = JSON.parse(data.responseText);
+        $scope.feedProducts = data;
       });
       $scope.currentIndex = 10;
     };
@@ -70,25 +70,26 @@
     $scope.refresh = function() {
       feedService.range(0,10)
         .always(function(data) {
-          $scope.feedProducts = JSON.parse(data.responseText);
+          $scope.feedProducts = data;
           $scope.currentIndex = 10;
           $scope.$broadcast('scroll.refreshComplete');
         });
     };
+
     $scope.canLoadMore = function(currentIndex) {
       return $scope.currentIndex < $scope.count;
-    }
+    };
+
     $scope.more = function() {
       feedService.range($scope.currentIndex, $scope.currentIndex+5)
         .always(function(data) {
-          res = JSON.parse(data.responseText);
-          if(res.length > 0) {
-            $scope.feedProducts = $scope.feedProducts.concat(res)
+          if(data.length > 0) {
+            $scope.feedProducts = $scope.feedProducts.concat(data)
             $scope.currentIndex += 5;
           }
           $scope.$broadcast('scroll.infiniteScrollComplete');
         });
-    }
+    };
   })
 
   .controller('ProductController', function($scope, $stateParams, feedService){
@@ -159,9 +160,10 @@
       $scope.profile = auth.profile;
     }
     $scope.productos = {}
-    feedService.all()
-      .then(function(data){
+    feedService.byUser(auth.profile.user_id)
+      .always(function(data){
         $scope.productos = data;
+        console.log(data);
       });
   })
 

@@ -27,10 +27,19 @@
           if(err.message == "The user already was in the database") {
             $state.go('preferences');
           } else {
-            console.log(JSON.parse(err));
+            console.log(err);
           }
         }
       });
+    }
+
+    function profiles(){
+      var deferred = $q.defer();
+      $http.get('https://api.myjson.com/bins/oysh')
+        .success(function(data){
+          deferred.resolve(data);
+        });
+      return deferred.promise;
     }
 
     function publish(id, n, d, p, c, k, i) {
@@ -49,17 +58,20 @@
       })
     }
 
-    function profiles(){
-      var deferred = $q.defer();
-      $http.get('https://api.myjson.com/bins/oysh')
-        .success(function(data){
-          deferred.resolve(data);
-        });
-      return deferred.promise;
+    function byId(id){
+      return $.ajax({
+        type: 'GET',
+        url: URL+'productos/ver/'+id,
+        async: false
+      })
     }
 
-    function byId(id){
-      return $.get(URL+'productos/ver/'+id);
+    function byUser(id) {
+      return $.ajax({
+        type: 'GET',
+        url: URL+'productos/listarvendedor/'+id+'/1000/0/true/false',
+        async: false
+      })
     }
 
     function count(idVendedor) {
@@ -91,21 +103,19 @@
     }
 
     function range(offset, limit) {
-      return $.get(URL+'productos/listarvendedor/false/'+limit+'/'+offset+'/true/false',
-        function(data) {
-          console.log(':)', data);
-        },
-        function(err) {
-          console.log(':(', err);
-        }
-      )
+      return $.ajax({
+        type: 'GET',
+        url: URL+'productos/listarvendedor/false/'+limit+'/'+offset+'/true/false',
+        async: false
+      })
     }
 
     return{
       all: all,
       login: login,
-      profiles: profiles,
       byId: byId,
+      profiles: profiles,
+      byUser: byUser,
       count: count,
       saveComment: saveComment,
       getComments: getComments,
