@@ -1,0 +1,9 @@
+usuario_preferencias_add:
+    path:     /preferencias/add
+    defaults: { _controller: UsuariosPreferenciasBundle:Default:add }
+    methods:  [POST]
+    
+usuario_preferencias_get:    
+    path:     /preferencias/get/{idusuario}
+    defaults: { _controller: UsuariosPreferenciasBundle:Default:get, idusuario:null }
+    methods:  [GET]
