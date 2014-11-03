@@ -149,4 +149,105 @@ class Usuarios
     {
         return $this->rutaAvatar;
     }
+    /**
+     * @var float
+     */
+    private $latitud;
+
+    /**
+     * @var float
+     */
+    private $longitud;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $idcategoria;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idcategoria = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set latitud
+     *
+     * @param float $latitud
+     * @return Usuarios
+     */
+    public function setLatitud($latitud)
+    {
+        $this->latitud = $latitud;
+
+        return $this;
+    }
+
+    /**
+     * Get latitud
+     *
+     * @return float 
+     */
+    public function getLatitud()
+    {
+        return $this->latitud;
+    }
+
+    /**
+     * Set longitud
+     *
+     * @param float $longitud
+     * @return Usuarios
+     */
+    public function setLongitud($longitud)
+    {
+        $this->longitud = $longitud;
+
+        return $this;
+    }
+
+    /**
+     * Get longitud
+     *
+     * @return float 
+     */
+    public function getLongitud()
+    {
+        return $this->longitud;
+    }
+
+    /**
+     * Add idcategoria
+     *
+     * @param \Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria
+     * @return Usuarios
+     */
+    public function addIdcategorium(\Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria)
+    {
+        $this->idcategoria[] = $idcategoria;
+
+        return $this;
+    }
+
+    /**
+     * Remove idcategoria
+     *
+     * @param \Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria
+     */
+    public function removeIdcategorium(\Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria)
+    {
+        $this->idcategoria->removeElement($idcategoria);
+    }
+
+    /**
+     * Get idcategoria
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIdcategoria()
+    {
+        return $this->idcategoria;
+    }
 }

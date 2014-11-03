@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Usuarios\ManagerBundle\Entity\ProductoPreguntas" table="producto_preguntas">
+    <indexes>
+      <index name="producto_fk_idx" columns="id_producto"/>
+      <index name="usuario_fk_idx" columns="id_usuario"/>
+      <index name="pregunta_fk_idx" columns="id_respuesta_pregunta"/>
+    </indexes>
+    <id name="id" type="integer" column="id"/>
+    <id name="idProducto" association-key="true"/>
+    <id name="idUsuario" association-key="true"/>
+    <field name="texto" type="text" column="texto" nullable="false"/>
+    <field name="tipo" type="string" column="tipo" length="2" nullable="false"/>
+    <one-to-one field="idUsuario" target-entity="Usuarios">
+      <join-columns>
+        <join-column name="id_usuario" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <one-to-one field="idProducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="id_producto" referenced-column-name="id"/>
+      </join-columns>
+    </one-to-one>
+    <many-to-one field="idRespuestaPregunta" target-entity="ProductoPreguntas">
+      <join-columns>
+        <join-column name="id_respuesta_pregunta" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

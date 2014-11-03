@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-10-2014 a las 04:03:10
+-- Tiempo de generación: 03-11-2014 a las 23:43:55
 -- Versión del servidor: 5.6.17
 -- Versión de PHP: 5.5.12
 
@@ -1323,7 +1323,7 @@ CREATE TABLE IF NOT EXISTS `producto` (
   KEY `categoria_fk_idx` (`id_categoria`),
   KEY `estado_fk_idx` (`id_estado`),
   KEY `usuario_fk_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=28 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `producto`
@@ -1362,7 +1362,25 @@ CREATE TABLE IF NOT EXISTS `producto_imagenes` (
   `nombre_imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `producto_fk_idx` (`id_producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto_ofertas`
+--
+
+CREATE TABLE IF NOT EXISTS `producto_ofertas` (
+  `id` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `oferta` float NOT NULL COMMENT 'Dinero a ofertar',
+  `comentarios` longtext COLLATE utf8_spanish_ci,
+  `estado_oferta` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'A = Aceptada',
+  PRIMARY KEY (`id`),
+  KEY `producto_oferta_fk_idx` (`id_producto`),
+  KEY `usuario_oferta_fk` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Aqui se ponen las ofertas de posibles compradores que desean negociar el precio inicial';
 
 -- --------------------------------------------------------
 
@@ -1395,16 +1413,19 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `ruta_avatar` longtext COLLATE utf8_spanish_ci,
+  `latitud` float NOT NULL,
+  `longitud` float NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ID_UNIQUE` (`id_front`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `id_front`, `nombre`, `fecha_registro`, `ruta_avatar`) VALUES
-(1, 'A5', 'BBB', '2014-10-13 01:54:47', 'BB');
+INSERT INTO `usuarios` (`id`, `id_front`, `nombre`, `fecha_registro`, `ruta_avatar`, `latitud`, `longitud`) VALUES
+(1, 'A5', 'BBB', '2014-10-13 01:54:47', 'BB', 0, 0),
+(2, 'A6', 'BBB', '2014-10-13 02:16:54', 'BB', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1435,6 +1456,21 @@ CREATE TABLE IF NOT EXISTS `usuario_calificacion` (
   KEY `usuario_fk_idx` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_preferencias`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario_preferencias` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idusuario` int(11) NOT NULL,
+  `idcategoria` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `preferencia_idusuario_fk_idx` (`idusuario`),
+  KEY `preferencia_idcategoria_fk_idx` (`idcategoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -1455,16 +1491,16 @@ ALTER TABLE `palabras_clave_producto`
 -- Filtros para la tabla `producto`
 --
 ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `categoria_fk` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `estado_fk` FOREIGN KEY (`id_estado`) REFERENCES `estados_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `producto_comentarios`
 --
 ALTER TABLE `producto_comentarios`
-  ADD CONSTRAINT `usuario_comentarios_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `producto_comentarios_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `producto_comentarios_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `usuario_comentarios_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `producto_imagenes`
@@ -1473,18 +1509,32 @@ ALTER TABLE `producto_imagenes`
   ADD CONSTRAINT `producto_imagen_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `producto_ofertas`
+--
+ALTER TABLE `producto_ofertas`
+  ADD CONSTRAINT `ofertas_producto_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`),
+  ADD CONSTRAINT `usuario_oferta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `producto_preguntas`
 --
 ALTER TABLE `producto_preguntas`
-  ADD CONSTRAINT `usuario_pregunta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `pregunta_fk` FOREIGN KEY (`id_respuesta_pregunta`) REFERENCES `producto_preguntas` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `producto_preguntas_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `producto_preguntas_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `usuario_pregunta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_calificacion`
 --
 ALTER TABLE `usuario_calificacion`
   ADD CONSTRAINT `usuario_calificacion_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `usuario_preferencias`
+--
+ALTER TABLE `usuario_preferencias`
+  ADD CONSTRAINT `preferencia_idusuario_fk` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `preferencia_idcategoria_fk` FOREIGN KEY (`idcategoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

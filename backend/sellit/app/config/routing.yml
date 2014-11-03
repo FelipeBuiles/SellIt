@@ -1,3 +1,7 @@
+usuarios_consulta_preferencias:
+    resource: "@UsuariosConsultaPreferenciasBundle/Resources/config/routing.yml"
+    prefix:   /
+
 productos_comentarios:
     resource: "@ProductosComentariosBundle/Resources/config/routing.yml"
     prefix:   /

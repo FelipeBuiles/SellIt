@@ -1,0 +1,4 @@
+services:
+#    usuarios_consulta_preferencias.example:
+#        class: Usuarios\ConsultaPreferenciasBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
