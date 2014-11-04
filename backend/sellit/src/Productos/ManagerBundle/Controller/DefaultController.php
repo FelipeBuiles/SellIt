@@ -31,8 +31,6 @@ class DefaultController extends Controller {
                 if (!is_null($query->getIdCategoria()))
                     $categoria = $query->getIdCategoria()->getCategoria();
 
-
-
                 if (!is_null($query)) {
                     $json = array(
                         'id' => $query->getId(),

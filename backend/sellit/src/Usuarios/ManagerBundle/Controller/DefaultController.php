@@ -17,13 +17,6 @@ class DefaultController extends Controller {
         $request = $this->get('request');
         $response = new JsonResponse();
 
-        //$data = json_decode(file_get_contents('php://input'), true);
-        /*$data = explode('&', file_get_contents('php://input'));
-        
-        $id = explode('=',$data[0])[1];
-        $nombre = explode('=',$data[1])[1];
-        $ruta_avatar = explode('=',$data[2])[1];*/
-        
         $data = $this->get('request')->request->all();
         
         $id = $data['id'];
@@ -54,7 +47,36 @@ class DefaultController extends Controller {
         return $response;
     }
 
-    
+    public function listarUsuariosAction(){
+        $response = new JsonResponse();
+        
+        
+        $arr_response = array();
+        $usuarios = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')
+                ->findAll();
+        
+        foreach($usuarios as $u){
+            $arr['id'] = $u->getIdFront();
+            $arr['nombre'] = $u->getNombre();
+            $arr['ruta_avatar'] = $u->getRutaAvatar();
+            
+            $preferenciasUsuario = $this->getDoctrine()->getRepository('UsuariosManagerBundle:UsuarioPreferencias')
+                    ->findBy(array('idusuario' => $u));
+            
+            $arr['preferencias'] = array();
+            
+            foreach($preferenciasUsuario as $pu)
+                $arr['preferencias'][$pu->getIdcategoria()->getId()] = $pu->getIdcategoria()->getCategoria();
+
+            array_push($arr_response, $arr);
+        }
+        
+        $response->setData($arr_response);
+        $response->setStatusCode(200);
+        
+        return $response;
+    }
+        
     public function frontPKtoSystem($key){
         $key = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')->findOneBy(array('idFront' => $key));
         

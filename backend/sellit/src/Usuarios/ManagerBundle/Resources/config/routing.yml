@@ -2,3 +2,9 @@ usuarios_validar:
     path:     /usuarios/validar
     defaults: { _controller: UsuariosManagerBundle:Default:validateOnLogin }
     methods:  [POST]
+
+
+usuarios_listar:
+    path:     /usuarios/listar
+    defaults: { _controller: UsuariosManagerBundle:Default:listarUsuarios }
+    methods:  [GET]
