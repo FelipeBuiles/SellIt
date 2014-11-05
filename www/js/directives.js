@@ -16,6 +16,13 @@
       };
     })
 
+    .directive('preferenceProfile', function(){
+      return {
+        restrict: 'E',
+        templateUrl: 'partials/preference-profile.hmtl'
+      };
+    })
+
     .directive('feedComments', ['feedService', function (feedService) {
       return {
         restrict: 'E',

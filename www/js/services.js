@@ -1,5 +1,5 @@
 (function(){
-  var URL = "http://192.99.168.215/sellit/web/app_dev.php/";
+  var URL = "http://sellit.apps.medehost.com/app_dev.php/";
 
   angular.module('sellit.services', [])
 
@@ -33,13 +33,42 @@
       });
     }
 
+    function addPreference(idUsuario, idPreference){
+      return $.ajax({
+        type: "POST",
+        url: URL + 'preferencias/add',
+        async: false,
+        data: {
+          idusuario: idUsuario,
+          idcategoria : idPreference
+        }
+      })
+    }
+
+    function addFollower(idUsuario, idFollow){
+      return $.ajax({
+        type: "POST",
+        url: URL + '',
+        async: false,
+        data: {
+          idusuario : idUsuario,
+          idfollow : idFollow
+        }
+      })
+    }
+
     function profiles(){
-      var deferred = $q.defer();
-      $http.get('https://api.myjson.com/bins/oysh')
-        .success(function(data){
-          deferred.resolve(data);
-        });
-      return deferred.promise;
+      return $.ajax({
+        type: 'GET',
+        url: URL+'usuarios/listar',
+        async: false
+      })
+      // var deferred = $q.defer();
+      // $http.get('https://api.myjson.com/bins/oysh')
+      //   .success(function(data){
+      //     deferred.resolve(data);
+      //   });
+      // return deferred.promise;
     }
 
     function publish(id, n, d, p, c, k, i) {
@@ -74,6 +103,14 @@
       return $.ajax({
         type: 'GET',
         url: URL+'productos/listarvendedor/'+id+'/1000/0/true/false',
+        async: false
+      })
+    }
+
+    function preferences(){
+      return $.ajax({
+        type: 'GET',
+        url: URL+'productos/listarcategorias',
         async: false
       })
     }
@@ -124,7 +161,9 @@
       saveComment: saveComment,
       getComments: getComments,
       range: range,
-      publish: publish
+      publish: publish,
+      addPreference : addPreference,
+      follow : follow
     }
   }]);
 })();

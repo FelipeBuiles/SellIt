@@ -200,6 +200,7 @@
   border-radius: 4px;
   color: #fff;
   padding: 2px 8px;
+  border: 0px;
 }
 .profileList .profileItem .imgContainer img {
   width: 100%;

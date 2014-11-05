@@ -1,16 +1,16 @@
 <ion-view title="You may want to follow these people.">
   <ion-content>
     <ul class="profileList">
-      <li class=" card profileItem" ng-repeat="profile in profiles">
+      <li class="card profileItem" ng-repeat="profile in profiles">
         <div class="deleteProfile ion-close-round"></div>
         <figure class="imgContainer">
-          <img src="{{profile.imgUser}}" alt="">
-          <article class="followButton">Follow</article>
+          <img src="{{profile.ruta_avatar}}" alt="">
+          <button class="followButton" ng-click="follow($index)">{{profile.followText}}</button>
         </figure>
         <section class="profileInfo">
-          <p>{{profile.userName}}</p>
+          <p>{{profile.nombre}}</p>
           <section ng-repeat="preference in profile.preferences" class="preferencesUser">
-            <span>{{preference}}</span>
+            <span>{{profile.preferencias}}</span>
           </section>
         </section>
       </li>

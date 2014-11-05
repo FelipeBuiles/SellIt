@@ -16,14 +16,27 @@
       console.log(":( ", error);
     });
   })
-  .controller('SuggestionsController', function($scope, $state, feedService){
+  .controller('SuggestionsController', function($scope, $state, $stateParams, auth, feedService){
+    $scope.profile = auth.profile;
     $scope.profiles = {};
+    $scope.suggestions = {};
     feedService.profiles()
       .then(function(data){
         $scope.profiles = data;
+        for(i = 0 ; i < $scope.profiles.length; i++){
+          //if($scope.profile.name != data[i].nombre){
+        $scope.profiles[i].followText = "follow";
+          //}  //console.log($scope.profiles);
+        }
       });
+
+    $scope.follow = function(index){
+      $scope.profiles[index].followText = "Following";
+      feedService.addFollower(localStorage.user_id, $scope.profiles[index].id);
+      console.log($scope.profiles[index].id);
+    }
   })
-  .controller('PreferencesController', function($scope, $state){
+  .controller('PreferencesController', function($scope, $state, feedService){
     $scope.preferences = [
       {nombre:'Health and Beauty', id: 1, value: false},
       {nombre:'Books', id: 2, value: false},
@@ -39,9 +52,12 @@
     $scope.selected = function(){
       for(var i = 0; i < $scope.preferences.length; i++){
         if($scope.preferences[i].value === true){
-          $scope.array[$scope.array.length] = $scope.preferences[i];
+          $scope.array[$scope.array.length] = $scope.preferences[i].id;
         }
       }
+      feedService.addPreference(localStorage.user_id, $scope.array);
+
+      console.log($scope.array);
     };
   })
 
@@ -153,7 +169,7 @@
 
   .controller('FollowersController', function($scope, $state, $window,auth, feedService) {
       $scope.followersProfile = {}
-        feedService.all()
+        feedService.profiles()
           .then(function(data){
             $scope.followersProfile = data;
           });

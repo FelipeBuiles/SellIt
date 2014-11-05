@@ -1,0 +1,11 @@
+<div class="deleteProfile ion-close-round"></div>
+<figure class="imgContainer">
+  <img src="{{profile.imgUser}}" alt="">
+  <article class="followButton">Follow</article>
+</figure>
+<section class="profileInfo">
+  <p>{{profile.userName}}</p>
+  <section ng-repeat="preference in profile.preferences" class="preferencesUser">
+    <span>{{preference}}</span>
+  </section>
+</section>
