@@ -1,3 +1,7 @@
+seguidores_manager:
+    resource: "@SeguidoresManagerBundle/Resources/config/routing.yml"
+    prefix:   /
+
 usuarios_preferencias:
     resource: "@UsuariosPreferenciasBundle/Resources/config/routing.yml"
     prefix:   /

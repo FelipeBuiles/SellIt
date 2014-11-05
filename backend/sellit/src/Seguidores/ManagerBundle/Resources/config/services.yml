@@ -1,0 +1,4 @@
+services:
+#    seguidores_manager.example:
+#        class: Seguidores\ManagerBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

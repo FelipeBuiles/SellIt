@@ -1,0 +1,56 @@
+Seguidores\ManagerBundle\Entity\Usuarios:
+    type: entity
+    table: usuarios
+    uniqueConstraints:
+        ID_UNIQUE:
+            columns:
+                - id_front
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        idFront:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: id_front
+        nombre:
+            type: string
+            nullable: false
+            length: 100
+            fixed: false
+            comment: ''
+        fechaRegistro:
+            type: datetime
+            nullable: true
+            comment: ''
+            default: CURRENT_TIMESTAMP
+            column: fecha_registro
+        rutaAvatar:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: ruta_avatar
+        latitud:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+        longitud:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+    lifecycleCallbacks: {  }

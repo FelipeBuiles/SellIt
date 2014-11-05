@@ -1,0 +1,29 @@
+Seguidores\ManagerBundle\Entity\UsuariosComentariosCalificacion:
+    type: entity
+    table: usuarios_comentarios_calificacion
+    indexes:
+        calificacion_fk_idx:
+            columns:
+                - id_calificacion
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+        idCalificacion:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            column: id_calificacion
+    fields:
+        comentario:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+    lifecycleCallbacks: {  }

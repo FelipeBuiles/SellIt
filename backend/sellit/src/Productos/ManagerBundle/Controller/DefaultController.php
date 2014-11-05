@@ -74,12 +74,31 @@ class DefaultController extends Controller {
         if ($request->getMethod() == 'GET') {
             if ($idvendedor != "false") {
                 $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idvendedor));
+                $vendedor = array($vendedor);
             } else {
                 $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findAll();
+            }
+            
+            
+            $alterArr = array();
+            foreach($vendedor as $v) {
+                array_push($alterArr, $v->getId());
             }
 
             if (!is_null($vendedor)) {
                 $json = array();
+
+
+                $products = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                        ->from('ProductosManagerBundle:Producto', 's')
+                        ->where('s.idUsuario IN (:usuarios)')
+                        ->setParameter('usuarios', $alterArr)
+                        ->getQuery()
+                        ->setMaxResults($limit)
+                        ->setFirstResult($offset)
+                        ->getResult();
+                
+                var_dump($products); exit;
 
                 if (is_array($vendedor)) {
                     foreach ($vendedor as $v) {

@@ -1,0 +1,16 @@
+seguidores_seguir:
+    path:     /seguidores/seguir/post
+    defaults: { _controller: SeguidoresManagerBundle:Seguir:seguir }
+    methods:  [POST]
+
+
+seguidores_seguir_listarSeguidos:
+    path:     /seguidores/listarseguidos/{idusuario}
+    defaults: { _controller: SeguidoresManagerBundle:Seguir:listarSeguidos }
+    methods:  [GET]
+
+
+seguidores_seguir_listarSeguidores:
+    path:     /seguidores/listarseguidores/{idusuario}
+    defaults: { _controller: SeguidoresManagerBundle:Seguir:listarSeguidores }
+    methods:  [GET]
