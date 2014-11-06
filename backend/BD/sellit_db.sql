@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.1.14
+-- version 4.0.10deb1
 -- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 03-11-2014 a las 23:43:55
--- Versión del servidor: 5.6.17
--- Versión de PHP: 5.5.12
+-- Servidor: localhost
+-- Tiempo de generación: 05-11-2014 a las 21:46:29
+-- Versión del servidor: 5.5.40-0ubuntu0.14.04.1
+-- Versión de PHP: 5.5.18-1+deb.sury.org~trusty+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -1471,6 +1471,21 @@ CREATE TABLE IF NOT EXISTS `usuario_preferencias` (
   KEY `preferencia_idcategoria_fk_idx` (`idcategoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuario_seguidores`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario_seguidores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idusuario` int(11) NOT NULL,
+  `idseguido` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `seguidores_idusuario_fk_idx` (`idusuario`),
+  KEY `seguidores_idseguido_fk_idx` (`idseguido`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -1535,6 +1550,13 @@ ALTER TABLE `usuario_calificacion`
 ALTER TABLE `usuario_preferencias`
   ADD CONSTRAINT `preferencia_idusuario_fk` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `preferencia_idcategoria_fk` FOREIGN KEY (`idcategoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `usuario_seguidores`
+--
+ALTER TABLE `usuario_seguidores`
+  ADD CONSTRAINT `seguidores_idusuario_fk` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `seguidores_idseguido_fk` FOREIGN KEY (`idseguido`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
