@@ -68,7 +68,7 @@
         }
       })
       .state('home.profile', {
-        url: "/profile",
+        url: "/profile/:id",
         views: {
           'profile-tab': {
             templateUrl: "templates/profile.html",
@@ -76,11 +76,15 @@
           }
         }
       })
-
       .state('followers', {
-        url: '/profile/followers',
+        url: '/profile/followers/:id',
         templateUrl: 'templates/followers.html',
         controller: 'FollowersController'
+      })
+      .state('following', {
+        url: '/profile/following/:id',
+        templateUrl: 'templates/following.html',
+        controller: 'FollowingController'
       })
 
       $urlRouterProvider.otherwise("/");
