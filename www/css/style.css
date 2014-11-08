@@ -57,6 +57,13 @@
   margin-bottom: 5px;
   background-color: #fff;
 }
+.information div #editProfile {
+  background-color: #616161;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 3px;
+  color: #fff;
+}
 .item-avatar {
   padding-left: 0px;
   border-radius: 4px;
@@ -76,6 +83,10 @@
 #infoProfile div {
   display: inline-block;
   max-width: 30%;
+}
+#infoProfile div a {
+  color: #000;
+  text-decoration: blink;
 }
 #infoProfile div strong,
 #infoProfile div span {
@@ -219,4 +230,8 @@
   padding: 5px 10px;
   font-weight: bold;
   border: 0px;
+}
+a {
+  color: #000;
+  text-decoration: blink;
 }

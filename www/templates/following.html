@@ -1,0 +1,12 @@
+<ion-view title="Followers">
+  <ion-content>
+    <div class="list">
+        <a href="#/home/profile/{{profile.idUser}}" class="item item-thumbnail-left"
+            ng-repeat="profile in followingProfiles">
+          <img src="{{profile.imgUser}}">
+          <h2>{{profile.userName}}</h2>
+          <p>Back off, man. I'm a scientist.</p>
+        </a>
+    </div>
+  </ion-content>
+</ion-view>
