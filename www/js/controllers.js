@@ -9,8 +9,6 @@
       offline_mode: true,
       device: 'Phone'
     }, function() {
-      localStorage.user_id = auth.profile.user_id;
-      localStorage.user_name = auth.profile.name;
       feedService.login(auth.profile.user_id, auth.profile.name, auth.profile.picture);
     }, function(error) {
       console.log(":( ", error);
@@ -61,8 +59,10 @@
     };
   })
 
-  .controller('HomeController', function($scope, $state) {
-
+  .controller('HomeController', function($scope, $state, auth) {
+    $scope.idUser = auth.profile.user_id;
+    console.log($scope.idUser);
+    //.slice(auth.profile.user_id.indexOf("|") + 1);
   })
 
   .controller('FeedController', function($scope, $state, feedService) {
@@ -123,7 +123,6 @@
       .always(function(data){
         $scope.product = data;
       });
-
   })
 
   .controller('PublishController', function($scope, $cordovaCamera, feedService) {
@@ -168,19 +167,58 @@
   })
 
   .controller('FollowersController', function($scope, $state, $window,auth, feedService) {
-      $scope.followersProfile = {}
-        feedService.profiles()
-          .then(function(data){
-            $scope.followersProfile = data;
-          });
+    //servicio de follower y following deben recibir la id
+    //del usario de la ruta: $state.params.id
+
+    $scope.followersProfile = {};
+    feedService.profiles()
+      .then(function(data){
+        $scope.followersProfile = data;
+      });
   })
 
-  .controller('ProfileController', function($scope, $state, $window,auth, feedService) {
-    if(auth.profile === undefined){
-      $scope.profile = JSON.parse($window.sessionStorage.userInfo)
+  .controller('FollowingController', function($scope, auth, feedService){
+    $scope.followingProfiles = {};
+    feedService.profiles()
+      .then(function(data){
+        for(var i = 0; i < data.length; i++){
+          data[i].id = data[i].id.replace("|","%");
+        }
+        $scope.followingProfiles = data;
+      });
+  })
+
+  .controller('ProfileController', function($scope, $state, $window, auth, feedService) {
+    $scope.profile = {};
+    if($state.params.id != auth.profile.user_id){
+      feedService.getUserInfo($state.params.id)//servicio no existe
+        .always(function(data){
+          $scope.profile = data;
+        });
     }else{
       $scope.profile = auth.profile;
     }
+
+    $scope.followersCounter;
+    $scope.followingCounter;
+    feedService.profiles()
+      .then(function(data){
+        $scope.followersCounter = data.length;
+        $scope.followingCounter = data.length;
+      });
+
+    $scope.showSection = function(){
+      return (($state.params.id === $scope.profile.user_id) || $scope.profile.goal);
+    }
+
+    $scope.showButton = function(){
+      return $state.params.id === auth.profile.user_id;
+    }
+
+    $scope.showGoals = function(){
+      return $scope.profile.goals;
+    }
+
     $scope.productos = {}
     feedService.byUser(auth.profile.user_id)
       .always(function(data){

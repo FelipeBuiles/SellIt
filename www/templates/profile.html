@@ -1,26 +1,40 @@
 <ion-view title="{{profile.name}}">
   <ion-content>
-    <section class="row information">
-      <div class="col col-25">
-        <a class="item item-avatar">
-          <img src="{{profile.picture}}">
-        </a>
-      </div>
-      <div id="infoProfile" class="col col-75">
-        <div class="col col-33">
-          <strong>{{productos.length}}</strong>
-          <span>Products</span>
-        </div>
-        <div class="col col-33">
-          <a href="#/profile/followers">
-            <strong>0</strong>
-            <span>Followers</span>
+    <section class="information">
+      <div class="row">
+        <div class="col col-25">
+          <a class="item item-avatar">
+            <img src="{{profile.picture}}">
           </a>
         </div>
-        <div class="col col-33">
-          <strong>0</strong>
-          <span>Following</span>
+        <div id="infoProfile" class="col col-75">
+          <div class="col col-33">
+            <strong>{{productos.length}}</strong>
+            <span>Products</span>
+          </div>
+          <div class="col col-33">
+            <a href="#/profile/followers/{{profile.user_id}}">
+              <strong>{{followersCounter}}</strong>
+              <span>Followers</span>
+            </a>
+          </div>
+          <div class="col col-33">
+            <a href="#/profile/followers/{{profile.user_id}}">
+              <strong>{{followingCounter}}</strong>
+              <span>Following</span>
+            </a>
+          </div>
         </div>
+      </div>
+      <div class="row ng-hide" ng-show="showSection()">
+        <figure class="ng-hide" ng-show="showButton()" id="editProfile">
+          Edit profile
+        </figure>
+        <section class="ng-hide showGoals" ng-show="showGoals()">
+          <span>{{profile.goals.description}}</span>
+          <figure>{{profile.goals.moneyGoal}}</figure>
+          <figure>{{profile.goals.moneyAdvance}}</figure>
+        </section>
       </div>
     </section>
     <section id= "productosProfile">

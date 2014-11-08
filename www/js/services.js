@@ -1,5 +1,6 @@
 (function(){
   var URL = "http://sellit.apps.medehost.com/app_dev.php/";
+  //sellit.apps.medehost.com/app_dev.php/productos/listarvendedor/{idvendedor}/{limit}/{offset}/{include_images}/{orderASC}
 
   angular.module('sellit.services', [])
 
@@ -21,11 +22,15 @@
         url: URL + 'usuarios/validar',
         data: { id: id, nombre: n, ruta_avatar: r },
         success: function(data) {
-          $state.go('preferences');
+          if(data.message == "The user already was in the database"){
+            $state.go('home.feed');
+          }else{
+            $state.go('preferences');
+          }
         },
         error: function(err) {
           if(err.message == "The user already was in the database") {
-            $state.go('preferences');
+            $state.go('home.feed');
           } else {
             console.log(err);
           }
