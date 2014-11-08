@@ -163,7 +163,7 @@
       range: range,
       publish: publish,
       addPreference : addPreference,
-      follow : follow
+      follow : addFollower
     }
   }]);
 })();

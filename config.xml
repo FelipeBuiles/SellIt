@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.sellit337139" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
   <name>SellIt</name>
-  <description>
-        Práctica Proyecto Integrador 2
+  <description>&#xD;
+        Práctica Proyecto Integrador 2&#xD;
     </description>
-  <author email="jbuiles4@eafit.edu.co">
-      Pipe y sus amigos.
+  <author email="jbuiles4@eafit.edu.co">&#xD;
+      Pipe y sus amigos.&#xD;
     </author>
   <content src="index.html"/>
   <access origin="*"/>
