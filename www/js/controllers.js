@@ -14,6 +14,7 @@
       console.log(":( ", error);
     });
   })
+  
   .controller('SuggestionsController', function($scope, $state, $stateParams, auth, feedService){
     $scope.profile = auth.profile;
     $scope.profiles = {};
@@ -22,7 +23,7 @@
       .then(function(data){
         $scope.profiles = data;
         for(i = 0 ; i < $scope.profiles.length; i++){
-          //if($scope.profile.name != data[i].nombre){
+          //if($scope.profile.name != $scope.profiles[i].nombre){
         $scope.profiles[i].followText = "follow";
           //}  //console.log($scope.profiles);
         }
