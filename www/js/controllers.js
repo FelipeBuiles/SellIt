@@ -2,20 +2,23 @@
   angular.module('sellit.controllers',
   ['ionic', 'auth0', 'ionic.rating'])
 
-  .controller('LoginController', function($scope, auth, feedService) {
+  .controller('LoginController', function($scope, auth, feedService, store) {
     auth.signin({
       popup: true,
       standalone: true,
       offline_mode: true,
       device: 'Phone'
-    }, function() {
-      feedService.login(auth.profile.user_id, auth.profile.name, auth.profile.picture);
+    }, function(profile, token, accessToken, state, refreshToken) {
+      store.set('profile', profile);
+      store.set('token', token);
+      store.set('refreshToken', refreshToken);
+      feedService.login(profile.user_id, profile.name, profile.picture);
     }, function(error) {
       console.log(":( ", error);
     });
   })
-  
-  .controller('SuggestionsController', function($scope, $state, $stateParams, auth, feedService){
+
+  .controller('SuggestionsController', function(store, $scope, $state, $stateParams, auth, feedService){
     $scope.profile = auth.profile;
     $scope.profiles = {};
     $scope.suggestions = {};
@@ -31,11 +34,10 @@
 
     $scope.follow = function(index){
       $scope.profiles[index].followText = "Following";
-      feedService.addFollower(localStorage.user_id, $scope.profiles[index].id);
-      console.log($scope.profiles[index].id);
+      feedService.addFollower(store.get('profile').user_id, $scope.profiles[index].id);
     }
   })
-  .controller('PreferencesController', function($scope, $state, feedService){
+  .controller('PreferencesController', function(store, $scope, $state, feedService){
     $scope.preferences = [
       {nombre:'Health and Beauty', id: 1, value: false},
       {nombre:'Books', id: 2, value: false},
@@ -54,14 +56,14 @@
           $scope.array[$scope.array.length] = $scope.preferences[i].id;
         }
       }
-      feedService.addPreference(localStorage.user_id, $scope.array);
+      feedService.addPreference(store.get('profile').user_id, $scope.array);
 
       console.log($scope.array);
     };
   })
 
-  .controller('HomeController', function($scope, $state, auth) {
-    $scope.idUser = auth.profile.user_id;
+  .controller('HomeController', function(store, $scope, $state, auth) {
+    $scope.idUser = store.get('profile').user_id;
   })
 
   .controller('FeedController', function($scope, $state, feedService) {
@@ -107,9 +109,9 @@
     };
   })
 
-  .controller('ProductController', function($scope, $stateParams, $window, auth, feedService, $ionicModal){
+  .controller('ProductController', function(store, $scope, $stateParams, $window, auth, feedService, $ionicModal){
     if(auth.profile === undefined){
-      $scope.profile = JSON.parse($window.sessionStorage.userInfo)
+      $scope.profile = store.get('profile');
     }else{
       $scope.profile = auth.profile;
     };
@@ -132,7 +134,7 @@
     });
   })
 
-  .controller('PublishController', function($scope, $cordovaCamera, feedService) {
+  .controller('PublishController', function(store, $scope, $cordovaCamera, feedService) {
     $scope.picTaken = false;
     $scope.product = {};
     $scope.takePicture = function() {
@@ -159,7 +161,7 @@
 
     $scope.publish = function() {
       feedService.publish(
-        localStorage.user_id,
+        store.get('profile').user_id,
         $scope.product.name,
         $scope.product.description,
         $scope.product.price,
@@ -195,7 +197,7 @@
       });
   })
 
-  .controller('ProfileController', function($scope, $state, $window, auth, feedService) {
+  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
     $scope.profile = {};
     if($state.params.id != auth.profile.user_id){
       feedService.getUserInfo($state.params.id)//servicio no existe
@@ -224,6 +226,12 @@
 
     $scope.showGoals = function(){
       return $scope.profile.goals;
+    }
+
+    $scope.logout = function() {
+      auth.signout();
+      store.remove('profile');
+      store.remove('token');
     }
 
     $scope.productos = {}

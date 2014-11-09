@@ -4,7 +4,7 @@
 
   angular.module('sellit.services', [])
 
-  .factory('feedService', ['$http', '$q', '$window', '$state', function($http, $q, $window, $state){
+  .factory('feedService', function(store, $http, $q, $window, $state){
 
     function all(){
       var deferred = $q.defer();
@@ -158,11 +158,11 @@
       var comments = getComments(product);
 
       comments.push(comment);
-      localStorage.setItem(product, JSON.stringify(comments));
+      store.set(product, comments);
     }
 
     function getComments(product){
-      var comments = localStorage.getItem(product);
+      var comments = store.get(product);
 
       if(!comments){
         comments = [];
@@ -198,5 +198,5 @@
       addRating : addRating,
       followingProfiles : followingProfiles
     }
-  }]);
+  });
 })();

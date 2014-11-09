@@ -1,8 +1,16 @@
 (function() {
   angular.module( 'sellit',
-  ['ionic', 'sellit.controllers', 'auth0', 'ngCordova', 'sellit.services', 'sellit.directives'])
+  ['ionic',
+  'sellit.controllers',
+  'sellit.services',
+  'sellit.directives',
+  'ngCordova',
+  'auth0',
+  'angular-storage',
+  'angular-jwt'])
 
-  .config(function (authProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+  .config(function (authProvider, $httpProvider, $stateProvider,
+    $urlRouterProvider, jwtInterceptorProvider) {
       authProvider
       .init({
         domain: 'sellit.auth0.com',
@@ -92,13 +100,27 @@
       $httpProvider.interceptors.push('authInterceptor');
   })
 
-  .run(function($ionicPlatform, auth) {
+  .run(function($rootScope, $ionicPlatform, auth, store, jwtHelper, $state) {
     $ionicPlatform.ready(function() {
       if(window.cordova && window.cordova.plugins.Keyboard) {
         cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
       if(window.StatusBar) {
         StatusBar.styleDefault();
+      }
+    });
+
+    $rootScope.$on('$locationChangeStart', function() {
+      if (!auth.isAuthenticated) {
+        var token = store.get('token');
+        if (token) {
+          if (!jwtHelper.isTokenExpired(token)) {
+            auth.authenticate(store.get('profile'), token);
+          } else {
+            // Either show Login page or use the refresh token to get a new idToken
+            $state.go('login');
+          }
+        }
       }
     });
 
