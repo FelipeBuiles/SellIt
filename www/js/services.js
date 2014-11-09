@@ -23,7 +23,8 @@
         data: { id: id, nombre: n, ruta_avatar: r },
         success: function(data) {
           if(data.message == "The user already was in the database"){
-            $state.go('home.feed');
+            $state.go('preferences');
+            //$state.go('home.feed');
           }else{
             $state.go('preferences');
           }

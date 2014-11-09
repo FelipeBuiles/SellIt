@@ -12,6 +12,11 @@
           <p id="nombre">{{product.nombre}}</p>
           <p id="precio">{{product.precio | currency}}</p>
         </section>
+        <section ng-hide="own">
+          <button class="button button-balanced" ng-click="modal.show()">
+            Buy
+          </button>
+        </section>
         <section>
           <img ng-src="{{product.id_usuario.ruta_avatar}}"/>
         </section>

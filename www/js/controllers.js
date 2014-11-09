@@ -61,8 +61,6 @@
 
   .controller('HomeController', function($scope, $state, auth) {
     $scope.idUser = auth.profile.user_id;
-    console.log($scope.idUser);
-    //.slice(auth.profile.user_id.indexOf("|") + 1);
   })
 
   .controller('FeedController', function($scope, $state, feedService) {
@@ -108,7 +106,7 @@
     };
   })
 
-  .controller('ProductController', function($scope, $stateParams, $window, auth, feedService){
+  .controller('ProductController', function($scope, $stateParams, $window, auth, feedService, $ionicModal){
     if(auth.profile === undefined){
       $scope.profile = JSON.parse($window.sessionStorage.userInfo)
     }else{
@@ -122,7 +120,15 @@
     feedService.byId($scope.idProduct)
       .always(function(data){
         $scope.product = data;
+        $scope.own = (data.id_usuario.name == $scope.profile.name);
       });
+
+    $ionicModal.fromTemplateUrl('templates/buy-modal.html', function($ionicModal) {
+        $scope.modal = $ionicModal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up'
+    });
   })
 
   .controller('PublishController', function($scope, $cordovaCamera, feedService) {
