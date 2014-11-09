@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-11-2014 a las 17:36:20
+-- Tiempo de generación: 08-11-2014 a las 20:51:12
 -- Versión del servidor: 5.5.40-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.18-1+deb.sury.org~trusty+1
 
@@ -1292,7 +1292,16 @@ CREATE TABLE IF NOT EXISTS `palabras_clave_producto` (
   `palabra` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `producto_fk_idx` (`id_producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=4 ;
+
+--
+-- Volcado de datos para la tabla `palabras_clave_producto`
+--
+
+INSERT INTO `palabras_clave_producto` (`id`, `id_producto`, `palabra`) VALUES
+(1, 1, 'apple'),
+(2, 1, 'ipad'),
+(3, 1, 'tablet');
 
 -- --------------------------------------------------------
 
@@ -1314,7 +1323,30 @@ CREATE TABLE IF NOT EXISTS `producto` (
   KEY `categoria_fk_idx` (`id_categoria`),
   KEY `estado_fk_idx` (`id_estado`),
   KEY `usuario_fk_idx` (`id_usuario`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`id`, `id_usuario`, `nombre`, `descripcion`, `precio`, `id_estado`, `id_categoria`, `activo`, `fecha_publicacion`) VALUES
+(1, 1, 'iPad Mini Retina 2', 'Look, just because I don''t be givin'' no man a foot massage don''t make it right for Marsellus to throw Antwone into a glass motherfuckin'' house, fuckin'' up the way the nigger talks. Motherfucker do that shit to me, he better paralyze my ass, ''cause I''ll kill the motherfucker, know what I''m  sayin''?', 850000, 1, NULL, 1, '2014-10-12 19:00:04');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto_calificacion`
+--
+
+CREATE TABLE IF NOT EXISTS `producto_calificacion` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `idusuario` int(11) NOT NULL,
+  `idproducto` int(11) NOT NULL,
+  `calificacion` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `calificacion_producto_idx` (`idproducto`),
+  KEY `calificacion_usuario_idx` (`idusuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1346,7 +1378,25 @@ CREATE TABLE IF NOT EXISTS `producto_imagenes` (
   `nombre_imagen` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `producto_fk_idx` (`id_producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `producto_ofertas`
+--
+
+CREATE TABLE IF NOT EXISTS `producto_ofertas` (
+  `id` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `oferta` float NOT NULL COMMENT 'Dinero a ofertar',
+  `comentarios` longtext COLLATE utf8_spanish_ci,
+  `estado_oferta` varchar(45) COLLATE utf8_spanish_ci DEFAULT NULL COMMENT 'A = Aceptada',
+  PRIMARY KEY (`id`),
+  KEY `producto_oferta_fk_idx` (`id_producto`),
+  KEY `usuario_oferta_fk` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci COMMENT='Aqui se ponen las ofertas de posibles compradores que desean negociar el precio inicial';
 
 -- --------------------------------------------------------
 
@@ -1383,20 +1433,15 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `longitud` float NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `ID_UNIQUE` (`id_front`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`id`, `id_front`, `nombre`, `fecha_registro`, `ruta_avatar`, `latitud`, `longitud`) VALUES
-(2, 'facebook|10204144418346496', 'Juan Felipe Builes', '2014-10-31 15:29:59', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpf1/v/t1.0-1/p50x50/10612998_10203937644657283_1227605995695862357_n.jpg?oh=0c497bec88a0ab62e79f187490d04a65&oe=54AF9550&__gda__=1425066934_48f51e80b41cceaf735c6ded519e1702', 0, 0),
-(3, 'facebook|10152418474894157', 'Pablo Taborda Alvarez', '2014-11-02 04:19:07', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xpa1/v/t1.0-1/c11.0.50.50/p50x50/10525733_10152251563759157_3842893097141263938_n.jpg?oh=47faf3069467fb1f8da8939d0fed5b36&oe=54D9FF1B&__gda__=1420436414_46477861a1a7556a0b0c74a7c8f73775', 0, 0),
-(4, 'twitter|537693862', 'Juan Pablo Taborda ', '2014-11-04 03:16:35', 'https://abs.twimg.com/sticky/default_profile_images/default_profile_6_normal.png', 0, 0),
-(5, 'facebook|10152747121713518', 'Alan Kelvin López', '2014-11-05 00:39:02', 'https://fbcdn-profile-a.akamaihd.net/hprofile-ak-xap1/v/t1.0-1/c0.0.50.50/p50x50/1394217_10151889725708518_331088430_n.jpg?oh=6af469d657e4bb255a86bdcece4fa960&oe=54AAD194&__gda__=1425405329_c7446ea229209ea085d2069339908f06', 0, 0),
-(6, 'google-oauth2|117158234684226267320', 'Alan López', '2014-11-05 00:44:35', 'https://lh5.googleusercontent.com/-PJRS3CPe1iE/AAAAAAAAAAI/AAAAAAAAA4I/1vqIQxfKySk/photo.jpg', 0, 0),
-(7, 'twitter|63148474', 'Alan Kelvin Lopez', '2014-11-05 01:15:22', 'https://pbs.twimg.com/profile_images/2535606343/image_normal.jpg', 0, 0),
-(8, 'google-oauth2|103580358165135813858', 'Juan Pablo Taborda Alvarez', '2014-11-06 02:38:59', 'https://lh6.googleusercontent.com/-ZspnKM7zJWM/AAAAAAAAAAI/AAAAAAAAAEY/QEfKjo31318/photo.jpg', 0, 0);
+(1, 'A5', 'BBB', '2014-10-13 01:54:47', 'BB', 0, 0),
+(2, 'A6', 'BBB', '2014-10-13 02:16:54', 'BB', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1440,34 +1485,7 @@ CREATE TABLE IF NOT EXISTS `usuario_preferencias` (
   PRIMARY KEY (`id`),
   KEY `preferencia_idusuario_fk_idx` (`idusuario`),
   KEY `preferencia_idcategoria_fk_idx` (`idcategoria`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=37 ;
-
---
--- Volcado de datos para la tabla `usuario_preferencias`
---
-
-INSERT INTO `usuario_preferencias` (`id`, `idusuario`, `idcategoria`) VALUES
-(15, 3, 3),
-(16, 3, 5),
-(17, 3, 7),
-(18, 3, 4),
-(19, 3, 6),
-(20, 3, 1),
-(21, 3, 2),
-(22, 2, 3),
-(23, 2, 5),
-(25, 8, 2),
-(26, 8, 3),
-(27, 8, 4),
-(28, 8, 5),
-(29, 8, 7),
-(30, 8, 8),
-(31, 3, 8),
-(32, 6, 3),
-(33, 6, 2),
-(34, 6, 4),
-(35, 2, 7),
-(36, 2, 8);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1482,27 +1500,7 @@ CREATE TABLE IF NOT EXISTS `usuario_seguidores` (
   PRIMARY KEY (`id`),
   KEY `seguidores_idusuario_fk_idx` (`idusuario`),
   KEY `seguidores_idseguido_fk_idx` (`idseguido`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=16 ;
-
---
--- Volcado de datos para la tabla `usuario_seguidores`
---
-
-INSERT INTO `usuario_seguidores` (`id`, `idusuario`, `idseguido`) VALUES
-(1, 3, 2),
-(2, 3, 4),
-(3, 3, 2),
-(4, 8, 7),
-(5, 8, 6),
-(6, 8, 3),
-(7, 8, 2),
-(8, 8, 4),
-(9, 8, 2),
-(10, 8, 3),
-(11, 8, 4),
-(13, 3, 6),
-(14, 3, 2),
-(15, 3, 4);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
 -- Restricciones para tablas volcadas
@@ -1529,6 +1527,13 @@ ALTER TABLE `producto`
   ADD CONSTRAINT `producto_usuario_owner_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Filtros para la tabla `producto_calificacion`
+--
+ALTER TABLE `producto_calificacion`
+  ADD CONSTRAINT `calificacion_producto_fk` FOREIGN KEY (`idproducto`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `calificacion_usuario_fk` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Filtros para la tabla `producto_comentarios`
 --
 ALTER TABLE `producto_comentarios`
@@ -1540,6 +1545,13 @@ ALTER TABLE `producto_comentarios`
 --
 ALTER TABLE `producto_imagenes`
   ADD CONSTRAINT `producto_imagen_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
+-- Filtros para la tabla `producto_ofertas`
+--
+ALTER TABLE `producto_ofertas`
+  ADD CONSTRAINT `ofertas_producto_fk` FOREIGN KEY (`id_producto`) REFERENCES `producto` (`id`),
+  ADD CONSTRAINT `usuario_oferta_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `producto_preguntas`
@@ -1559,8 +1571,8 @@ ALTER TABLE `usuario_calificacion`
 -- Filtros para la tabla `usuario_preferencias`
 --
 ALTER TABLE `usuario_preferencias`
-  ADD CONSTRAINT `preferencia_idcategoria_fk` FOREIGN KEY (`idcategoria`) REFERENCES `categoria_producto` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
-  ADD CONSTRAINT `preferencia_idusuario_fk` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `preferencia_idcategoria_fk` FOREIGN KEY (`idcategoria`) REFERENCES `categoria_producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `preferencia_idusuario_fk` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `usuario_seguidores`

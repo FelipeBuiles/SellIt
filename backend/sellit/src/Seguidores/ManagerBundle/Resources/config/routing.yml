@@ -11,6 +11,6 @@ seguidores_seguir_listarSeguidos:
 
 
 seguidores_seguir_listarSeguidores:
-    path:     /seguidores/listarseguidores/{idusuario}
+    path:     s/eguidores/listarseguidores/{idusuario}
     defaults: { _controller: SeguidoresManagerBundle:Seguir:listarSeguidores }
     methods:  [GET]
