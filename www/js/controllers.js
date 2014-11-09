@@ -126,12 +126,23 @@
         $scope.own = (data.id_usuario.name == $scope.profile.name);
       });
 
+    $scope.paymentOption = {};
+    $scope.paymentOptions = [
+      {name:'Face to face', id: 1, value: false},
+      {name:'Bank deposit', id: 2, value: false},
+      {name:'Bargain', id: 3, value: false}
+    ];
+
     $ionicModal.fromTemplateUrl('templates/buy-modal.html', function($ionicModal) {
         $scope.modal = $ionicModal;
     }, {
         scope: $scope,
         animation: 'slide-in-up'
     });
+
+    $scope.sendOffer = function() {
+      console.log($scope.paymentOptions);
+    }
   })
 
   .controller('PublishController', function(store, $scope, $cordovaCamera, feedService) {
@@ -199,7 +210,7 @@
 
   .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
     $scope.profile = {};
-    if($state.params.id != auth.profile.user_id){
+    if($state.params.id != store.get('profile').user_id){
       feedService.getUserInfo($state.params.id)//servicio no existe
         .always(function(data){
           $scope.profile = data;
@@ -235,7 +246,7 @@
     }
 
     $scope.productos = {}
-    feedService.byUser(auth.profile.user_id)
+    feedService.byUser($scope.profile.user_id)
       .always(function(data){
         $scope.productos = data;
       });
