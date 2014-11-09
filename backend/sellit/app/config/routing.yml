@@ -1,3 +1,7 @@
+productos_calificacion:
+    resource: "@ProductosCalificacionBundle/Resources/config/routing.yml"
+    prefix:   /
+
 seguidores_manager:
     resource: "@SeguidoresManagerBundle/Resources/config/routing.yml"
     prefix:   /

@@ -1,0 +1,10 @@
+productos_calificacion_calificar:
+    path:     /productos/calificacion/calificar/post
+    defaults: { _controller: ProductosCalificacionBundle:Default:calificar }
+    methods:  [POST]
+
+
+productos_calificacion_consultar:
+    path:     /productos/calificacion/get/{idproducto}
+    defaults: { _controller: ProductosCalificacionBundle:Default:getCalificacion, idproducto: null }
+    methods:  [GET]
