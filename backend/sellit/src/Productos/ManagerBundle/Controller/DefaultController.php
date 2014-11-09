@@ -79,17 +79,10 @@ class DefaultController extends Controller {
                 $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findAll();
             }
             
-            
-            $alterArr = array();
-            foreach($vendedor as $v) {
-                array_push($alterArr, $v->getId());
-            }
-
             if (!is_null($vendedor)) {
                 $json = array();
 
-
-                $products = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+            /*    $products = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
                         ->from('ProductosManagerBundle:Producto', 's')
                         ->where('s.idUsuario IN (:usuarios)')
                         ->setParameter('usuarios', $alterArr)
@@ -98,7 +91,7 @@ class DefaultController extends Controller {
                         ->setFirstResult($offset)
                         ->getResult();
                 
-                var_dump($products); exit;
+                var_dump($products); exit;*/
 
                 if (is_array($vendedor)) {
                     foreach ($vendedor as $v) {
@@ -289,8 +282,21 @@ class DefaultController extends Controller {
     }
 
     public static function file_to_base64($inputFile) {
-        $content = file_get_contents($inputFile);
-        return base64_encode($content);
+
+        if(is_file($inputFile)){
+            try{
+                $content = file_get_contents($inputFile);         
+            } catch(Symfony\Component\HttpKernel\Exception $ex) {
+                echo $ex->getMessage();
+                exit;
+            }              
+    
+            return base64_encode($content);
+    
+        } else { 
+            return null;
+        }
+
     }
 
     public function contarProductosAction($idVendedor) {

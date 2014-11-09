@@ -113,10 +113,26 @@
       })
     }
 
+    function byFollower(id){
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'productos/listarvendedor/'+ id +'/100/0/true/desc',
+        async: false
+      })
+    }
+
     function preferences(){
       return $.ajax({
         type: 'GET',
         url: URL+'productos/listarcategorias',
+        async: false
+      })
+    }
+
+    function addRating(){
+      return $.ajax({
+        type: 'POST',
+        url: URL +'',
         async: false
       })
     }
@@ -169,7 +185,9 @@
       range: range,
       publish: publish,
       addPreference : addPreference,
-      follow : addFollower
+      addfollow : addFollower,
+      byFollower: byFollower,
+      addRating : addRating
     }
   }]);
 })();
