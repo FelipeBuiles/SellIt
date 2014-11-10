@@ -17,22 +17,13 @@
         <span class="input-label">Description</span>
         <input type="text" placeholder="your product description" ng-model="product.description">
       </label>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Category
-        </div>
-        <select ng-model="product.category">
-          <option selected>Health and Beauty</option>
-          <option>Books</option>
-          <option>Videogames</option>
-          <option>Computers and Electronics</option>
-          <option>Home</option>
-          <option>Kids</option>
-          <option>Clothes and Shoes</option>
-          <option>Sports</option>
-          <option>Other</option>
-        </select>
-      </label>
+      <fancy-select
+        header-text="Choose a category"
+        allow-empty='false'
+        value="product.category"
+        text="product.textCategory"
+        items="categories">
+      </fancy-select>
       <label class="item item-input item-floating-label">
         <span class="input-label">Keywords</span>
         <input type="text" placeholder="your product's tags separated by commas" ng-model="product.tags">

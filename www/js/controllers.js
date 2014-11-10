@@ -183,6 +183,19 @@
   .controller('PublishController', function(store, $scope, $cordovaCamera, feedService) {
     $scope.picTaken = false;
     $scope.product = {};
+    $scope.categories =
+    [
+      {text:'Health and Beauty', id: 1, checked: false, icon: null},
+      {text:'Books', id: 2, checked: false, icon: null},
+      {text:'Videogames', id: 3, checked: false, icon: null},
+      {text:'Computers and Electronics', id: 4, checked: false, icon: null},
+      {text:'Home', id: 5, checked: false, icon: null},
+      {text:'Kids', id: 6, checked: false, icon: null},
+      {text:'Clothes and Shoes', id: 7, checked: false, icon: null},
+      {text:'Sports', id: 8, checked: false, icon: null},
+      {text:'Other', id: 9, checked: false, icon: null}
+    ];
+    $scope.product.textCategory = "Category";
     $scope.takePicture = function() {
       var options = {
           quality : 75,
@@ -227,8 +240,6 @@
       .then(function(data){
         $scope.followers = data;
       });
-
-    console.log($scope.followers);
 
     $scope.getProfile = function(index){
       sessionStorage.profileTemp = JSON.stringify($scope.followers[index]);
