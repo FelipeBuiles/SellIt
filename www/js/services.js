@@ -122,9 +122,6 @@
           images: i
         }
       })
-      .always(
-        $state.go('home.feed')
-      );
     }
 
     function byId(id){
@@ -201,6 +198,24 @@
       })
     }
 
+    function getBankInfo(idUsuario) {
+      var id = idUsuario.replace('|', '%7C');
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'usuarios/bancaria/get/'+id,
+        async: false
+      })
+    }
+
+    function setBankInfo(params) {
+      return $.ajax({
+        type: "POST",
+        url: URL + 'usuarios/bancaria/post',
+        async: false,
+        data: params
+      })
+    }
+
     return{
       all: all,
       login: login,
@@ -219,7 +234,9 @@
       byFollower: byFollower,
       getRating : getRating,
       following : following,
-      followers : followers
+      followers : followers,
+      getBankInfo : getBankInfo,
+      setBankInfo : setBankInfo
     }
   });
 })();

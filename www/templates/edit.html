@@ -8,6 +8,9 @@
   <ion-content>
     <div class="card"
       >
+      <div class="item item-divider">
+        Bank Info
+      </div>
       <label class="item item-input item-floating-label">
         <span class="input-label">Bank Name</span>
         <input type="text" placeholder="the bank where you have the account" ng-model="profile.bankName">
@@ -17,16 +20,24 @@
         <input type="text" placeholder="the account holder" ng-model="profile.accountHolder">
       </label>
       <label class="item item-input item-floating-label">
+        <span class="input-label">Account Type</span>
+        <input type="text" placeholder="the account type" ng-model="profile.accountType">
+      </label>
+      <label class="item item-input item-floating-label">
         <span class="input-label">Account Number</span>
         <input type="text" placeholder="your account number" ng-model="profile.accountNumber">
       </label>
       <label class="item item-input item-floating-label">
-        <span class="input-label">Transaction Detail</span>
-        <input type="text" placeholder="extra information" ng-model="profile.extraInfo">
+        <span class="input-label">City (optional)</span>
+        <input type="text" placeholder="your city (optional)" ng-model="profile.city">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Transaction Detail (optional)</span>
+        <input type="text" placeholder="extra information (optional)" ng-model="profile.extraInfo">
       </label>
     </div>
-    <button class="item button button-full button-positive" ng-click="updateLocation()">
-      Update information
+    <button class="item button button-full button-positive" ng-click="updateInfo()">
+      Update Bank information
     </button>
     <button class="item button button-full button-positive" ng-click="updateLocation()">
       Update location
