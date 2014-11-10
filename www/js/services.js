@@ -92,6 +92,14 @@
       })
     }
 
+    function followers(idusuario){
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'seguidores/listarseguidos/{idusuario}',
+        async: false
+      })
+    }
+
     function publish(id, n, d, p, c, k, i) {
       return $.ajax({
         type: "POST",
@@ -144,10 +152,10 @@
       })
     }
 
-    function addRating(){
+    function getRating(idproducto){
       return $.ajax({
-        type: 'POST',
-        url: URL +'',
+        type: 'GET',
+        url: URL +'productos/calificacion/get/'+idproducto,
         async: false
       })
     }
@@ -203,6 +211,7 @@
       addFollower : addFollower,
       byFollower: byFollower,
       addRating : addRating,
+      getRating : getRating,
       following : following,
       followers : followers
     }

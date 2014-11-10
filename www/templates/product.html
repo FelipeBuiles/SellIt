@@ -1,5 +1,10 @@
-<ion-view hide-nav-bar="true">
-  <ion-content has-header="false">
+<ion-view title="{{product.nombre}}">
+  <ion-nav-buttons side="left">
+      <a class="button icon-left ion-chevron-left button-clear" ng-click="goBack()">
+        Back
+      </a>
+    </ion-nav-buttons>
+  <ion-content >
     <div>
       <figure id="productImage">
         <div class="imageFeed">

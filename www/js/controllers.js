@@ -46,7 +46,8 @@
       {nombre:'Home', id: 5, value: false},
       {nombre:'Kids', id: 6, value: false},
       {nombre:'Clothes and Shoes', id: 7, value: false},
-      {nombre:'Sports', id: 8, value: false}
+      {nombre:'Sports', id: 8, value: false},
+      {nombre:'Other', id: 9, value: false}
     ];
 
     $scope.array = [];
@@ -109,7 +110,9 @@
     };
   })
 
-  .controller('ProductController', function(store, $scope, $stateParams, $window, auth, feedService, $ionicModal){
+  .controller('ProductController', function(store, $scope, $stateParams,
+    $window, auth, feedService, $ionicModal, $ionicPlatform, $location,
+    $timeout, $ionicNavBarDelegate){
     if(auth.profile === undefined){
       $scope.profile = store.get('profile');
     }else{
@@ -126,12 +129,54 @@
         $scope.own = (data.id_usuario.name == $scope.profile.name);
       });
 
+    $scope.picked = {};
+    $scope.salesmanInfo = {};
+    var timeoutId = null;
+    $scope.offer = { 'value' : $scope.product.precio };
+    $scope.center = { lat: 47.55633987116614, lon: 7.576619513223015 };
+    $scope.paymentOptions = [
+      {name:'Face to face', id: 1},
+      {name:'Bank deposit', id: 2},
+      {name:'Haggle', id: 3}
+    ];
+    $ionicPlatform.ready(function() {
+    	navigator.geolocation.getCurrentPosition(function(position) {
+        $scope.position=position;
+        var c = position.coords;
+        $scope.gotoLocation(c.latitude, c.longitude);
+        $scope.$apply();
+      },
+      function(e) {
+        console.log("Error retrieving position " + e.code + " " + e.message) });
+        $scope.gotoLocation = function (lat, lon) {
+          if ($scope.lat != lat || $scope.lon != lon) {
+            $scope.center = { lat: lat, lon: lon };
+            if (!$scope.$$phase) $scope.$apply("center");
+        }
+      };
+
+      // some points of interest to show on the map
+      // to be user as markers, objects should have "lat", "lon", and "name" properties
+      $scope.vendedorLoc = [
+          { "name": "My Marker", "lat": $scope.center.lat, "lon": $scope.center.lon },
+      ];
+
+    });
+
     $ionicModal.fromTemplateUrl('templates/buy-modal.html', function($ionicModal) {
         $scope.modal = $ionicModal;
     }, {
         scope: $scope,
         animation: 'slide-in-up'
     });
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
+
+    $scope.sendOffer = function() {
+      console.log($scope.product);
+    }
   })
 
   .controller('PublishController', function(store, $scope, $cordovaCamera, feedService) {
@@ -193,7 +238,7 @@
 
   .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
     $scope.profile = {};
-    if($state.params.id != auth.profile.user_id){
+    if($state.params.id != store.get('profile').user_id){
       feedService.getUserInfo($state.params.id)//servicio no existe
         .always(function(data){
           $scope.profile = data;
@@ -232,8 +277,8 @@
       store.remove('token');
     }
 
-    $scope.productos = {};
-    feedService.byUser(auth.profile.user_id)
+    $scope.productos = {}
+    feedService.byUser($scope.profile.user_id)
       .always(function(data){
         $scope.productos = data;
       });
