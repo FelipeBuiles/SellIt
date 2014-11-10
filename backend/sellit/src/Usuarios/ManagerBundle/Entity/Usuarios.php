@@ -15,23 +15,35 @@ class Usuarios
     private $id;
 
     /**
-     * @var integer
+     * @var string
      */
     private $idFront;
 
+    /**
+     * @var string
+     */
+    private $nombre;
 
     /**
-     * Set id
-     *
-     * @param integer $id
-     * @return Usuarios
+     * @var \DateTime
      */
-    public function setId($id)
-    {
-        $this->id = $id;
+    private $fechaRegistro;
 
-        return $this;
-    }
+    /**
+     * @var string
+     */
+    private $rutaAvatar;
+
+    /**
+     * @var float
+     */
+    private $latitud;
+
+    /**
+     * @var float
+     */
+    private $longitud;
+
 
     /**
      * Get id
@@ -46,7 +58,7 @@ class Usuarios
     /**
      * Set idFront
      *
-     * @param integer $idFront
+     * @param string $idFront
      * @return Usuarios
      */
     public function setIdFront($idFront)
@@ -59,22 +71,12 @@ class Usuarios
     /**
      * Get idFront
      *
-     * @return integer 
+     * @return string 
      */
     public function getIdFront()
     {
         return $this->idFront;
     }
-    /**
-     * @var string
-     */
-    private $nombre;
-
-    /**
-     * @var \DateTime
-     */
-    private $fechaRegistro;
-
 
     /**
      * Set nombre
@@ -121,11 +123,6 @@ class Usuarios
     {
         return $this->fechaRegistro;
     }
-    /**
-     * @var string
-     */
-    private $rutaAvatar;
-
 
     /**
      * Set rutaAvatar
@@ -148,28 +145,6 @@ class Usuarios
     public function getRutaAvatar()
     {
         return $this->rutaAvatar;
-    }
-    /**
-     * @var float
-     */
-    private $latitud;
-
-    /**
-     * @var float
-     */
-    private $longitud;
-
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $idcategoria;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->idcategoria = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -216,38 +191,5 @@ class Usuarios
     public function getLongitud()
     {
         return $this->longitud;
-    }
-
-    /**
-     * Add idcategoria
-     *
-     * @param \Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria
-     * @return Usuarios
-     */
-    public function addIdcategorium(\Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria)
-    {
-        $this->idcategoria[] = $idcategoria;
-
-        return $this;
-    }
-
-    /**
-     * Remove idcategoria
-     *
-     * @param \Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria
-     */
-    public function removeIdcategorium(\Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria)
-    {
-        $this->idcategoria->removeElement($idcategoria);
-    }
-
-    /**
-     * Get idcategoria
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getIdcategoria()
-    {
-        return $this->idcategoria;
     }
 }

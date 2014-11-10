@@ -22,8 +22,8 @@
         data: { id: id, nombre: n, ruta_avatar: r },
         success: function(data) {
           if(data.message == "The user already was in the database"){
-            //$state.go('preferences');
-            $state.go('home.feed');
+            $state.go('preferences');
+            //$state.go('home.feed');
           }else{
             $state.go('preferences');
           }
@@ -36,6 +36,10 @@
           }
         }
       });
+    }
+
+    function getProfile(){
+      return JSON.parse(sessionStorage.profileTemp);
     }
 
     function addPreference(idUsuario, idPreference){
@@ -53,10 +57,10 @@
     function suggestion(idPreference){
     return $.ajax({
       type: "POST",
-      url: URL + 'usuarios/'+idPreference+'/sugeridos',
+      url: URL + 'usuarios/preferencias/sugeridos',
       async: false,
         data: {
-          idcategoria : idPreference
+          preferencias : idPreference
         }
       })
     }
@@ -99,14 +103,6 @@
       return $.ajax({
         type: 'GET',
         url: URL+'seguidores/listarseguidores/'+idusuario,
-        async: false
-      })
-    }
-
-    function followers(idusuario){
-      return $.ajax({
-        type: 'GET',
-        url: URL + 'seguidores/listarseguidos/'+idusuario,
         async: false
       })
     }
@@ -192,8 +188,6 @@
 
       if(!comments){
         comments = [];
-      }else{
-        comments = JSON.parse(comments);
       }
 
       return comments;
@@ -211,6 +205,7 @@
       all: all,
       login: login,
       byId: byId,
+      getProfile : getProfile,
       profiles: profiles,
       byUser: byUser,
       count: count,

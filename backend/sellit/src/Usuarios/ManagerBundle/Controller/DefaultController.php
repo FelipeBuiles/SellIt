@@ -12,6 +12,26 @@ class DefaultController extends Controller {
     public function indexAction($name) {
         return $this->render('UsuariosManagerBundle:Default:index.html.twig', array('name' => $name));
     }
+    
+    public function getUsuarioAction($idusuario){
+        $response = new JsonResponse();
+        
+        $usuario = $this->getDoctrine()->getRepository('SeguidoresManagerBundle:Usuarios')->findOneBy(array('idFront' => $idusuario));
+        
+        if (is_null($usuario))
+            $this->sendErrorMsg('IDUSUARIO not exists');
+        
+        $json['id'] = $usuario->getIdFront();
+        $json['nombre'] = $usuario->getNombre();
+        $json['ruta_avatar'] = $usuario->getRutaAvatar();
+        $json['latitud'] = $usuario->getLatitud();
+        $json['longitud'] = $usuario->getLongitud();
+        
+        $response->setData($json);
+        $response->setStatusCode(200);
+        
+        return $response;
+    }
 
     public function validateOnLoginAction() {
         $request = $this->get('request');
@@ -32,7 +52,7 @@ class DefaultController extends Controller {
                 
             } catch (ORMException $ex) {
                 $errorResponse = new JsonResponse();
-                $errorResponse->setStatusCode(500);
+                $errorResponse->setStatusCode(200);
                 $errorResponse->setData(array('error' => 'An error ocurred while creating user', 'details' => $ex->getMessage(), 'code' => $ex->getCode()));
 
                 return $errorResponse;
@@ -84,6 +104,14 @@ class DefaultController extends Controller {
             return false;
         else
             return $key->getId();
+    }
+    
+    public function sendErrorMsg($msg) {
+        $response = new JsonResponse();
+        $response->setData(array('error' => $msg));
+        $response->setStatusCode(200);
+        $response->send();
+        exit;
     }
     
 }

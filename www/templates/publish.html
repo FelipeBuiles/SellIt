@@ -17,14 +17,13 @@
         <span class="input-label">Description</span>
         <input type="text" placeholder="your product description" ng-model="product.description">
       </label>
-      <label class="item item-input item-select">
-        <div class="input-label">
-          Category
-        </div>
-        <select ng-model="product.category">
-          <option ng-repeat="option in preferences">{{option.name}}</option>
-        </select>
-      </label>
+      <fancy-select
+        header-text="Choose a category"
+        allow-empty='false'
+        value="product.category"
+        text="product.textCategory"
+        items="categories">
+      </fancy-select>
       <label class="item item-input item-floating-label">
         <span class="input-label">Keywords</span>
         <input type="text" placeholder="your product's tags separated by commas" ng-model="product.tags">

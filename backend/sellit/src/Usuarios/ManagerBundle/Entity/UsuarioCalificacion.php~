@@ -12,6 +12,11 @@ class UsuarioCalificacion
     /**
      * @var integer
      */
+    private $id;
+
+    /**
+     * @var integer
+     */
     private $calificacion;
 
     /**
@@ -20,15 +25,20 @@ class UsuarioCalificacion
     private $comentario;
 
     /**
-     * @var integer
-     */
-    private $id;
-
-    /**
      * @var \Usuarios\ManagerBundle\Entity\Usuarios
      */
     private $idUsuario;
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set calificacion
@@ -74,16 +84,6 @@ class UsuarioCalificacion
     public function getComentario()
     {
         return $this->comentario;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

@@ -1,0 +1,63 @@
+Usuarios\ManagerBundle\Entity\ProductoPreguntas:
+    type: entity
+    table: producto_preguntas
+    indexes:
+        producto_fk_idx:
+            columns:
+                - id_producto
+        usuario_fk_idx:
+            columns:
+                - id_usuario
+        pregunta_fk_idx:
+            columns:
+                - id_respuesta_pregunta
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+    fields:
+        texto:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        tipo:
+            type: string
+            nullable: false
+            length: 2
+            fixed: false
+            comment: 'R para respuesta, P para pregunta'
+    manyToOne:
+        idRespuestaPregunta:
+            targetEntity: ProductoPreguntas
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_respuesta_pregunta:
+                    referencedColumnName: id
+            orphanRemoval: false
+    oneToOne:
+        idProducto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_producto:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

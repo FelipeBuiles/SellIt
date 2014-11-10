@@ -1,0 +1,32 @@
+Usuarios\ManagerBundle\Entity\Departamentos:
+    type: entity
+    table: departamentos
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        idDane:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: ''
+            column: id_dane
+        nombre:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: ''
+        activo:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
+    lifecycleCallbacks: {  }

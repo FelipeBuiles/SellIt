@@ -23,8 +23,9 @@
     $scope.profiles = {};
     $scope.suggestions = {};
     $scope.preferences = store.get('listarPreferencias');
+    console.log($scope.preferences);
     feedService.suggestion($scope.preferences)
-      .then(function(data){
+      .always(function(data){
         $scope.profiles = data;
         for(i = 0 ; i < $scope.profiles.length; i++){
         $scope.profiles[i].followText = "follow";
@@ -56,7 +57,7 @@
           $scope.array[$scope.array.length] = $scope.preferences[i].id;
         }
       }
-      store.set('listaPreferencias', $scope.array);
+      store.set('listarPreferencias', $scope.array);
       feedService.addPreference(store.get('profile').user_id, $scope.array);
 
       console.log($scope.array);
@@ -158,7 +159,7 @@
       // some points of interest to show on the map
       // to be user as markers, objects should have "lat", "lon", and "name" properties
       $scope.vendedorLoc = [
-          { "name": "My Marker", "lat": $scope.center.lat, "lon": $scope.center.lon },
+          { "name": "Yo!", "lat": $scope.center.lat, "lon": $scope.center.lon },
       ];
 
     });
@@ -182,17 +183,19 @@
   .controller('PublishController', function(store, $scope, $cordovaCamera, feedService) {
     $scope.picTaken = false;
     $scope.product = {};
-    $scope.preferences = [
-      {nombre:'Health and Beauty', id: 1},
-      {nombre:'Books', id: 2},
-      {nombre:'Videogames', id: 3},
-      {nombre:'Computers and Electronics', id: 4},
-      {nombre:'Home', id: 5},
-      {nombre:'Kids', id: 6},
-      {nombre:'Clothes and Shoes', id: 7},
-      {nombre:'Sports', id: 8},
-      {nombre:'Other', id: 9}
+    $scope.categories =
+    [
+      {text:'Health and Beauty', id: 1, checked: false, icon: null},
+      {text:'Books', id: 2, checked: false, icon: null},
+      {text:'Videogames', id: 3, checked: false, icon: null},
+      {text:'Computers and Electronics', id: 4, checked: false, icon: null},
+      {text:'Home', id: 5, checked: false, icon: null},
+      {text:'Kids', id: 6, checked: false, icon: null},
+      {text:'Clothes and Shoes', id: 7, checked: false, icon: null},
+      {text:'Sports', id: 8, checked: false, icon: null},
+      {text:'Other', id: 9, checked: false, icon: null}
     ];
+    $scope.product.textCategory = "Category";
     $scope.takePicture = function() {
       var options = {
           quality : 100,
@@ -232,27 +235,44 @@
     }
   })
 
-  .controller('FollowersController', function($scope, $state, $window,auth, feedService) {
-    $scope.followersProfile = {};
+  .controller('FollowersController', function($scope, $state, $window,auth, feedService, $ionicNavBarDelegate) {
+    $scope.followers = {};
     feedService.followers($state.params.id)
       .then(function(data){
-        $scope.followersProfile = data;
+        $scope.followers = data;
       });
+
+    $scope.getProfile = function(index){
+      sessionStorage.profileTemp = JSON.stringify($scope.followers[index]);
+    }
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
   })
 
-  .controller('FollowingController', function($scope, auth, $state, feedService){
-    $scope.followingProfiles = {};
+  .controller('FollowingController', function($scope, auth, $state, feedService, $ionicNavBarDelegate){
+    $scope.following = {};
     feedService.following($state.params.id)
       .then(function(data){
-        $scope.followingProfiles = data;
+        $scope.following = data;
       });
+
+    $scope.getProfile = function(index){
+      sessionStorage.profileTemp = JSON.stringify($scope.following[index]);
+    }
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
+
   })
 
-  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
+  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService, $ionicModal) {
     $scope.profile = {};
     if($state.params.id != store.get('profile').user_id){
-      feedService.getUserInfo($state.params.id)//servicio no existe
-        .always(function(data){
+      feedService.getProfile($state.params.id)
+        .then(function(data){
           $scope.profile = data;
         });
     }else{
@@ -265,6 +285,8 @@
       {name:'Products', id: 1},
       {name:'News', id: 2},
     ];
+
+    if(!$scope.profile) $scope.profile = store.get('profile');
 
     $scope.followersCounter;
     $scope.followingCounter;
@@ -283,7 +305,7 @@
     }
 
     $scope.showButton = function(){
-      return $state.params.id === auth.profile.user_id;
+      return $state.params.id === $scope.profile.user_id;
     }
 
     $scope.showGoals = function(){
@@ -296,13 +318,13 @@
       store.remove('token');
     }
 
-    $scope.productos = {}
-    feedService.byUser($scope.profile.user_id)
-      .always(function(data){
-        $scope.productos = data;
-      });
-  })
-  .controller('editProfileController', function($scope, $state, feedService, auth){
+    $ionicModal.fromTemplateUrl('templates/edit.html', function($ionicModal) {
+        $scope.modal = $ionicModal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up'
+    });
+
     $scope.publish = function (){
       feedService.extraInformation(auth.profile.user_id,
                                    $scope.profile.bankName,
@@ -310,9 +332,15 @@
                                    $scope.profile.accountNumber,
                                    $scope.profile.extraInfo)
      .always(
-       $state.go('profile')
+       modal.hide()
      );
     }
+
+    $scope.productos = {}
+    feedService.byUser($scope.profile.user_id)
+      .always(function(data){
+        $scope.productos = data;
+      });
   })
 
 })();

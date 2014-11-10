@@ -1,8 +1,14 @@
 <ion-view title="Following">
+  <ion-nav-buttons side="left">
+      <a class="button icon-left ion-chevron-left button-clear" ng-click="goBack()">
+        Back
+      </a>
+    </ion-nav-buttons>
   <ion-content>
     <div class="list">
         <a href="#/home/profile/{{profile.id}}" class="item item-thumbnail-left"
-            ng-repeat="profile in followingProfiles">
+            ng-repeat="profile in followingProfiles"
+            ng-click= "getProfile($index)">
           <img src="{{profile.ruta_avatar}}">
           <h2>{{profile.nombre}}</h2>
           <p>Back off, man. I'm a scientist.</p>

@@ -121,7 +121,7 @@ class SeguirController extends Controller {
     public function sendErrorMsg($msg) {
         $response = new JsonResponse();
         $response->setData(array('error' => $msg));
-        $response->setStatusCode(500);
+        $response->setStatusCode(200);
         $response->send();
         exit;
     }

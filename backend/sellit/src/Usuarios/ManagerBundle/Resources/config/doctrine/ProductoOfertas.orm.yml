@@ -1,0 +1,59 @@
+Usuarios\ManagerBundle\Entity\ProductoOfertas:
+    type: entity
+    table: producto_ofertas
+    indexes:
+        producto_oferta_fk_idx:
+            columns:
+                - id_producto
+        usuario_oferta_fk:
+            columns:
+                - id_usuario
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        oferta:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: 'Dinero a ofertar'
+        comentarios:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        estadoOferta:
+            type: string
+            nullable: true
+            length: 45
+            fixed: false
+            comment: 'A = Aceptada'
+            column: estado_oferta
+    manyToOne:
+        idProducto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_producto:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,81 @@
+Usuarios\ManagerBundle\Entity\Producto:
+    type: entity
+    table: producto
+    indexes:
+        categoria_fk_idx:
+            columns:
+                - id_categoria
+        estado_fk_idx:
+            columns:
+                - id_estado
+        usuario_fk_idx:
+            columns:
+                - id_usuario
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        nombre:
+            type: string
+            nullable: false
+            length: 80
+            fixed: false
+            comment: ''
+        descripcion:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        precio:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+        activo:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
+        fechaPublicacion:
+            type: datetime
+            nullable: true
+            comment: ''
+            default: CURRENT_TIMESTAMP
+            column: fecha_publicacion
+    manyToOne:
+        idCategoria:
+            targetEntity: CategoriaProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_categoria:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idEstado:
+            targetEntity: EstadosProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_estado:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
