@@ -23,8 +23,9 @@
     $scope.profiles = {};
     $scope.suggestions = {};
     $scope.preferences = store.get('listarPreferencias');
+    console.log($scope.preferences);
     feedService.suggestion($scope.preferences)
-      .then(function(data){
+      .always(function(data){
         $scope.profiles = data;
         for(i = 0 ; i < $scope.profiles.length; i++){
         $scope.profiles[i].followText = "follow";
@@ -56,7 +57,7 @@
           $scope.array[$scope.array.length] = $scope.preferences[i].id;
         }
       }
-      store.set('listaPreferencias', $scope.array);
+      store.set('listarPreferencias', $scope.array);
       feedService.addPreference(store.get('profile').user_id, $scope.array);
 
       console.log($scope.array);
@@ -220,20 +221,28 @@
     }
   })
 
-  .controller('FollowersController', function($scope, $state, $window,auth, feedService) {
+  .controller('FollowersController', function($scope, $state, $window,auth, feedService, $ionicNavBarDelegate) {
     $scope.followersProfile = {};
     feedService.followers($state.params.id)
       .then(function(data){
         $scope.followersProfile = data;
       });
+
+      $scope.goBack = function() {
+        $ionicNavBarDelegate.back();
+      }
   })
 
-  .controller('FollowingController', function($scope, auth, $state, feedService){
+  .controller('FollowingController', function($scope, auth, $state, feedService, $ionicNavBarDelegate){
     $scope.followingProfiles = {};
     feedService.following($state.params.id)
       .then(function(data){
         $scope.followingProfiles = data;
       });
+
+      $scope.goBack = function() {
+        $ionicNavBarDelegate.back();
+      }
   })
 
   .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
