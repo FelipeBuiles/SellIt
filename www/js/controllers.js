@@ -110,7 +110,7 @@
     };
   })
 
-  .controller('ProductController', function(store, $scope, $stateParams, $window, auth, feedService, $ionicModal){
+  .controller('ProductController', function(store, $scope, $stateParams, $window, auth, feedService, $ionicModal, $ionicNavBarDelegate){
     if(auth.profile === undefined){
       $scope.profile = store.get('profile');
     }else{
@@ -140,6 +140,10 @@
         scope: $scope,
         animation: 'slide-in-up'
     });
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
 
     $scope.sendOffer = function() {
       console.log($scope.paymentOptions);

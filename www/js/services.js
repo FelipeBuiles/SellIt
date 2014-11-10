@@ -145,10 +145,10 @@
       })
     }
 
-    function addRating(){
+    function getRating(idproducto){
       return $.ajax({
-        type: 'POST',
-        url: URL +'',
+        type: 'GET',
+        url: URL +'productos/calificacion/get/'+idproducto,
         async: false
       })
     }
@@ -203,7 +203,7 @@
       addPreference : addPreference,
       addFollower : addFollower,
       byFollower: byFollower,
-      addRating : addRating,
+      getRating : getRating,
       followingProfiles : followingProfiles,
       followers : followers
     }
