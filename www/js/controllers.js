@@ -126,14 +126,14 @@
     feedService.byId($scope.idProduct)
       .always(function(data){
         $scope.product = data;
-        $scope.own = (data.id_usuario.name == $scope.profile.name);
+        $scope.own = (data.id_usuario.id_front == $scope.profile.user_id);
       });
 
     $scope.picked = {};
     $scope.salesmanInfo = {};
     var timeoutId = null;
     $scope.offer = { 'value' : $scope.product.precio };
-    $scope.center = { lat: 47.55633987116614, lon: 7.576619513223015 };
+    $scope.center = { lat: 6.230833, lon: -75.59055599999999 };
     $scope.paymentOptions = [
       {name:'Face to face', id: 1},
       {name:'Bank deposit', id: 2},

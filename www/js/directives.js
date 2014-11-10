@@ -183,6 +183,7 @@
                 //console.log("map: make marker for " + m.name);
                 google.maps.event.addListener(mm, 'click', markerCb(mm, m, loc));
                 currentMarkers.push(mm);
+                map.setCenter(loc);
                 }
               }
             }

@@ -17,7 +17,7 @@
         </ion-radio>
     </div>
     <app-map style="height:400px;margin:12px;box-shadow:0 3px 25px black;"
-        center="basel"
+        center="center"
         zoom="15"
         markers="vendedorLoc"
         ng-if="picked.value == 1"
@@ -33,7 +33,7 @@
         información bancaria
       </div>
     </div>
-    <div class="card"
+    <div class="card item"
       ng-show="picked.value == 3"
       >
       <div class="range range-positive">
@@ -44,8 +44,10 @@
         <input type="number" value="{{offer.value}}">
       </div>
       <br>
-      <label class="padding">Because</label>
-      <input class="padding" type="text" placeholder="reasons">
+      <label class="item-input item-stacked-label">
+        <span class="input-label">Because</span>
+        <input type="text" placeholder="reasons" ng-model="offer.description">
+      </label>
     </div>
   </ion-content>
   <a ng-click="sendOffer()" id="buttonContainer">
