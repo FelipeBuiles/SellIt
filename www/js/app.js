@@ -94,6 +94,11 @@
         templateUrl: 'templates/following.html',
         controller: 'FollowingController'
       })
+      .state('editProfile', {
+        url: '/profile/edit',
+        templateUrl: 'templates/edit.html',
+        controller: 'editProfileController'
+      })
 
       $urlRouterProvider.otherwise("/");
 

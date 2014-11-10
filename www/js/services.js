@@ -1,6 +1,5 @@
 (function(){
   var URL = "http://sellit.apps.medehost.com/app_dev.php/";
-  //sellit.apps.medehost.com/app_dev.php/productos/listarvendedor/{idvendedor}/{limit}/{offset}/{include_images}/{orderASC}
 
   angular.module('sellit.services', [])
 
@@ -23,8 +22,8 @@
         data: { id: id, nombre: n, ruta_avatar: r },
         success: function(data) {
           if(data.message == "The user already was in the database"){
-            $state.go('preferences');
-            //$state.go('home.feed');
+            //$state.go('preferences');
+            $state.go('home.feed');
           }else{
             $state.go('preferences');
           }
@@ -77,10 +76,18 @@
       // return deferred.promise;
     }
 
-    function followingProfiles(idusuario){
+    function following(idusuario){
       return $.ajax({
         type: 'GET',
-        url: URL + 'seguidores/listarseguidores/{idusuario}',
+        url: URL+'seguidores/listarseguidos/'+idusuario,
+        async: false
+      })
+    }
+
+    function followers(idusuario){
+      return $.ajax({
+        type: 'GET',
+        url: URL+'seguidores/listarseguidores/'+idusuario,
         async: false
       })
     }
@@ -196,7 +203,8 @@
       addFollower : addFollower,
       byFollower: byFollower,
       addRating : addRating,
-      followingProfiles : followingProfiles
+      following : following,
+      followers : followers
     }
   });
 })();

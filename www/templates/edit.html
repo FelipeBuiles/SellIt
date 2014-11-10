@@ -1,0 +1,25 @@
+<ion-view title="Edit Profile">
+  <ion-content>
+    <div class="list card">
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Bank Name</span>
+        <input type="text" placeholder="the bank where you have the account" ng-model="profile.bankName">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Account Holder</span>
+        <input type="text" placeholder="the holder account" ng-model="profile.accountHolder">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Account Number</span>
+        <input type="text" placeholder="your number account" ng-model="profile.accountNumber">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Transaction Detail</span>
+        <textarea type="text" placeholder="the extra information for the transaction" rows="3" ng-model="profile.extraInfo">
+      </label>
+    </div>
+  </ion-content>
+  <figure class="updatePosition">Update position</figure>
+  <article class="ion-paper-airplane publishButton" ng-click="publish()">
+  </article>
+</ion-view>

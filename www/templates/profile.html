@@ -27,9 +27,11 @@
         </div>
       </div>
       <div class="row ng-hide" ng-show="showSection()">
-        <figure class="ng-hide" ng-show="showButton()" id="editProfile">
-          Edit profile
-        </figure>
+        <a href="#/profile/edit">
+          <figure class="ng-hide" ng-show="showButton()" id="editProfile">
+            Edit profile
+          </figure>
+        </a>
         <section class="ng-hide showGoals" ng-show="showGoals()">
           <span>{{profile.goals.description}}</span>
           <figure>{{profile.goals.moneyGoal}}</figure>
