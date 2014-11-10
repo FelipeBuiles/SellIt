@@ -20,8 +20,8 @@ class BancariaController extends Controller {
         $nombre_titular = $data['nombre_titular'];
         $tipo_cuenta = $data['tipo_cuenta'];
         $numero_cuenta = $data['numero_cuenta'];
-        $ciudad_titular = $data['ciudad_titular'];
-        $informacion_extra = $data['informacion_extra'];
+        $ciudad_titular = (isset($data['ciudad_titular'])) ? $data['ciudad_titular'] : null;
+        $informacion_extra = (isset($data['informacion_extra'])) ? $data['informacion_extra'] : null;
 
         if (empty($idusuario) || empty($nombre_banco) || empty($nombre_titular) || empty($tipo_cuenta) || empty($numero_cuenta))
             $this->sendErrorMsg('IDUSUARIO,NOMBRE_BANCO, NOMBRE_TITULAR, TIPO_CUENTA. NUMERO_CUENTA cant be null or empty');
@@ -41,12 +41,16 @@ class BancariaController extends Controller {
             $banco->setIdusuario($usuario);
         }
 
-        $banco->setNombreBanco($nombreBanco);
-        $banco->setNombreTitular($nombreTitular);
-        $banco->setNumeroCuenta($numeroCuenta);
-        $banco->setTipoCuenta($tipoCuenta);
-        $banco->setCiudadTitular($ciudadTitular);
-        $banco->setInformacionExtra($informacionExtra);
+        $banco->setNombreBanco($nombre_banco);
+        $banco->setNombreTitular($nombre_titular);
+        $banco->setNumeroCuenta($numero_cuenta);
+        $banco->setTipoCuenta($tipo_cuenta);
+
+        if (!is_null($ciudad_titular))
+            $banco->setCiudadTitular($ciudad_titular);
+
+        if (!is_null($informacion_extra))
+            $banco->setInformacionExtra($informacion_extra);
 
         try {
             $em = $this->getDoctrine()->getManager();
