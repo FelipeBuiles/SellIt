@@ -182,14 +182,25 @@
   .controller('PublishController', function(store, $scope, $cordovaCamera, feedService) {
     $scope.picTaken = false;
     $scope.product = {};
+    $scope.preferences = [
+      {nombre:'Health and Beauty', id: 1},
+      {nombre:'Books', id: 2},
+      {nombre:'Videogames', id: 3},
+      {nombre:'Computers and Electronics', id: 4},
+      {nombre:'Home', id: 5},
+      {nombre:'Kids', id: 6},
+      {nombre:'Clothes and Shoes', id: 7},
+      {nombre:'Sports', id: 8},
+      {nombre:'Other', id: 9}
+    ];
     $scope.takePicture = function() {
       var options = {
-          quality : 75,
+          quality : 100,
           destinationType : Camera.DestinationType.DATA_URL,
           sourceType : Camera.PictureSourceType.CAMERA,
           allowEdit : true,
-          targetWidth: 500,
-          targetHeight: 500,
+          targetWidth: 1000,
+          targetHeight: 1000,
           correctOrientation: true,
           encodingType: Camera.EncodingType.JPEG,
           saveToPhotoAlbum: false
@@ -205,7 +216,8 @@
     }
 
     $scope.publish = function() {
-      feedService.publish(
+      console.log($scope.product);
+      /*feedService.publish(
         store.get('profile').user_id,
         $scope.product.name,
         $scope.product.description,
@@ -216,7 +228,7 @@
       )
       .always(
         $state.go('home.feed')
-      );
+      );*/
     }
   })
 

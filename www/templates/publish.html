@@ -22,15 +22,7 @@
           Category
         </div>
         <select ng-model="product.category">
-          <option selected>Health and Beauty</option>
-          <option>Books</option>
-          <option>Videogames</option>
-          <option>Computers and Electronics</option>
-          <option>Home</option>
-          <option>Kids</option>
-          <option>Clothes and Shoes</option>
-          <option>Sports</option>
-          <option>Other</option>
+          <option ng-repeat="option in preferences">{{option.name}}</option>
         </select>
       </label>
       <label class="item item-input item-floating-label">
