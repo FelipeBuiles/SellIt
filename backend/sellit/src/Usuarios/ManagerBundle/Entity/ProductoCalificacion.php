@@ -5,9 +5,9 @@ namespace Usuarios\ManagerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UsuarioCalificacion
+ * ProductoCalificacion
  */
-class UsuarioCalificacion
+class ProductoCalificacion
 {
     /**
      * @var integer
@@ -20,14 +20,14 @@ class UsuarioCalificacion
     private $calificacion;
 
     /**
-     * @var string
+     * @var \Usuarios\ManagerBundle\Entity\Producto
      */
-    private $comentario;
+    private $idproducto;
 
     /**
      * @var \Usuarios\ManagerBundle\Entity\Usuarios
      */
-    private $idUsuario;
+    private $idusuario;
 
 
     /**
@@ -44,7 +44,7 @@ class UsuarioCalificacion
      * Set calificacion
      *
      * @param integer $calificacion
-     * @return UsuarioCalificacion
+     * @return ProductoCalificacion
      */
     public function setCalificacion($calificacion)
     {
@@ -64,48 +64,48 @@ class UsuarioCalificacion
     }
 
     /**
-     * Set comentario
+     * Set idproducto
      *
-     * @param string $comentario
-     * @return UsuarioCalificacion
+     * @param \Usuarios\ManagerBundle\Entity\Producto $idproducto
+     * @return ProductoCalificacion
      */
-    public function setComentario($comentario)
+    public function setIdproducto(\Usuarios\ManagerBundle\Entity\Producto $idproducto = null)
     {
-        $this->comentario = $comentario;
+        $this->idproducto = $idproducto;
 
         return $this;
     }
 
     /**
-     * Get comentario
+     * Get idproducto
      *
-     * @return string 
+     * @return \Usuarios\ManagerBundle\Entity\Producto 
      */
-    public function getComentario()
+    public function getIdproducto()
     {
-        return $this->comentario;
+        return $this->idproducto;
     }
 
     /**
-     * Set idUsuario
+     * Set idusuario
      *
-     * @param \Usuarios\ManagerBundle\Entity\Usuarios $idUsuario
-     * @return UsuarioCalificacion
+     * @param \Usuarios\ManagerBundle\Entity\Usuarios $idusuario
+     * @return ProductoCalificacion
      */
-    public function setIdUsuario(\Usuarios\ManagerBundle\Entity\Usuarios $idUsuario = null)
+    public function setIdusuario(\Usuarios\ManagerBundle\Entity\Usuarios $idusuario = null)
     {
-        $this->idUsuario = $idUsuario;
+        $this->idusuario = $idusuario;
 
         return $this;
     }
 
     /**
-     * Get idUsuario
+     * Get idusuario
      *
      * @return \Usuarios\ManagerBundle\Entity\Usuarios 
      */
-    public function getIdUsuario()
+    public function getIdusuario()
     {
-        return $this->idUsuario;
+        return $this->idusuario;
     }
 }

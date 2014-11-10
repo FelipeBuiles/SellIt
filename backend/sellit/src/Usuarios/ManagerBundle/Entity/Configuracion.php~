@@ -10,6 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 class Configuracion
 {
     /**
+     * @var integer
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $configuracion;
@@ -19,11 +24,16 @@ class Configuracion
      */
     private $valor;
 
-    /**
-     * @var integer
-     */
-    private $id;
 
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Set configuracion
@@ -69,15 +79,5 @@ class Configuracion
     public function getValor()
     {
         return $this->valor;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

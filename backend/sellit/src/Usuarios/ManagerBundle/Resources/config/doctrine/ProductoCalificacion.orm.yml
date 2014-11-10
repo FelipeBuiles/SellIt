@@ -1,0 +1,45 @@
+Usuarios\ManagerBundle\Entity\ProductoCalificacion:
+    type: entity
+    table: producto_calificacion
+    indexes:
+        calificacion_producto_idx:
+            columns:
+                - idproducto
+        calificacion_usuario_idx:
+            columns:
+                - idusuario
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        calificacion:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+    manyToOne:
+        idproducto:
+            targetEntity: Producto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idproducto:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idusuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idusuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

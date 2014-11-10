@@ -5,9 +5,9 @@ namespace Usuarios\ManagerBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * UsuarioPreferencias
+ * UsuarioSeguidores
  */
-class UsuarioPreferencias
+class UsuarioSeguidores
 {
     /**
      * @var integer
@@ -15,9 +15,9 @@ class UsuarioPreferencias
     private $id;
 
     /**
-     * @var \Usuarios\ManagerBundle\Entity\CategoriaProducto
+     * @var \Usuarios\ManagerBundle\Entity\Usuarios
      */
-    private $idcategoria;
+    private $idseguido;
 
     /**
      * @var \Usuarios\ManagerBundle\Entity\Usuarios
@@ -36,33 +36,33 @@ class UsuarioPreferencias
     }
 
     /**
-     * Set idcategoria
+     * Set idseguido
      *
-     * @param \Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria
-     * @return UsuarioPreferencias
+     * @param \Usuarios\ManagerBundle\Entity\Usuarios $idseguido
+     * @return UsuarioSeguidores
      */
-    public function setIdcategoria(\Usuarios\ManagerBundle\Entity\CategoriaProducto $idcategoria = null)
+    public function setIdseguido(\Usuarios\ManagerBundle\Entity\Usuarios $idseguido = null)
     {
-        $this->idcategoria = $idcategoria;
+        $this->idseguido = $idseguido;
 
         return $this;
     }
 
     /**
-     * Get idcategoria
+     * Get idseguido
      *
-     * @return \Usuarios\ManagerBundle\Entity\CategoriaProducto 
+     * @return \Usuarios\ManagerBundle\Entity\Usuarios 
      */
-    public function getIdcategoria()
+    public function getIdseguido()
     {
-        return $this->idcategoria;
+        return $this->idseguido;
     }
 
     /**
      * Set idusuario
      *
      * @param \Usuarios\ManagerBundle\Entity\Usuarios $idusuario
-     * @return UsuarioPreferencias
+     * @return UsuarioSeguidores
      */
     public function setIdusuario(\Usuarios\ManagerBundle\Entity\Usuarios $idusuario = null)
     {

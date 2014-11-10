@@ -1,0 +1,39 @@
+Usuarios\ManagerBundle\Entity\UsuarioPreferencias:
+    type: entity
+    table: usuario_preferencias
+    indexes:
+        preferencia_idusuario_fk_idx:
+            columns:
+                - idusuario
+        preferencia_idcategoria_fk_idx:
+            columns:
+                - idcategoria
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idcategoria:
+            targetEntity: CategoriaProducto
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idcategoria:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idusuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idusuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

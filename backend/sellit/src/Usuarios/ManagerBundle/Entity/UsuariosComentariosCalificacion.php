@@ -15,14 +15,14 @@ class UsuariosComentariosCalificacion
     private $id;
 
     /**
+     * @var integer
+     */
+    private $idCalificacion;
+
+    /**
      * @var string
      */
     private $comentario;
-
-    /**
-     * @var \Usuarios\ManagerBundle\Entity\UsuarioCalificacion
-     */
-    private $idCalificacion;
 
 
     /**
@@ -49,6 +49,29 @@ class UsuariosComentariosCalificacion
     }
 
     /**
+     * Set idCalificacion
+     *
+     * @param integer $idCalificacion
+     * @return UsuariosComentariosCalificacion
+     */
+    public function setIdCalificacion($idCalificacion)
+    {
+        $this->idCalificacion = $idCalificacion;
+
+        return $this;
+    }
+
+    /**
+     * Get idCalificacion
+     *
+     * @return integer 
+     */
+    public function getIdCalificacion()
+    {
+        return $this->idCalificacion;
+    }
+
+    /**
      * Set comentario
      *
      * @param string $comentario
@@ -69,28 +92,5 @@ class UsuariosComentariosCalificacion
     public function getComentario()
     {
         return $this->comentario;
-    }
-
-    /**
-     * Set idCalificacion
-     *
-     * @param \Usuarios\ManagerBundle\Entity\UsuarioCalificacion $idCalificacion
-     * @return UsuariosComentariosCalificacion
-     */
-    public function setIdCalificacion(\Usuarios\ManagerBundle\Entity\UsuarioCalificacion $idCalificacion = null)
-    {
-        $this->idCalificacion = $idCalificacion;
-
-        return $this;
-    }
-
-    /**
-     * Get idCalificacion
-     *
-     * @return \Usuarios\ManagerBundle\Entity\UsuarioCalificacion 
-     */
-    public function getIdCalificacion()
-    {
-        return $this->idCalificacion;
     }
 }

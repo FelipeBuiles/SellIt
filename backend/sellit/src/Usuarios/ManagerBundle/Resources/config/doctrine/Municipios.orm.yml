@@ -1,0 +1,45 @@
+Usuarios\ManagerBundle\Entity\Municipios:
+    type: entity
+    table: municipios
+    indexes:
+        departamento_fk_idx:
+            columns:
+                - id_departamento
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        idDane:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: id_dane
+        nombre:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: ''
+        activo:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
+    manyToOne:
+        idDepartamento:
+            targetEntity: Departamentos
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_departamento:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
