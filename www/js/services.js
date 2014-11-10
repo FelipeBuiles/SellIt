@@ -85,6 +85,14 @@
       })
     }
 
+    function followers(idusuario){
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'seguidores/listarseguidos/{idusuario}',
+        async: false
+      })
+    }
+
     function publish(id, n, d, p, c, k, i) {
       return $.ajax({
         type: "POST",
@@ -196,7 +204,8 @@
       addFollower : addFollower,
       byFollower: byFollower,
       addRating : addRating,
-      followingProfiles : followingProfiles
+      followingProfiles : followingProfiles,
+      followers : followers
     }
   });
 })();
