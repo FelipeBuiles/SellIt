@@ -1,6 +1,6 @@
 <ion-modal-view>
-  <ion-header-bar>
-    <a class="button icon-left ion-chevron-left button-clear button-dark"
+  <ion-header-bar class="nav-title-slide-ios7 bar-positive navbarSellIt">
+    <a class="button icon-left ion-chevron-left button-clear"
         ng-click="modal.hide()">
       Back</a>
     <h1 class="title">Buy {{product.nombre}}</h1>
@@ -10,18 +10,46 @@
       <div class="item item-text-wrap">
         Choose a payment option:
       </div>
-      <label class="item item-radio"
-        ng-repeat="option in paymentOptions">
-        <input type="radio" name="group">
-        <div class="item-content">
-          {{option.name}}
-        </div>
-        <i class="radio-icon ion-checkmark"></i>
-      </label>
+      <ion-radio ng-repeat="item in paymentOptions"
+                   ng-value="item.id"
+                   ng-model="picked.value">
+          {{ item.name }}
+        </ion-radio>
+    </div>
+    <app-map style="height:400px;margin:12px;box-shadow:0 3px 25px black;"
+        center="basel"
+        zoom="15"
+        markers="vendedorLoc"
+        ng-if="picked.value == 1"
+      >
+    </app-map>
+    <div class="card"
+      ng-show="picked.value == 2"
+      >
+      <div class="item item-divider">
+        {{product.id_usuario.name}}
+      </div>
+      <div class="item item-text-wrap">
+        información bancaria
+      </div>
+    </div>
+    <div class="card"
+      ng-show="picked.value == 3"
+      >
+      <div class="range range-positive">
+        I'll give you:
+        <i class="icon ion-social-usd-outline"></i>
+        <input type="range" name="offer" min="0" max="{{product.precio}}" ng-model="offer.value">
+        <i class="icon ion-social-usd"></i>
+        <input type="number" value="{{offer.value}}">
+      </div>
+      <br>
+      <label class="padding">Because</label>
+      <input class="padding" type="text" placeholder="reasons">
     </div>
   </ion-content>
   <a ng-click="sendOffer()" id="buttonContainer">
-    <article id = "nextButton" class="ion-arrow-right-c">
+    <article id ="nextButton" class="ion-arrow-right-c">
     </article>
   </a>
 </ion-modal-view>

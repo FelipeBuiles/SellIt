@@ -109,7 +109,8 @@
     };
   })
 
-  .controller('ProductController', function(store, $scope, $stateParams, $window, auth, feedService, $ionicModal){
+  .controller('ProductController', function(store, $scope, $stateParams,
+    $window, auth, feedService, $ionicModal, $ionicPlatform, $location, $timeout){
     if(auth.profile === undefined){
       $scope.profile = store.get('profile');
     }else{
@@ -126,12 +127,39 @@
         $scope.own = (data.id_usuario.name == $scope.profile.name);
       });
 
-    $scope.paymentOption = {};
+    $scope.picked = {};
+    $scope.salesmanInfo = {};
+    var timeoutId = null;
+    $scope.offer = { 'value' : $scope.product.precio };
+    $scope.center = { lat: 47.55633987116614, lon: 7.576619513223015 };
     $scope.paymentOptions = [
-      {name:'Face to face', id: 1, value: false},
-      {name:'Bank deposit', id: 2, value: false},
-      {name:'Bargain', id: 3, value: false}
+      {name:'Face to face', id: 1},
+      {name:'Bank deposit', id: 2},
+      {name:'Haggle', id: 3}
     ];
+    $ionicPlatform.ready(function() {
+    	navigator.geolocation.getCurrentPosition(function(position) {
+        $scope.position=position;
+        var c = position.coords;
+        $scope.gotoLocation(c.latitude, c.longitude);
+        $scope.$apply();
+      },
+      function(e) {
+        console.log("Error retrieving position " + e.code + " " + e.message) });
+        $scope.gotoLocation = function (lat, lon) {
+          if ($scope.lat != lat || $scope.lon != lon) {
+            $scope.center = { lat: lat, lon: lon };
+            if (!$scope.$$phase) $scope.$apply("center");
+        }
+      };
+
+      // some points of interest to show on the map
+      // to be user as markers, objects should have "lat", "lon", and "name" properties
+      $scope.vendedorLoc = [
+          { "name": "My Marker", "lat": $scope.center.lat, "lon": $scope.center.lon },
+      ];
+
+    });
 
     $ionicModal.fromTemplateUrl('templates/buy-modal.html', function($ionicModal) {
         $scope.modal = $ionicModal;
@@ -141,7 +169,7 @@
     });
 
     $scope.sendOffer = function() {
-      console.log($scope.paymentOptions);
+      console.log($scope.product);
     }
   })
 
