@@ -159,7 +159,7 @@
       // some points of interest to show on the map
       // to be user as markers, objects should have "lat", "lon", and "name" properties
       $scope.vendedorLoc = [
-          { "name": "My Marker", "lat": $scope.center.lat, "lon": $scope.center.lon },
+          { "name": "Yo!", "lat": $scope.center.lat, "lon": $scope.center.lon },
       ];
 
     });
@@ -267,7 +267,7 @@
 
   })
 
-  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
+  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService, $ionicModal) {
     $scope.profile = {};
     if($state.params.id != store.get('profile').user_id){
       feedService.getProfile($state.params.id)
@@ -284,6 +284,8 @@
       {name:'Products', id: 1},
       {name:'News', id: 2},
     ];
+
+    if(!$scope.profile) $scope.profile = store.get('profile');
 
     $scope.followersCounter;
     $scope.followingCounter;
@@ -302,7 +304,7 @@
     }
 
     $scope.showButton = function(){
-      return $state.params.id === auth.profile.user_id;
+      return $state.params.id === $scope.profile.user_id;
     }
 
     $scope.showGoals = function(){
@@ -315,13 +317,13 @@
       store.remove('token');
     }
 
-    $scope.productos = {}
-    feedService.byUser($scope.profile.user_id)
-      .always(function(data){
-        $scope.productos = data;
-      });
-  })
-  .controller('editProfileController', function($scope, $state, feedService, auth){
+    $ionicModal.fromTemplateUrl('templates/edit.html', function($ionicModal) {
+        $scope.modal = $ionicModal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up'
+    });
+
     $scope.publish = function (){
       feedService.extraInformation(auth.profile.user_id,
                                    $scope.profile.bankName,
@@ -329,9 +331,15 @@
                                    $scope.profile.accountNumber,
                                    $scope.profile.extraInfo)
      .always(
-       $state.go('profile')
+       modal.hide()
      );
     }
+
+    $scope.productos = {}
+    feedService.byUser($scope.profile.user_id)
+      .always(function(data){
+        $scope.productos = data;
+      });
   })
 
 })();
