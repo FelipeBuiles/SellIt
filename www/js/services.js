@@ -38,6 +38,10 @@
       });
     }
 
+    function getProfile(){
+      return JSON.parse(sessionStorage.profileTemp);
+    }
+
     function addPreference(idUsuario, idPreference){
       return $.ajax({
         type: "POST",
@@ -99,14 +103,6 @@
       return $.ajax({
         type: 'GET',
         url: URL+'seguidores/listarseguidores/'+idusuario,
-        async: false
-      })
-    }
-
-    function followers(idusuario){
-      return $.ajax({
-        type: 'GET',
-        url: URL + 'seguidores/listarseguidos/'+idusuario,
         async: false
       })
     }
@@ -211,6 +207,7 @@
       all: all,
       login: login,
       byId: byId,
+      getProfile : getProfile,
       profiles: profiles,
       byUser: byUser,
       count: count,

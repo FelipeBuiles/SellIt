@@ -222,34 +222,45 @@
   })
 
   .controller('FollowersController', function($scope, $state, $window,auth, feedService, $ionicNavBarDelegate) {
-    $scope.followersProfile = {};
+    $scope.followers = {};
     feedService.followers($state.params.id)
       .then(function(data){
-        $scope.followersProfile = data;
+        $scope.followers = data;
       });
 
-      $scope.goBack = function() {
-        $ionicNavBarDelegate.back();
-      }
+    console.log($scope.followers);
+
+    $scope.getProfile = function(index){
+      sessionStorage.profileTemp = JSON.stringify($scope.followers[index]);
+    }
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
   })
 
   .controller('FollowingController', function($scope, auth, $state, feedService, $ionicNavBarDelegate){
-    $scope.followingProfiles = {};
+    $scope.following = {};
     feedService.following($state.params.id)
       .then(function(data){
-        $scope.followingProfiles = data;
+        $scope.following = data;
       });
 
-      $scope.goBack = function() {
-        $ionicNavBarDelegate.back();
-      }
+    $scope.getProfile = function(index){
+      sessionStorage.profileTemp = JSON.stringify($scope.following[index]);
+    }
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
+
   })
 
   .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService) {
     $scope.profile = {};
     if($state.params.id != store.get('profile').user_id){
-      feedService.getUserInfo($state.params.id)//servicio no existe
-        .always(function(data){
+      feedService.getProfile($state.params.id)
+        .then(function(data){
           $scope.profile = data;
         });
     }else{
