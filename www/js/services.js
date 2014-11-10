@@ -210,7 +210,6 @@
       addPreference : addPreference,
       addFollower : addFollower,
       byFollower: byFollower,
-      addRating : addRating,
       getRating : getRating,
       following : following,
       followers : followers
