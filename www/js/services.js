@@ -50,6 +50,17 @@
       })
     }
 
+    function suggestion(idPreference){
+    return $.ajax({
+      type: "POST",
+      url: URL + 'usuarios/'+idPreference+'/sugeridos',
+      async: false,
+        data: {
+          idcategoria : idPreference
+        }
+      })
+    }
+
     function addFollower(idUsuario, idFollow){
       return $.ajax({
         type: "POST",
@@ -208,6 +219,7 @@
       range: range,
       publish: publish,
       addPreference : addPreference,
+      suggestion : suggestion,
       addFollower : addFollower,
       byFollower: byFollower,
       getRating : getRating,

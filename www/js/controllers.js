@@ -22,13 +22,12 @@
     $scope.profile = auth.profile;
     $scope.profiles = {};
     $scope.suggestions = {};
-    feedService.profiles()
+    $scope.preferences = store.get('listarPreferencias');
+    feedService.suggestion($scope.preferences)
       .then(function(data){
         $scope.profiles = data;
         for(i = 0 ; i < $scope.profiles.length; i++){
-          //if($scope.profile.name != $scope.profiles[i].nombre){
         $scope.profiles[i].followText = "follow";
-          //}  //console.log($scope.profiles);
         }
       });
 
@@ -57,6 +56,7 @@
           $scope.array[$scope.array.length] = $scope.preferences[i].id;
         }
       }
+      store.set('listaPreferencias', $scope.array);
       feedService.addPreference(store.get('profile').user_id, $scope.array);
 
       console.log($scope.array);
@@ -246,6 +246,13 @@
     }else{
       $scope.profile = auth.profile;
     }
+    $scope.picked = {
+      value: 1
+    };
+    $scope.tabOptions = [
+      {name:'Products', id: 1},
+      {name:'News', id: 2},
+    ];
 
     $scope.followersCounter;
     $scope.followingCounter;
