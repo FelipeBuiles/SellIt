@@ -95,7 +95,7 @@
     function followers(idusuario){
       return $.ajax({
         type: 'GET',
-        url: URL + 'seguidores/listarseguidos/{idusuario}',
+        url: URL + 'seguidores/listarseguidos/'+idusuario,
         async: false
       })
     }
