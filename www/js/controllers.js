@@ -46,7 +46,8 @@
       {nombre:'Home', id: 5, value: false},
       {nombre:'Kids', id: 6, value: false},
       {nombre:'Clothes and Shoes', id: 7, value: false},
-      {nombre:'Sports', id: 8, value: false}
+      {nombre:'Sports', id: 8, value: false},
+      {nombre:'Other', id: 9, value: false}
     ];
 
     $scope.array = [];
@@ -110,7 +111,8 @@
   })
 
   .controller('ProductController', function(store, $scope, $stateParams,
-    $window, auth, feedService, $ionicModal, $ionicPlatform, $location, $timeout){
+    $window, auth, feedService, $ionicModal, $ionicPlatform, $location,
+    $timeout, $ionicNavBarDelegate){
     if(auth.profile === undefined){
       $scope.profile = store.get('profile');
     }else{
@@ -167,6 +169,10 @@
         scope: $scope,
         animation: 'slide-in-up'
     });
+
+    $scope.goBack = function() {
+      $ionicNavBarDelegate.back();
+    }
 
     $scope.sendOffer = function() {
       console.log($scope.product);

@@ -39,6 +39,7 @@
     </section>
     <section id= "productosProfile">
       <figure class= "card" ng-repeat= "producto in productos">
+        <a href="#/product/{{producto.id}}">
         <div class="imageContainer">
           <img src="data:image/jpeg;base64,{{producto.images[0]}}" />
         </div>
