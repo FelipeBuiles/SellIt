@@ -29,8 +29,23 @@
       <div class="item item-divider">
         {{product.id_usuario.name}}
       </div>
-      <div class="item item-text-wrap">
-        información bancaria
+      <div class="item">
+        <h2>Bank</h2><p>{{bankInfo.nombre_banco}}</p>
+      </div>
+      <div class="item">
+        <h2>Account Holder</h2><p>{{bankInfo.nombre_titular}}</p>
+      </div>
+      <div class="item">
+        <h2>Account Type</h2><p>{{bankInfo.tipo_cuenta}}</p>
+      </div>
+      <div class="item">
+        <h2>Account Number</h2><p>{{bankInfo.numero_cuenta}}</p>
+      </div>
+      <div class="item" ng-if="bankInfo.ciudad_titular">
+        <h2>City</h2><p>{{bankInfo.ciudad_titular}}</p>
+      </div>
+      <div class="item" ng-if="bankInfo.informacion_extra">
+        <h2>Extra info</h2><p>{{bankInfo.informacion_extra}}</p>
       </div>
     </div>
     <div class="card item"
