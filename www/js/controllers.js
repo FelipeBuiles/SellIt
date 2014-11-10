@@ -221,23 +221,17 @@
   })
 
   .controller('FollowersController', function($scope, $state, $window,auth, feedService) {
-    //servicio de follower y following deben recibir la id
-    //del usario de la ruta: $state.params.id
-
     $scope.followersProfile = {};
-    feedService.profiles()
+    feedService.followers($state.params.id)
       .then(function(data){
         $scope.followersProfile = data;
       });
   })
 
-  .controller('FollowingController', function($scope, auth, feedService){
+  .controller('FollowingController', function($scope, auth, $state, feedService){
     $scope.followingProfiles = {};
-    feedService.profiles()
+    feedService.following($state.params.id)
       .then(function(data){
-        for(var i = 0; i < data.length; i++){
-          data[i].id = data[i].id.replace("|","%");
-        }
         $scope.followingProfiles = data;
       });
   })
@@ -255,9 +249,13 @@
 
     $scope.followersCounter;
     $scope.followingCounter;
-    feedService.profiles()
+    feedService.followers($scope.profile.user_id)
       .then(function(data){
         $scope.followersCounter = data.length;
+      });
+
+    feedService.following($scope.profile.user_id)
+      .then(function(data){
         $scope.followingCounter = data.length;
       });
 
@@ -284,6 +282,18 @@
       .always(function(data){
         $scope.productos = data;
       });
+  })
+  .controller('editProfileController', function($scope, $state, feedService, auth){
+    $scope.publish = function (){
+      feedService.extraInformation(auth.profile.user_id,
+                                   $scope.profile.bankName,
+                                   $scope.profile.accountHolder,
+                                   $scope.profile.accountNumber,
+                                   $scope.profile.extraInfo)
+     .always(
+       $state.go('profile')
+     );
+    }
   })
 
 })();
