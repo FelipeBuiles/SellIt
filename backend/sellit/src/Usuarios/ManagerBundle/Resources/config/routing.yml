@@ -12,3 +12,15 @@ usuarios_listar:
     path:     /usuarios/listar
     defaults: { _controller: UsuariosManagerBundle:Default:listarUsuarios }
     methods:  [GET]
+    
+    
+    
+usuarios_bancaria_post:
+    path:     /usuarios/bancaria/post
+    defaults: { _controller: UsuariosManagerBundle:Bancaria:set }
+    methods:  [POST]
+    
+usuarios_bancaria_get:
+    path:     /usuarios/bancaria/get/{idusuario}
+    defaults: { _controller: UsuariosManagerBundle:Bancaria:get }
+    methods:  [GET]

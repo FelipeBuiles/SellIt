@@ -77,7 +77,7 @@ class BancariaController extends Controller {
         if (is_null($usuario))
             $this->sendErrorMsg('IDUSUARIO not exists');
 
-        $bancaria = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')
+        $bancaria = $this->getDoctrine()->getRepository('UsuariosManagerBundle:UsuariosBanco')
                 ->findOneBy(array('idusuario' => $usuario));
 
         if (is_null($bancaria)) {
