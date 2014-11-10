@@ -40,9 +40,20 @@
       </div>
     </section>
     <section id= "productosProfile">
-      <figure class= "card" ng-repeat= "producto in productos">
-        <a href="#/product/{{producto.id}}">
-        <profile-products></profile-products>
+      <div class="card">
+        <ion-radio class="tabsProfile" ng-repeat="item in tabOptions"
+                     ng-value="item.id"
+                     ng-model="picked.value">
+            {{ item.name }}
+          </ion-radio>
+      </div>
+      <div class="card" ng-show="picked.value == 1">
+        <figure class= "card" ng-repeat= "producto in productos">
+          <a href="#/product/{{producto.id}}">
+          <profile-products></profile-products>
+      </div>
+      <div class="card" ng-show="picked.value == 2">
+        <profile-news></profile-news>
       </div>
     </section>
   </ion-content>

@@ -222,6 +222,10 @@
   color: #03a9f4;
   text-align: center;
 }
+.tabsProfile {
+  display: inline-block;
+  width: 50% !important;
+}
 #btnSend {
   display: inline-block;
   background: #03a9f4;
