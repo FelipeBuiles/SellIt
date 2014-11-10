@@ -188,8 +188,6 @@
 
       if(!comments){
         comments = [];
-      }else{
-        comments = JSON.parse(comments);
       }
 
       return comments;

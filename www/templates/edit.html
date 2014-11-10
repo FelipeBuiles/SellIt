@@ -1,31 +1,35 @@
-<ion-view title="Edit Profile">
+<ion-modal-view>
+  <ion-header-bar class="nav-title-slide-ios7 bar-positive navbarSellIt">
+    <a class="button icon-left ion-chevron-left button-clear"
+        ng-click="modal.hide()">
+      Back</a>
+    <h1 class="title">Edit profile</h1>
+  </ion-header-bar>
   <ion-content>
-    <div class="list card">
+    <div class="card"
+      >
       <label class="item item-input item-floating-label">
         <span class="input-label">Bank Name</span>
         <input type="text" placeholder="the bank where you have the account" ng-model="profile.bankName">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Account Holder</span>
-        <input type="text" placeholder="the holder account" ng-model="profile.accountHolder">
+        <input type="text" placeholder="the account holder" ng-model="profile.accountHolder">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Account Number</span>
-        <input type="text" placeholder="your number account" ng-model="profile.accountNumber">
+        <input type="text" placeholder="your account number" ng-model="profile.accountNumber">
       </label>
       <label class="item item-input item-floating-label">
         <span class="input-label">Transaction Detail</span>
-        <textarea type="text" placeholder="the extra information for the transaction" rows="3" ng-model="profile.extraInfo">
+        <input type="text" placeholder="extra information" ng-model="profile.extraInfo">
       </label>
-      <button class="button button-positive">
-          button-positive
-      </button>
     </div>
-    <button class="button button-positive">
-        button-positive
+    <button class="item button button-full button-positive" ng-click="updateLocation()">
+      Update information
     </button>
-    <figure class="updatePosition">Update position</figure>
-    <article class="ion-paper-airplane publishButton" ng-click="publish()">
+    <button class="item button button-full button-positive" ng-click="updateLocation()">
+      Update location
+    </button>
   </ion-content>
-  </article>
-</ion-view>
+</ion-modal-view>
