@@ -40,13 +40,7 @@
     <section id= "productosProfile">
       <figure class= "card" ng-repeat= "producto in productos">
         <a href="#/product/{{producto.id}}">
-        <div class="imageContainer">
-          <img src="data:image/jpeg;base64,{{producto.images[0]}}" />
-        </div>
-        <div class="info">
-          <figcaption id="nombre">{{producto.nombre}}</figcaption>
-          <figcaption id="precio">{{producto.precio | currency}}</figcaption>
-        </div>
+        <profile-products></profile-products>
       </div>
     </section>
   </ion-content>

@@ -16,6 +16,20 @@
       };
     })
 
+    .directive('profileProducts', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partials/profile-products.html'
+      };
+    })
+
+    .directive('profileNews', function () {
+      return {
+        restrict: 'E',
+        templateUrl: 'partials/profile-news.html'
+      };
+    })
+
     .directive('preferenceProfile', function(){
       return {
         restrict: 'E',
