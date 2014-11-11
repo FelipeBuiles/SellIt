@@ -181,6 +181,15 @@
               $scope.bankInfo = data;
             }
           )
+        feedService.getLocation(id)
+         .always(function(data) {
+           console.log(data);
+           $scope.vendedorLoc = [
+             { "name": $scope.product.id_usuario.nombre,
+               "lat": data.latitud,
+               "lon": data.longitud }
+            ];
+          })
     }, {
         scope: $scope,
         animation: 'slide-in-up'
@@ -290,7 +299,8 @@
 
   })
 
-  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService, $ionicModal) {
+  .controller('ProfileController', function(store, $scope, $state, $window,
+    auth, feedService, $ionicModal, $ionicPopup, $ionicPlatform) {
     $scope.profile = {};
     if($state.params.id != store.get('profile').user_id){
       feedService.getProfile($state.params.id)
@@ -350,9 +360,8 @@
     });
 
     $scope.updateInfo = function (){
-      var id = $scope.profile.id; //.replace('|', '%7C');
       var params = {
-        idusuario: id,
+        idusuario: $scope.profile.id,
         nombre_banco: $scope.profile.bankName,
         nombre_titular: $scope.profile.accountHolder,
         tipo_cuenta: $scope.profile.accountType,
@@ -365,6 +374,24 @@
          $scope.modal.hide()
        );
     }
+
+    $scope.updateLocation = function() {
+      $ionicPlatform.ready(function() {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          $scope.position=position;
+          var c = position.coords;
+          var params = {
+            idusuario : $scope.profile.user_id,
+            latitud : c.latitude,
+            longitud : c.longitude
+          };
+          feedService.setLocation(params)
+            .always(
+              $scope.modal.hide()
+            );
+          });
+        });
+      };
 
     $scope.productos = {}
     feedService.byUser($scope.profile.id)
