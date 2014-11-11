@@ -13,12 +13,12 @@
       </figure>
       <figcaption id="productInfo">
         <section>
-          <rating class="stars" ng-model="rate" max="max"></rating>
+          <rating class="stars" ng-model="rate" max="max" ng-click="addRating()"></rating>
           <p id="nombre">{{product.nombre}}</p>
           <p id="precio">{{product.precio | currency}}</p>
         </section>
         <section ng-hide="own">
-          <button class="button button-balanced" ng-click="modal.show()">
+          <button id="btnBuy" class="button button-balanced" ng-click="modal.show()">
             Buy
           </button>
         </section>

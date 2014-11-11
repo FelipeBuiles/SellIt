@@ -138,7 +138,7 @@
       $scope.profile = auth.profile;
     };
     $scope.idProduct = $stateParams.id;
-    $scope.rate = 3;
+    $scope.rate = {};
     $scope.max = 5;
     $scope.profileProd = $stateParams.profile;
     $scope.product = {};
@@ -147,6 +147,16 @@
         $scope.product = data;
         $scope.own = (data.id_usuario.id_front == $scope.profile.user_id);
       });
+    feedService.getRating($scope.idProduct)
+      .always(function(data){
+        $scope.rate = data;
+        console.log($scope.rate);
+      })
+
+    $scope.addRating = function() {
+      feedService.addRating($scope.profile, $scope.idProduct, $scope.rate);
+      console.log($scope.rate);
+    }
 
     $scope.picked = {};
     $scope.salesmanInfo = {};
