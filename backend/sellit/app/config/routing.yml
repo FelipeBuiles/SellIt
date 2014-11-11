@@ -1,3 +1,11 @@
+usuarios_historico:
+    resource: "@UsuariosHistoricoBundle/Resources/config/routing.yml"
+    prefix:   /
+
+usuarios_metas:
+    resource: "@UsuariosMetasBundle/Resources/config/routing.yml"
+    prefix:   /
+
 usuarios_localizacion:
     resource: "@UsuariosLocalizacionBundle/Resources/config/routing.yml"
     prefix:   /

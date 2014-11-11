@@ -1,0 +1,4 @@
+services:
+#    usuarios_historico.example:
+#        class: Usuarios\HistoricoBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

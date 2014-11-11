@@ -192,4 +192,32 @@ class UsuariosBanco
     {
         return $this->idusuario;
     }
+    /**
+     * @var string
+     */
+    private $informacionExtra;
+
+
+    /**
+     * Set informacionExtra
+     *
+     * @param string $informacionExtra
+     * @return UsuariosBanco
+     */
+    public function setInformacionExtra($informacionExtra)
+    {
+        $this->informacionExtra = $informacionExtra;
+
+        return $this;
+    }
+
+    /**
+     * Get informacionExtra
+     *
+     * @return string 
+     */
+    public function getInformacionExtra()
+    {
+        return $this->informacionExtra;
+    }
 }
