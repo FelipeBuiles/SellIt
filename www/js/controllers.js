@@ -298,7 +298,9 @@
           $scope.profile = data;
         });
     }else{
-      $scope.profile = auth.profile;
+      $scope.profile.id = auth.profile.user_id;
+      $scope.profile.nombre = auth.profile.name;
+      $scope.profile.ruta_avatar = auth.profile.picture;
     }
     $scope.picked = {
       value: 1
@@ -312,22 +314,22 @@
 
     $scope.followersCounter;
     $scope.followingCounter;
-    feedService.followers($scope.profile.user_id)
+    feedService.followers($scope.profile.id)
       .then(function(data){
         $scope.followersCounter = data.length;
       });
 
-    feedService.following($scope.profile.user_id)
+    feedService.following($scope.profile.id)
       .then(function(data){
         $scope.followingCounter = data.length;
       });
 
     $scope.showSection = function(){
-      return (($state.params.id === $scope.profile.user_id) || $scope.profile.goal);
+      return (($state.params.id === $scope.profile.id) || $scope.profile.goal);
     }
 
     $scope.showButton = function(){
-      return $state.params.id === $scope.profile.user_id;
+      return $state.params.id === $scope.profile.id;
     }
 
     $scope.showGoals = function(){
@@ -348,7 +350,7 @@
     });
 
     $scope.updateInfo = function (){
-      var id = $scope.profile.user_id; //.replace('|', '%7C');
+      var id = $scope.profile.id; //.replace('|', '%7C');
       var params = {
         idusuario: id,
         nombre_banco: $scope.profile.bankName,
@@ -365,7 +367,7 @@
     }
 
     $scope.productos = {}
-    feedService.byUser($scope.profile.user_id)
+    feedService.byUser($scope.profile.id)
       .always(function(data){
         $scope.productos = data;
       });

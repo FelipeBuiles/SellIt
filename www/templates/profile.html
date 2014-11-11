@@ -1,10 +1,10 @@
-<ion-view title="{{profile.name}}">
+<ion-view title="{{profile.nombre}}">
   <ion-content>
     <section class="information">
       <div class="row">
         <div class="col col-25">
           <a class="item item-avatar">
-            <img src="{{profile.picture}}">
+            <img src="{{profile.ruta_avatar}}">
           </a>
         </div>
         <div id="infoProfile" class="col col-75">
@@ -13,13 +13,13 @@
             <span>Products</span>
           </div>
           <div class="col col-33">
-            <a href="#/profile/followers/{{profile.user_id}}">
+            <a href="#/profile/followers/{{profile.id}}">
               <strong>{{followersCounter}}</strong>
               <span>Followers</span>
             </a>
           </div>
           <div class="col col-33">
-            <a href="#/profile/following/{{profile.user_id}}">
+            <a href="#/profile/following/{{profile.id}}">
               <strong>{{followingCounter}}</strong>
               <span>Following</span>
             </a>

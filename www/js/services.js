@@ -38,8 +38,12 @@
       });
     }
 
-    function getProfile(){
-      return JSON.parse(sessionStorage.profileTemp);
+    function getProfile(idusuario){
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'usuarios/get/' + idusuario,
+        async: false
+      })
     }
 
     function addPreference(idUsuario, idPreference){
