@@ -37,7 +37,7 @@
       feedService.addFollower(store.get('profile').user_id, $scope.profiles[index].id);
     }
   })
-  .controller('PreferencesController', function(store, $scope, $state, feedService){
+  .controller('PreferencesController', function(store, $scope, $state, feedService, $ionicPopup){
     $scope.preferences = [
       {nombre:'Health and Beauty', id: 1, value: false},
       {nombre:'Books', id: 2, value: false},
@@ -55,6 +55,14 @@
       for(var i = 0; i < $scope.preferences.length; i++){
         if($scope.preferences[i].value === true){
           $scope.array[$scope.array.length] = $scope.preferences[i].id;
+            $state.go('suggestions')
+
+        }else{
+            var alertPopup = $ionicPopup.alert({
+              title: 'Wait!',
+              template: 'you should have at least one preference to continue'
+            })
+            feedService.break();
         }
       }
       store.set('listarPreferencias', $scope.array);
@@ -140,8 +148,6 @@
       {name:'Bank deposit', id: 2},
       {name:'Haggle', id: 3}
     ];
-
-
     $ionicPlatform.ready(function() {
     	navigator.geolocation.getCurrentPosition(function(position) {
         $scope.position=position;
@@ -171,17 +177,10 @@
         var id = $scope.product.id_usuario.id_front;
         feedService.getBankInfo(id)
           .always(function(data) {
-            $scope.bankInfo = data;
-          })
-        feedService.getLocation(id)
-          .always(function(data) {
-            console.log(data);
-            $scope.vendedorLoc = [
-              { "name": $scope.product.id_usuario.nombre,
-                "lat": data.latitud,
-                "lon": data.longitud }
-            ];
-          })
+              console.log(data);
+              $scope.bankInfo = data;
+            }
+          )
     }, {
         scope: $scope,
         animation: 'slide-in-up'
@@ -291,8 +290,7 @@
 
   })
 
-  .controller('ProfileController', function(store, $scope, $state, $window,
-    auth, feedService, $ionicModal, $ionicPopup, $ionicPlatform) {
+  .controller('ProfileController', function(store, $scope, $state, $window, auth, feedService, $ionicModal) {
     $scope.profile = {};
     if($state.params.id != store.get('profile').user_id){
       feedService.getProfile($state.params.id)
@@ -349,9 +347,10 @@
         animation: 'slide-in-up'
     });
 
-    $scope.updateInfo = function() {
+    $scope.updateInfo = function (){
+      var id = $scope.profile.user_id; //.replace('|', '%7C');
       var params = {
-        idusuario: $scope.profile.user_id,
+        idusuario: id,
         nombre_banco: $scope.profile.bankName,
         nombre_titular: $scope.profile.accountHolder,
         tipo_cuenta: $scope.profile.accountType,
@@ -364,24 +363,6 @@
          $scope.modal.hide()
        );
     }
-
-    $scope.updateLocation = function() {
-      $ionicPlatform.ready(function() {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          $scope.position=position;
-          var c = position.coords;
-          var params = {
-            idusuario : $scope.profile.user_id,
-            latitud : c.latitude,
-            longitud : c.longitude
-          };
-          feedService.setLocation(params)
-           .always(
-             $scope.modal.hide()
-           );
-        });
-      });
-    };
 
     $scope.productos = {}
     feedService.byUser($scope.profile.user_id)
