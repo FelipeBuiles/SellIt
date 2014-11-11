@@ -15,7 +15,7 @@ class Usuarios
     private $id;
 
     /**
-     * @var integer
+     * @var string
      */
     private $idFront;
 
@@ -28,6 +28,21 @@ class Usuarios
      * @var \DateTime
      */
     private $fechaRegistro;
+
+    /**
+     * @var string
+     */
+    private $rutaAvatar;
+
+    /**
+     * @var float
+     */
+    private $latitud;
+
+    /**
+     * @var float
+     */
+    private $longitud;
 
 
     /**
@@ -43,7 +58,7 @@ class Usuarios
     /**
      * Set idFront
      *
-     * @param integer $idFront
+     * @param string $idFront
      * @return Usuarios
      */
     public function setIdFront($idFront)
@@ -56,7 +71,7 @@ class Usuarios
     /**
      * Get idFront
      *
-     * @return integer 
+     * @return string 
      */
     public function getIdFront()
     {
@@ -108,11 +123,6 @@ class Usuarios
     {
         return $this->fechaRegistro;
     }
-    /**
-     * @var string
-     */
-    private $rutaAvatar;
-
 
     /**
      * Set rutaAvatar
@@ -135,5 +145,51 @@ class Usuarios
     public function getRutaAvatar()
     {
         return $this->rutaAvatar;
+    }
+
+    /**
+     * Set latitud
+     *
+     * @param float $latitud
+     * @return Usuarios
+     */
+    public function setLatitud($latitud)
+    {
+        $this->latitud = $latitud;
+
+        return $this;
+    }
+
+    /**
+     * Get latitud
+     *
+     * @return float 
+     */
+    public function getLatitud()
+    {
+        return $this->latitud;
+    }
+
+    /**
+     * Set longitud
+     *
+     * @param float $longitud
+     * @return Usuarios
+     */
+    public function setLongitud($longitud)
+    {
+        $this->longitud = $longitud;
+
+        return $this;
+    }
+
+    /**
+     * Get longitud
+     *
+     * @return float 
+     */
+    public function getLongitud()
+    {
+        return $this->longitud;
     }
 }

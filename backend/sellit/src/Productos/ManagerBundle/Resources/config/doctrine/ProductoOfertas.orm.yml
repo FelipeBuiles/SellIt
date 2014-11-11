@@ -19,17 +19,10 @@ Productos\ManagerBundle\Entity\ProductoOfertas:
                 strategy: IDENTITY
     fields:
         oferta:
-            type: float
+            type: integer
             nullable: false
-            precision: 10
-            scale: 0
+            unsigned: false
             comment: 'Dinero a ofertar'
-        comentarios:
-            type: text
-            nullable: true
-            length: null
-            fixed: false
-            comment: ''
         estadoOferta:
             type: string
             nullable: true
@@ -37,6 +30,12 @@ Productos\ManagerBundle\Entity\ProductoOfertas:
             fixed: false
             comment: 'A = Aceptada'
             column: estado_oferta
+        comentarios:
+            type: string
+            nullable: true
+            length: 255
+            fixed: false
+            comment: ''
     manyToOne:
         idProducto:
             targetEntity: Producto

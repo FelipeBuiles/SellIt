@@ -22,12 +22,12 @@ class ProductoOfertas
     /**
      * @var string
      */
-    private $comentarios;
+    private $estadoOferta;
 
     /**
      * @var string
      */
-    private $estadoOferta;
+    private $comentarios;
 
     /**
      * @var \Productos\ManagerBundle\Entity\Producto
@@ -74,29 +74,6 @@ class ProductoOfertas
     }
 
     /**
-     * Set comentarios
-     *
-     * @param string $comentarios
-     * @return ProductoOfertas
-     */
-    public function setComentarios($comentarios)
-    {
-        $this->comentarios = $comentarios;
-
-        return $this;
-    }
-
-    /**
-     * Get comentarios
-     *
-     * @return string 
-     */
-    public function getComentarios()
-    {
-        return $this->comentarios;
-    }
-
-    /**
      * Set estadoOferta
      *
      * @param string $estadoOferta
@@ -117,6 +94,29 @@ class ProductoOfertas
     public function getEstadoOferta()
     {
         return $this->estadoOferta;
+    }
+
+    /**
+     * Set comentarios
+     *
+     * @param string $comentarios
+     * @return ProductoOfertas
+     */
+    public function setComentarios($comentarios)
+    {
+        $this->comentarios = $comentarios;
+
+        return $this;
+    }
+
+    /**
+     * Get comentarios
+     *
+     * @return string 
+     */
+    public function getComentarios()
+    {
+        return $this->comentarios;
     }
 
     /**

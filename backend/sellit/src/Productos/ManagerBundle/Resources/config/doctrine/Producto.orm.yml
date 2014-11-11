@@ -51,15 +51,6 @@ Productos\ManagerBundle\Entity\Producto:
             default: CURRENT_TIMESTAMP
             column: fecha_publicacion
     manyToOne:
-        idUsuario:
-            targetEntity: Usuarios
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_usuario:
-                    referencedColumnName: id
-            orphanRemoval: false
         idCategoria:
             targetEntity: CategoriaProducto
             cascade: {  }
@@ -76,6 +67,15 @@ Productos\ManagerBundle\Entity\Producto:
             inversedBy: null
             joinColumns:
                 id_estado:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

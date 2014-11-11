@@ -5,12 +5,12 @@ productos_negociacion_ofertar:
     
 productos_negociacion_aceptar:
     path:     /ofertas/aceptar
-    defaults: { _controller: ProductosNegociacionBundle:Ofertas:rechazarOferta }
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:aceptarOferta }
     methods:  [POST]
     
 productos_negociacion_rechazar:
     path:     /ofertas/rechazar
-    defaults: { _controller: ProductosNegociacionBundle:Ofertas:aceptarOferta }
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:rechazarOferta }
     methods:  [POST]
     
 productos_negociacion_ver_ofertas_productos:

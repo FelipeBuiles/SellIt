@@ -31,15 +31,6 @@ Productos\ManagerBundle\Entity\ProductoComentarios:
             default: CURRENT_TIMESTAMP
             column: fecha_comentrio
     manyToOne:
-        idUsuario:
-            targetEntity: Usuarios
-            cascade: {  }
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                id_usuario:
-                    referencedColumnName: id
-            orphanRemoval: false
         idProducto:
             targetEntity: Producto
             cascade: {  }
@@ -47,6 +38,15 @@ Productos\ManagerBundle\Entity\ProductoComentarios:
             inversedBy: null
             joinColumns:
                 id_producto:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idUsuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                id_usuario:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -41,4 +41,16 @@ Productos\ManagerBundle\Entity\Usuarios:
             fixed: false
             comment: ''
             column: ruta_avatar
+        latitud:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
+        longitud:
+            type: float
+            nullable: false
+            precision: 10
+            scale: 0
+            comment: ''
     lifecycleCallbacks: {  }

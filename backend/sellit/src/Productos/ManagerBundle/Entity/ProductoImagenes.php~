@@ -20,23 +20,15 @@ class ProductoImagenes
     private $rutaImagen;
 
     /**
+     * @var string
+     */
+    private $nombreImagen;
+
+    /**
      * @var \Productos\ManagerBundle\Entity\Producto
      */
     private $idProducto;
 
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     * @return ProductoImagenes
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id
@@ -72,34 +64,6 @@ class ProductoImagenes
     }
 
     /**
-     * Set idProducto
-     *
-     * @param \Productos\ManagerBundle\Entity\Producto $idProducto
-     * @return ProductoImagenes
-     */
-    public function setIdProducto(\Productos\ManagerBundle\Entity\Producto $idProducto = null)
-    {
-        $this->idProducto = $idProducto;
-
-        return $this;
-    }
-
-    /**
-     * Get idProducto
-     *
-     * @return \Productos\ManagerBundle\Entity\Producto 
-     */
-    public function getIdProducto()
-    {
-        return $this->idProducto;
-    }
-    /**
-     * @var string
-     */
-    private $nombreImagen;
-
-
-    /**
      * Set nombreImagen
      *
      * @param string $nombreImagen
@@ -120,5 +84,28 @@ class ProductoImagenes
     public function getNombreImagen()
     {
         return $this->nombreImagen;
+    }
+
+    /**
+     * Set idProducto
+     *
+     * @param \Productos\ManagerBundle\Entity\Producto $idProducto
+     * @return ProductoImagenes
+     */
+    public function setIdProducto(\Productos\ManagerBundle\Entity\Producto $idProducto = null)
+    {
+        $this->idProducto = $idProducto;
+
+        return $this;
+    }
+
+    /**
+     * Get idProducto
+     *
+     * @return \Productos\ManagerBundle\Entity\Producto 
+     */
+    public function getIdProducto()
+    {
+        return $this->idProducto;
     }
 }

@@ -1,10 +1,10 @@
-Productos\ManagerBundle\Entity\PalabrasClaveProducto:
+Productos\ManagerBundle\Entity\Municipios:
     type: entity
-    table: palabras_clave_producto
+    table: municipios
     indexes:
-        producto_fk_idx:
+        departamento_fk_idx:
             columns:
-                - id_producto
+                - id_departamento
     id:
         id:
             type: integer
@@ -15,20 +15,31 @@ Productos\ManagerBundle\Entity\PalabrasClaveProducto:
             generator:
                 strategy: IDENTITY
     fields:
-        palabra:
+        idDane:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: id_dane
+        nombre:
             type: string
             nullable: false
-            length: 100
+            length: 50
             fixed: false
             comment: ''
+        activo:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
     manyToOne:
-        idProducto:
-            targetEntity: Producto
+        idDepartamento:
+            targetEntity: Departamentos
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_producto:
+                id_departamento:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

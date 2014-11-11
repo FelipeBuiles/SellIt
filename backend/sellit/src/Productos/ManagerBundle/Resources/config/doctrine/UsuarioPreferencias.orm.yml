@@ -1,13 +1,13 @@
-Productos\ManagerBundle\Entity\ProductoCalificacion:
+Productos\ManagerBundle\Entity\UsuarioPreferencias:
     type: entity
-    table: producto_calificacion
+    table: usuario_preferencias
     indexes:
-        calificacion_producto_idx:
-            columns:
-                - idproducto
-        calificacion_usuario_idx:
+        preferencia_idusuario_fk_idx:
             columns:
                 - idusuario
+        preferencia_idcategoria_fk_idx:
+            columns:
+                - idcategoria
     id:
         id:
             type: integer
@@ -17,20 +17,14 @@ Productos\ManagerBundle\Entity\ProductoCalificacion:
             id: true
             generator:
                 strategy: IDENTITY
-    fields:
-        calificacion:
-            type: integer
-            nullable: false
-            unsigned: false
-            comment: ''
     manyToOne:
-        idproducto:
-            targetEntity: Producto
+        idcategoria:
+            targetEntity: CategoriaProducto
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                idproducto:
+                idcategoria:
                     referencedColumnName: id
             orphanRemoval: false
         idusuario:

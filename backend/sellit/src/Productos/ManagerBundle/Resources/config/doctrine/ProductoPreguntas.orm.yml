@@ -31,16 +31,17 @@ Productos\ManagerBundle\Entity\ProductoPreguntas:
             length: 2
             fixed: false
             comment: 'R para respuesta, P para pregunta'
-    oneToOne:
-        idUsuario:
-            targetEntity: Usuarios
+    manyToOne:
+        idRespuestaPregunta:
+            targetEntity: ProductoPreguntas
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_usuario:
+                id_respuesta_pregunta:
                     referencedColumnName: id
             orphanRemoval: false
+    oneToOne:
         idProducto:
             targetEntity: Producto
             cascade: {  }
@@ -50,14 +51,13 @@ Productos\ManagerBundle\Entity\ProductoPreguntas:
                 id_producto:
                     referencedColumnName: id
             orphanRemoval: false
-    manyToOne:
-        idRespuestaPregunta:
-            targetEntity: ProductoPreguntas
+        idUsuario:
+            targetEntity: Usuarios
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_respuesta_pregunta:
+                id_usuario:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

@@ -1,6 +1,6 @@
-Productos\ManagerBundle\Entity\CategoriaProducto:
+Productos\ManagerBundle\Entity\Departamentos:
     type: entity
-    table: categoria_producto
+    table: departamentos
     id:
         id:
             type: integer
@@ -11,10 +11,22 @@ Productos\ManagerBundle\Entity\CategoriaProducto:
             generator:
                 strategy: IDENTITY
     fields:
-        categoria:
+        idDane:
             type: string
             nullable: false
             length: 50
             fixed: false
             comment: ''
+            column: id_dane
+        nombre:
+            type: string
+            nullable: false
+            length: 50
+            fixed: false
+            comment: ''
+        activo:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '1'
     lifecycleCallbacks: {  }

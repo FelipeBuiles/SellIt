@@ -49,6 +49,11 @@ class Producto
      */
     private $idEstado;
 
+    /**
+     * @var \Productos\ManagerBundle\Entity\Usuarios
+     */
+    private $idUsuario;
+
 
     /**
      * Get id
@@ -220,11 +225,6 @@ class Producto
     {
         return $this->idEstado;
     }
-    /**
-     * @var \Productos\ManagerBundle\Entity\Usuarios
-     */
-    private $idUsuario;
-
 
     /**
      * Set idUsuario

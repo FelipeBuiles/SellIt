@@ -1,10 +1,10 @@
-Productos\ManagerBundle\Entity\PalabrasClaveProducto:
+Productos\ManagerBundle\Entity\UsuarioCalificacion:
     type: entity
-    table: palabras_clave_producto
+    table: usuario_calificacion
     indexes:
-        producto_fk_idx:
+        usuario_fk_idx:
             columns:
-                - id_producto
+                - id_usuario
     id:
         id:
             type: integer
@@ -15,20 +15,25 @@ Productos\ManagerBundle\Entity\PalabrasClaveProducto:
             generator:
                 strategy: IDENTITY
     fields:
-        palabra:
-            type: string
+        calificacion:
+            type: integer
             nullable: false
-            length: 100
+            unsigned: false
+            comment: ''
+        comentario:
+            type: text
+            nullable: true
+            length: null
             fixed: false
             comment: ''
     manyToOne:
-        idProducto:
-            targetEntity: Producto
+        idUsuario:
+            targetEntity: Usuarios
             cascade: {  }
             mappedBy: null
             inversedBy: null
             joinColumns:
-                id_producto:
+                id_usuario:
                     referencedColumnName: id
             orphanRemoval: false
     lifecycleCallbacks: {  }

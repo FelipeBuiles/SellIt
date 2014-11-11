@@ -1,0 +1,139 @@
+<?php
+
+namespace Productos\ManagerBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Municipios
+ */
+class Municipios
+{
+    /**
+     * @var integer
+     */
+    private $id;
+
+    /**
+     * @var integer
+     */
+    private $idDane;
+
+    /**
+     * @var string
+     */
+    private $nombre;
+
+    /**
+     * @var boolean
+     */
+    private $activo;
+
+    /**
+     * @var \Productos\ManagerBundle\Entity\Departamentos
+     */
+    private $idDepartamento;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idDane
+     *
+     * @param integer $idDane
+     * @return Municipios
+     */
+    public function setIdDane($idDane)
+    {
+        $this->idDane = $idDane;
+
+        return $this;
+    }
+
+    /**
+     * Get idDane
+     *
+     * @return integer 
+     */
+    public function getIdDane()
+    {
+        return $this->idDane;
+    }
+
+    /**
+     * Set nombre
+     *
+     * @param string $nombre
+     * @return Municipios
+     */
+    public function setNombre($nombre)
+    {
+        $this->nombre = $nombre;
+
+        return $this;
+    }
+
+    /**
+     * Get nombre
+     *
+     * @return string 
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * Set activo
+     *
+     * @param boolean $activo
+     * @return Municipios
+     */
+    public function setActivo($activo)
+    {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
+    /**
+     * Get activo
+     *
+     * @return boolean 
+     */
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+
+    /**
+     * Set idDepartamento
+     *
+     * @param \Productos\ManagerBundle\Entity\Departamentos $idDepartamento
+     * @return Municipios
+     */
+    public function setIdDepartamento(\Productos\ManagerBundle\Entity\Departamentos $idDepartamento = null)
+    {
+        $this->idDepartamento = $idDepartamento;
+
+        return $this;
+    }
+
+    /**
+     * Get idDepartamento
+     *
+     * @return \Productos\ManagerBundle\Entity\Departamentos 
+     */
+    public function getIdDepartamento()
+    {
+        return $this->idDepartamento;
+    }
+}

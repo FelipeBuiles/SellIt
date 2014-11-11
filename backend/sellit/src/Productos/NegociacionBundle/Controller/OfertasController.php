@@ -1,11 +1,10 @@
 <?php
-
 namespace Productos\NegociacionBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\ORMException;
-use Productos\ManagerBundle\Entity\ProductoOfertas;
+//use Productos\ManagerBundle\Entity\ProductoOfertas;
 
 class OfertasController extends Controller {
 
@@ -18,23 +17,39 @@ class OfertasController extends Controller {
         $oferta = $data['oferta'];
         $comentarios = $data['comentarios'];
         
-        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->findOneBy(array('id' => $producto));
+        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($producto);
         $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $usuario));
 
-        if(is_null($producto) || is_null($usuario)){
-            $response->setData(array('error' => true, 'message' => 'The product or user requested doesnt exists'));
+        if(is_null($producto)){
+            $response->setData(array('error' => true, 'message' => 'The product doesnt exists'));
             $response->setStatusCode(500);
             $response->send();
             exit;
         }
-        
+
+        if(is_null($usuario)){
+           $response->setData(array('error' => true, 'message' => 'The user requested doesnt exists'));
+            $response->setStatusCode(500);
+            $response->send();
+            exit; 
+        }
+
         try {
-            $oferta = new ProductoOfertas();
-            $oferta->setComentarios($comentarios);
+            $oferta = new \Productos\ManagerBundle\Entity\ProductoOfertas();
             $oferta->setIdProducto($producto);
             $oferta->setIdUsuario($usuario);
             $oferta->setOferta($oferta);
-            
+            $oferta->setComentarios($comentarios);
+            $oferta->setEstadoOferta('P');
+                        
+            /*$oferta->setComentarios($comentarios);
+            $oferta->setIdProducto($producto);
+            $oferta->setIdUsuario($usuario);
+            $oferta->setOferta($oferta);*/
+            //$oferta->setEstadoOferta('P');
+                        
+//echo "aaa"; exit;
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($oferta);
             $em->flush();
@@ -56,20 +71,17 @@ class OfertasController extends Controller {
         $response = new JsonResponse();
         $data = $this->get('request')->request->all();
         
-        $producto = $data['producto'];
-        $usuario = $data['usuario'];
         $oferta = $data['idoferta'];
-        
-        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->findOneBy(array('id' => $producto));
-        $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $usuario));
-        $oferta = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $usuario));
-        
-        if(is_null($producto) || is_null($usuario) || is_null($oferta)){
-            $response->setData(array('error' => true, 'message' => 'The product, offer or user requested doesnt exists'));
+
+        if(is_null($oferta)){
+            $response->setData(array('error' => true, 'message' => 'The offer requested doesnt exists'));
             $response->setStatusCode(500);
             $response->send();
             exit;
         }
+        
+        $oferta = $this->getDoctrine()->getRepository('ProductosManagerBundle:ProductoOfertas')->find($oferta);
+        
         
         try {
             $oferta->setEstadoOferta("R");
@@ -86,8 +98,9 @@ class OfertasController extends Controller {
             exit;
         }
         
-        $response->setData($json);
         $response->setStatusCode(200);
+        $response->setData(array('result' => true, 'message' => 'Offer  successfully rejected', 'id' => $oferta->getId()));
+
         return $response;
     }
 
@@ -95,16 +108,16 @@ class OfertasController extends Controller {
         $response = new JsonResponse();
         $data = $this->get('request')->request->all();
         
-        $producto = $data['producto'];
-        $usuario = $data['usuario'];
         $oferta = $data['idoferta'];
 
-        if(is_null($producto) || is_null($usuario) || is_null($oferta)){
-            $response->setData(array('error' => true, 'message' => 'The product, offer or user requested doesnt exists'));
+        if(is_null($oferta)){
+            $response->setData(array('error' => true, 'message' => 'The offer requested doesnt exists'));
             $response->setStatusCode(500);
             $response->send();
             exit;
         }
+        
+        $oferta = $this->getDoctrine()->getRepository('ProductosManagerBundle:ProductoOfertas')->find($oferta);
         
         try {
             $oferta->setEstadoOferta("A");
@@ -121,8 +134,9 @@ class OfertasController extends Controller {
             exit;
         }
         
-        $response->setData($json);
         $response->setStatusCode(200);
+        $response->setData(array('result' => true, 'message' => 'Offer  successfully accepted', 'id' => $oferta->getId()));
+
         return $response;
     }
 
@@ -130,6 +144,7 @@ class OfertasController extends Controller {
         $response = new JsonResponse();
 
         $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($idproducto);
+
         if (!is_null($producto)) {
             $ofertas = $this->getDoctrine()->getRepository('ProductosManagerBundle:ProductoOfertas')->findBy(array('idProducto' => $producto), array('id' => 'DESC'));
             if (!is_null($ofertas)) {

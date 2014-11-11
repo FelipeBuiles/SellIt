@@ -25,14 +25,14 @@ class ProductoPreguntas
     private $tipo;
 
     /**
-     * @var \Productos\ManagerBundle\Entity\Usuarios
-     */
-    private $idUsuario;
-
-    /**
      * @var \Productos\ManagerBundle\Entity\Producto
      */
     private $idProducto;
+
+    /**
+     * @var \Productos\ManagerBundle\Entity\Usuarios
+     */
+    private $idUsuario;
 
     /**
      * @var \Productos\ManagerBundle\Entity\ProductoPreguntas
@@ -110,29 +110,6 @@ class ProductoPreguntas
     }
 
     /**
-     * Set idUsuario
-     *
-     * @param \Productos\ManagerBundle\Entity\Usuarios $idUsuario
-     * @return ProductoPreguntas
-     */
-    public function setIdUsuario(\Productos\ManagerBundle\Entity\Usuarios $idUsuario = null)
-    {
-        $this->idUsuario = $idUsuario;
-
-        return $this;
-    }
-
-    /**
-     * Get idUsuario
-     *
-     * @return \Productos\ManagerBundle\Entity\Usuarios 
-     */
-    public function getIdUsuario()
-    {
-        return $this->idUsuario;
-    }
-
-    /**
      * Set idProducto
      *
      * @param \Productos\ManagerBundle\Entity\Producto $idProducto
@@ -153,6 +130,29 @@ class ProductoPreguntas
     public function getIdProducto()
     {
         return $this->idProducto;
+    }
+
+    /**
+     * Set idUsuario
+     *
+     * @param \Productos\ManagerBundle\Entity\Usuarios $idUsuario
+     * @return ProductoPreguntas
+     */
+    public function setIdUsuario(\Productos\ManagerBundle\Entity\Usuarios $idUsuario = null)
+    {
+        $this->idUsuario = $idUsuario;
+
+        return $this;
+    }
+
+    /**
+     * Get idUsuario
+     *
+     * @return \Productos\ManagerBundle\Entity\Usuarios 
+     */
+    public function getIdUsuario()
+    {
+        return $this->idUsuario;
     }
 
     /**
