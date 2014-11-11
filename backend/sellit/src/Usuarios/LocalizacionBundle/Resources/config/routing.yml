@@ -1,3 +1,7 @@
-usuarios_localizacion_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: UsuariosLocalizacionBundle:Default:index }
+usuarios_localizacion_set:
+    path:     /usuarios/geolocalizacion/post
+    defaults: { _controller: UsuariosLocalizacionBundle:Default:set }
+
+usuarios_localizacion_get:
+    path:     /usuarios/geolocalizacion/get/{idusuario}
+    defaults: { _controller: UsuariosLocalizacionBundle:Default:get }
