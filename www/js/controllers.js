@@ -131,7 +131,7 @@
 
   .controller('ProductController', function(store, $scope, $stateParams,
     $window, auth, feedService, $ionicModal, $ionicPlatform, $location,
-    $timeout, $ionicNavBarDelegate){
+    $timeout, $ionicNavBarDelegate, $ionicPopup){
     if(auth.profile === undefined){
       $scope.profile = store.get('profile');
     }else{
@@ -187,13 +187,11 @@
         var id = $scope.product.id_usuario.id_front;
         feedService.getBankInfo(id)
           .always(function(data) {
-              console.log(data);
               $scope.bankInfo = data;
             }
           )
         feedService.getLocation(id)
          .always(function(data) {
-           console.log(data);
            $scope.vendedorLoc = [
              { "name": $scope.product.id_usuario.nombre,
                "lat": data.latitud,
@@ -210,7 +208,22 @@
     }
 
     $scope.sendOffer = function() {
-      console.log($scope.product);
+      var confirmPopup = $ionicPopup.confirm({
+        title: 'Offer confirmation',
+        template: 'Are you sure you want to send an offer?'
+      });
+      confirmPopup.then(function(res) {
+        if(res) {
+          params = {
+            producto : $scope.product.id,
+            usuario : $scope.profile.user_id,
+            oferta : $scope.offer.value
+          };
+          if($scope.offer.description) params.comentarios = $scope.offer.description;
+          feedService.sendOffer(params)
+            .always($scope.modal.hide());
+        }
+      });
     }
   })
 
@@ -304,6 +317,7 @@
   .controller('ProfileController', function(store, $scope, $state, $window,
     auth, feedService, $ionicModal, $ionicPopup, $ionicPlatform) {
     $scope.profile = {};
+    if(!auth.profile) auth.profile = store.get('profile');
     if($state.params.id != store.get('profile').user_id){
       feedService.getProfile($state.params.id)
         .then(function(data){
@@ -383,7 +397,7 @@
           $scope.position=position;
           var c = position.coords;
           var params = {
-            idusuario : $scope.profile.user_id,
+            idusuario : $scope.profile.id,
             latitud : c.latitude,
             longitud : c.longitude
           };

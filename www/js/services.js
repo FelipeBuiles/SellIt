@@ -8,7 +8,7 @@
     function all(){
       var deferred = $q.defer();
 
-      $http.get(URL+'productos/listarvendedor/false/1000/0/true/false')
+      $http.get(URL+'productos/listarvendedor/false/1000/0/true/desc')
         .success(function(data){
           deferred.resolve(data);
         });
@@ -139,7 +139,7 @@
     function byUser(id) {
       return $.ajax({
         type: 'GET',
-        url: URL+'productos/listarvendedor/'+id+'/1000/0/true/false',
+        url: URL+'productos/listarvendedor/'+id+'/1000/0/true/desc',
         async: false
       })
     }
@@ -197,7 +197,7 @@
     function range(offset, limit) {
       return $.ajax({
         type: 'GET',
-        url: URL + 'productos/listarvendedor/false/'+limit+'/'+offset+'/true/false',
+        url: URL + 'productos/listarvendedor/false/'+limit+'/'+offset+'/true/desc',
         async: false
       })
     }
@@ -238,6 +238,15 @@
       })
     }
 
+    function sendOffer(params) {
+      return $.ajax({
+        type: "POST",
+        url: URL + 'ofertas/ofertar',
+        async: false,
+        data: params
+      })
+    }
+
     return{
       all: all,
       login: login,
@@ -260,7 +269,8 @@
       getBankInfo : getBankInfo,
       setBankInfo : setBankInfo,
       getLocation : getLocation,
-      setLocation : setLocation
+      setLocation : setLocation,
+      sendOffer : sendOffer
     }
   });
 })();
