@@ -169,6 +169,7 @@
         var id = $scope.product.id_usuario.id_front;
         feedService.getBankInfo(id)
           .always(function(data) {
+              console.log(data);
               $scope.bankInfo = data;
             }
           )
