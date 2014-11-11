@@ -216,6 +216,24 @@
       })
     }
 
+    function getLocation(idUsuario) {
+      var id = idUsuario.replace('|', '%7C');
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'usuarios/geolocalizacion/get/'+id,
+        async: false
+      })
+    }
+
+    function setLocation(params) {
+      return $.ajax({
+        type: "POST",
+        url: URL + 'usuarios/geolocalizacion/post',
+        async: false,
+        data: params
+      })
+    }
+
     return{
       all: all,
       login: login,
@@ -236,7 +254,9 @@
       following : following,
       followers : followers,
       getBankInfo : getBankInfo,
-      setBankInfo : setBankInfo
+      setBankInfo : setBankInfo,
+      getLocation : getLocation,
+      setLocation : setLocation
     }
   });
 })();
