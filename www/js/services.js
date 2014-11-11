@@ -247,6 +247,26 @@
       })
     }
 
+    function getOffers(idProd) {
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'ofertas/listar/'+idProd,
+        async: false
+      })
+    }
+
+    function acceptOffer(idOffer) {
+      var params = {
+        idoferta : idOffer
+      }
+      return $.ajax({
+        type: "POST",
+        url: URL + 'ofertas/aceptar',
+        async: false,
+        data: params
+      })
+    }
+
     return{
       all: all,
       login: login,
@@ -270,7 +290,9 @@
       setBankInfo : setBankInfo,
       getLocation : getLocation,
       setLocation : setLocation,
-      sendOffer : sendOffer
+      sendOffer : sendOffer,
+      getOffers : getOffers,
+      acceptOffer : acceptOffer
     }
   });
 })();

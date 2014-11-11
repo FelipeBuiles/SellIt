@@ -315,7 +315,7 @@
   })
 
   .controller('ProfileController', function(store, $scope, $state, $window,
-    auth, feedService, $ionicModal, $ionicPopup, $ionicPlatform) {
+    auth, feedService, $ionicModal, $ionicPopup, $ionicPlatform, $location) {
     $scope.profile = {};
     if(!auth.profile) auth.profile = store.get('profile');
     if($state.params.id != store.get('profile').user_id){
@@ -375,6 +375,13 @@
         animation: 'slide-in-up'
     });
 
+    $ionicModal.fromTemplateUrl('templates/offers.html', function($ionicModal) {
+        $scope.offersModal = $ionicModal;
+    }, {
+        scope: $scope,
+        animation: 'slide-in-up'
+    });
+
     $scope.updateInfo = function (){
       var params = {
         idusuario: $scope.profile.id,
@@ -389,6 +396,27 @@
        .always(
          $scope.modal.hide()
        );
+    }
+
+    $scope.showOffers = function(idProd) {
+      feedService.getOffers(idProd)
+        .always(function(data) {
+          console.log(data);
+          $scope.offers = data;
+        })
+      $scope.offersModal.show();
+
+    }
+
+    $scope.acceptOffer = function(idOffer) {
+      feedService.acceptOffer(idOffer)
+        .always(
+          $scope.offersModal.hide()
+        )
+    }
+
+    $scope.goTo = function(idProd) {
+      $location.path('product/'+idProd);
     }
 
     $scope.updateLocation = function() {

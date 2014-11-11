@@ -49,8 +49,7 @@
       </div>
       <div class="card" ng-show="picked.value == 1">
         <figure class= "card" ng-repeat= "producto in productos">
-          <a href="#/product/{{producto.id}}">
-          <profile-products></profile-products>
+          <profile-products on-hold="showOffers({{producto.id}})" on-tap="goTo({{producto.id}})"></profile-products>
       </div>
       <div class="card" ng-show="picked.value == 2">
         <profile-news></profile-news>
