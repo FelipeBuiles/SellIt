@@ -154,6 +154,8 @@ class OfertasController extends Controller {
                         $estado_oferta = "Aceptada";
                     else if ($o->getEstadoOferta() == "R")
                         $estado_oferta = "Rechazada";
+                    else if ($o->getEstadoOferta() == "P")
+                        $estado_oferta = "Pendiente";
 
                     $json_child = array(
                         'producto' => array(

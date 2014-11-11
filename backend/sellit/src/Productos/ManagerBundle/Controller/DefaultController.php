@@ -57,12 +57,12 @@ class DefaultController extends Controller {
                 }
             } else {
                 $response->setData(array("error" => "IDPRODUCTO cant be null or empty"));
-                $response->setStatusCode(500);
+                $response->setStatusCode(200);
                 return $response;
             }
         } else {
             $response->setData(array('error' => 'ONLY GET METHOD ALLOWED'));
-            $response->setStatusCode(500);
+            $response->setStatusCode(200);
             return $response;
         }
     }
@@ -71,159 +71,217 @@ class DefaultController extends Controller {
         $request = $this->get('request');
         $response = new JsonResponse();
 
-        if ($request->getMethod() == 'GET') {
-            if ($idvendedor != "false") {
-                $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idvendedor));
-                $vendedor = array($vendedor);
+        $id_vendedores = array();
+
+        if ($idvendedor != "false") {
+            $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idvendedor));
+
+            if (is_null($vendedor))
+                $this->sendErrorMsg("Vendedor doesnt exists");
+
+            array_push($id_vendedores, $vendedor->getId());
+        } else {
+            $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findAll();
+
+            foreach ($vendedor as $v)
+                array_push($id_vendedores, $v->getId());
+        }
+
+
+        $sql = "SELECT id AS producto "
+                . "FROM producto p "
+                . "WHERE p.id_usuario IN (" . implode(',', $id_vendedores) . ") "
+                . "ORDER BY p.fecha_publicacion " . strtoupper($orderASC) . " "
+                . "LIMIT " . $limit . " "
+                . "OFFSET " . $offset;
+
+        $query = $this->getDoctrine()->getEntityManager()
+                ->getConnection()
+                ->prepare($sql);
+
+        $query->execute();
+        $rows = $query->fetchAll();
+
+        $json = array();
+        foreach ($rows AS $r) {
+            $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($r['producto']);
+
+            $categoria = (!is_null($producto->getIdCategoria())) ? $producto->getIdCategoria()->getCategoria() : null;
+
+            if ($include_images == true) {
+                $json_child = array(
+                    'id' => $producto->getId(),
+                    'nombre' => $producto->getNombre(),
+                    'descripcion' => $producto->getDescripcion(),
+                    'estado' => $producto->getIdEstado()->getEstado(),
+                    'precio' => $producto->getPrecio(),
+                    'categoria' => $categoria,
+                    'fecha_publicacion' => $producto->getFechaPublicacion(),
+                    'keywords' => $this->getProductKeywords($producto),
+                    'images' => $this->getProductImages($producto),
+                    'usuario' => array(
+                        'id' => $producto->getIdUsuario()->getId(),
+                        'nombre' => $producto->getIdUsuario()->getNombre(),
+                        'ruta_avatar' => $producto->getIdUsuario()->getRutaAvatar()
+                    ),
+                );
             } else {
-                $vendedor = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findAll();
+                $json_child = array(
+                    'id' => $producto->getId(),
+                    'nombre' => $producto->getNombre(),
+                    'descripcion' => $producto->getDescripcion(),
+                    'estado' => $producto->getIdEstado()->getEstado(),
+                    'precio' => $producto->getPrecio(),
+                    'categoria' => $categoria,
+                    'fecha_publicacion' => $producto->getFechaPublicacion(),
+                    'keywords' => $this->getProductKeywords($producto),
+                    'usuario' => array(
+                        'id' => $producto->getIdUsuario()->getId(),
+                        'nombre' => $producto->getIdUsuario()->getNombre(),
+                        'ruta_avatar' => $producto->getIdUsuario()->getRutaAvatar()
+                    ),
+                );
             }
-            
-            if (!is_null($vendedor)) {
-                $json = array();
 
-            /*    $products = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
-                        ->from('ProductosManagerBundle:Producto', 's')
-                        ->where('s.idUsuario IN (:usuarios)')
-                        ->setParameter('usuarios', $alterArr)
-                        ->getQuery()
-                        ->setMaxResults($limit)
-                        ->setFirstResult($offset)
-                        ->getResult();
-                
-                var_dump($products); exit;*/
+            array_push($json, $json_child);
+        }
 
-                if (is_array($vendedor)) {
-                    foreach ($vendedor as $v) {
-                        if ($orderASC == "true") {
-                            $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                                    ->findBy(array('idUsuario' => $v->getId()), array('id' => 'ASC'), $limit, $offset);
-                        } else {
-                            $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                                    ->findBy(array('idUsuario' => $v->getId()), array('id' => 'DESC'), $limit, $offset);
-                        }
+        /* if (!is_null($vendedor)) {
+          $json = array();
 
-                        if (!is_null($productos)) {
+          /*    $products = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+          ->from('ProductosManagerBundle:Producto', 's')
+          ->where('s.idUsuario IN (:usuarios)')
+          ->setParameter('usuarios', $alterArr)
+          ->getQuery()
+          ->setMaxResults($limit)
+          ->setFirstResult($offset)
+          ->getResult();
 
-                            foreach ($productos as $p) {
-                                if (!is_null($p->getIdCategoria())) {
-                                    $categoria = $p->getIdCategoria()->getCategoria();
-                                } else {
-                                    $categoria = null;
-                                }
+          var_dump($products); exit; 
 
-
-                                if ($include_images == true) {
-                                    $json_child = array(
-                                        'id' => $p->getId(),
-                                        'nombre' => $p->getNombre(),
-                                        'descripcion' => $p->getDescripcion(),
-                                        'estado' => $p->getIdEstado()->getEstado(),
-                                        'precio' => $p->getPrecio(),
-                                        'categoria' => $categoria,
-                                        'fecha_publicacion' => $p->getFechaPublicacion(),
-                                        'keywords' => $this->getProductKeywords($p),
-                                        'images' => $this->getProductImages($p),
-                                        'usuario' => array(
-                                            'id' => $p->getIdUsuario()->getId(),
-                                            'nombre' => $p->getIdUsuario()->getNombre(),
-                                            'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                                        ),
-                                    );
-                                } else {
-                                    $json_child = array(
-                                        'id' => $p->getId(),
-                                        'nombre' => $p->getNombre(),
-                                        'descripcion' => $p->getDescripcion(),
-                                        'estado' => $p->getIdEstado()->getEstado(),
-                                        'precio' => $p->getPrecio(),
-                                        'categoria' => $categoria,
-                                        'fecha_publicacion' => $p->getFechaPublicacion(),
-                                        'keywords' => $this->getProductKeywords($p),
-                                        'usuario' => array(
-                                            'id' => $p->getIdUsuario()->getId(),
-                                            'nombre' => $p->getIdUsuario()->getNombre(),
-                                            'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                                        ),
-                                    );
-                                }
-
-                                array_push($json, $json_child);
-                            }
-                        }
-                    }
+        if (is_array($vendedor)) {
+            foreach ($vendedor as $v) {
+                if ($orderASC == "true") {
+                    $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+                            ->findBy(array('idUsuario' => $v->getId()), array('id' => 'ASC'), $limit, $offset);
                 } else {
-                    if ($orderASC) {
-                        $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                                ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'ASC'), $limit, $offset);
-                    } else {
-                        $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                                ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'DESC'), $limit, $offset);
-                    }
+                    $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+                            ->findBy(array('idUsuario' => $v->getId()), array('id' => 'DESC'), $limit, $offset);
+                }
 
-                    if (!is_null($productos)) {
+                if (!is_null($productos)) {
 
-                        foreach ($productos as $p) {
-                            if (!is_null($p->getIdCategoria())) {
-                                $categoria = $p->getIdCategoria()->getCategoria();
-                            } else {
-                                $categoria = null;
-                            }
-
-
-                            if ($include_images == true) {
-                                $json_child = array(
-                                    'id' => $p->getId(),
-                                    'nombre' => $p->getNombre(),
-                                    'descripcion' => $p->getDescripcion(),
-                                    'estado' => $p->getIdEstado()->getEstado(),
-                                    'precio' => $p->getPrecio(),
-                                    'categoria' => $categoria,
-                                    'fecha_publicacion' => $p->getFechaPublicacion(),
-                                    'keywords' => $this->getProductKeywords($p),
-                                    'images' => $this->getProductImages($p),
-                                    'usuario' => array(
-                                        'id' => $p->getIdUsuario()->getId(),
-                                        'nombre' => $p->getIdUsuario()->getNombre(),
-                                        'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                                    ),
-                                );
-                            } else {
-                                $json_child = array(
-                                    'id' => $p->getId(),
-                                    'nombre' => $p->getNombre(),
-                                    'descripcion' => $p->getDescripcion(),
-                                    'estado' => $p->getIdEstado()->getEstado(),
-                                    'precio' => $p->getPrecio(),
-                                    'categoria' => $categoria,
-                                    'fecha_publicacion' => $p->getFechaPublicacion(),
-                                    'keywords' => $this->getProductKeywords($p),
-                                    'usuario' => array(
-                                        'id' => $p->getIdUsuario()->getId(),
-                                        'nombre' => $p->getIdUsuario()->getNombre(),
-                                        'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                                    ),
-                                );
-                            }
-
-                            array_push($json, $json_child);
+                    foreach ($productos as $p) {
+                        if (!is_null($p->getIdCategoria())) {
+                            $categoria = $p->getIdCategoria()->getCategoria();
+                        } else {
+                            $categoria = null;
                         }
+
+
+                        if ($include_images == true) {
+                            $json_child = array(
+                                'id' => $p->getId(),
+                                'nombre' => $p->getNombre(),
+                                'descripcion' => $p->getDescripcion(),
+                                'estado' => $p->getIdEstado()->getEstado(),
+                                'precio' => $p->getPrecio(),
+                                'categoria' => $categoria,
+                                'fecha_publicacion' => $p->getFechaPublicacion(),
+                                'keywords' => $this->getProductKeywords($p),
+                                'images' => $this->getProductImages($p),
+                                'usuario' => array(
+                                    'id' => $p->getIdUsuario()->getId(),
+                                    'nombre' => $p->getIdUsuario()->getNombre(),
+                                    'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+                                ),
+                            );
+                        } else {
+                            $json_child = array(
+                                'id' => $p->getId(),
+                                'nombre' => $p->getNombre(),
+                                'descripcion' => $p->getDescripcion(),
+                                'estado' => $p->getIdEstado()->getEstado(),
+                                'precio' => $p->getPrecio(),
+                                'categoria' => $categoria,
+                                'fecha_publicacion' => $p->getFechaPublicacion(),
+                                'keywords' => $this->getProductKeywords($p),
+                                'usuario' => array(
+                                    'id' => $p->getIdUsuario()->getId(),
+                                    'nombre' => $p->getIdUsuario()->getNombre(),
+                                    'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+                                ),
+                            );
+                        }
+
+                        array_push($json, $json_child);
                     }
                 }
+            }
+        } else {
+            if ($orderASC) {
+                $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+                        ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'ASC'), $limit, $offset);
             } else {
-                $response->setData(array("error" => "No products to be displayed"));
-                $response->setStatusCode(404);
-                return $response;
+                $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+                        ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'DESC'), $limit, $offset);
             }
 
-            $response->setData($json);
-            $response->setStatusCode(200);
-            return $response;
-        } else {
-            $response->setData(array('error' => 'ONLY GET METHOD ALLOWED'));
-            $response->setStatusCode(500);
-            return $response;
+            if (!is_null($productos)) {
+
+                foreach ($productos as $p) {
+                    if (!is_null($p->getIdCategoria())) {
+                        $categoria = $p->getIdCategoria()->getCategoria();
+                    } else {
+                        $categoria = null;
+                    }
+
+
+                    if ($include_images == true) {
+                        $json_child = array(
+                            'id' => $p->getId(),
+                            'nombre' => $p->getNombre(),
+                            'descripcion' => $p->getDescripcion(),
+                            'estado' => $p->getIdEstado()->getEstado(),
+                            'precio' => $p->getPrecio(),
+                            'categoria' => $categoria,
+                            'fecha_publicacion' => $p->getFechaPublicacion(),
+                            'keywords' => $this->getProductKeywords($p),
+                            'images' => $this->getProductImages($p),
+                            'usuario' => array(
+                                'id' => $p->getIdUsuario()->getId(),
+                                'nombre' => $p->getIdUsuario()->getNombre(),
+                                'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+                            ),
+                        );
+                    } else {
+                        $json_child = array(
+                            'id' => $p->getId(),
+                            'nombre' => $p->getNombre(),
+                            'descripcion' => $p->getDescripcion(),
+                            'estado' => $p->getIdEstado()->getEstado(),
+                            'precio' => $p->getPrecio(),
+                            'categoria' => $categoria,
+                            'fecha_publicacion' => $p->getFechaPublicacion(),
+                            'keywords' => $this->getProductKeywords($p),
+                            'usuario' => array(
+                                'id' => $p->getIdUsuario()->getId(),
+                                'nombre' => $p->getIdUsuario()->getNombre(),
+                                'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+                            ),
+                        );
+                    }
+
+                    array_push($json, $json_child);
+                }
+            }
         }
+        } else {
+        $response->setData(array("error" => "No products to be displayed"));
+        $response->setStatusCode(404);
+        return $response;
+        }*/
 
         $response->setData($json);
         $response->setStatusCode(200);
@@ -246,7 +304,7 @@ class DefaultController extends Controller {
             }
         } else {
             $response->setData(array('error' => 'ONLY GET METHOD ALLOWED'));
-            $response->setStatusCode(500);
+            $response->setStatusCode(200);
             return $response;
         }
 
@@ -283,20 +341,18 @@ class DefaultController extends Controller {
 
     public static function file_to_base64($inputFile) {
 
-        if(is_file($inputFile)){
-            try{
-                $content = file_get_contents($inputFile);         
-            } catch(Symfony\Component\HttpKernel\Exception $ex) {
+        if (is_file($inputFile)) {
+            try {
+                $content = file_get_contents($inputFile);
+            } catch (Symfony\Component\HttpKernel\Exception $ex) {
                 echo $ex->getMessage();
                 exit;
-            }              
-    
+            }
+
             return base64_encode($content);
-    
-        } else { 
+        } else {
             return null;
         }
-
     }
 
     public function contarProductosAction($idVendedor) {
@@ -310,7 +366,7 @@ class DefaultController extends Controller {
                 $request = $this->get('request');
                 $response = new JsonResponse();
                 $response->setData(array('error' => "The requested user doesnt exists"));
-                $response->setStatusCode(500);
+                $response->setStatusCode(200);
                 $response->send();
                 exit;
             }
@@ -330,6 +386,14 @@ class DefaultController extends Controller {
         $response->setStatusCode(200);
 
         return $response;
+    }
+
+    public function sendErrorMsg($msg) {
+        $response = new JsonResponse();
+        $response->setData(array('error' => $msg));
+        $response->setStatusCode(200);
+        $response->send();
+        exit;
     }
 
 }
