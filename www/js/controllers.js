@@ -18,7 +18,7 @@
     });
   })
 
-  .controller('SuggestionsController', function(store, $scope, $state, $stateParams, auth, feedService){
+  .controller('SuggestionsController', function(store, $scope, $state, $stateParams, auth, feedService, $ionicPopup){
     $scope.profile = auth.profile;
     $scope.profiles = {};
     $scope.suggestions = {};
@@ -26,10 +26,18 @@
     console.log($scope.preferences);
     feedService.suggestion($scope.preferences)
       .always(function(data){
-        $scope.profiles = data;
-        for(i = 0 ; i < $scope.profiles.length; i++){
-        $scope.profiles[i].followText = "follow";
-        }
+        if(data.error == null){
+          $scope.profiles = data;
+            for(i = 0 ; i < $scope.profiles.length; i++){
+              $scope.profiles[i].followText = "follow";
+            }
+            console.log(data.error);
+          }else{
+            var alertPopup = $ionicPopup.alert({
+              title: 'we haven&#39t found any profile to match your preferences'
+            })
+            $state.go('home.feed')
+          }
       });
 
     $scope.follow = function(index){
@@ -55,16 +63,18 @@
       for(var i = 0; i < $scope.preferences.length; i++){
         if($scope.preferences[i].value === true){
           $scope.array[$scope.array.length] = $scope.preferences[i].id;
-            $state.go('suggestions')
-
-        }else{
-            var alertPopup = $ionicPopup.alert({
-              title: 'Wait!',
-              template: 'you should have at least one preference to continue'
-            })
-            feedService.break();
         }
       }
+      if($scope.array.length != 0){
+        $state.go('suggestions')
+      }else{
+        var alertPopup = $ionicPopup.alert({
+          title: 'Wait!',
+          template: 'you should have at least one preference to continue'
+        })
+      }
+
+
       store.set('listarPreferencias', $scope.array);
       feedService.addPreference(store.get('profile').user_id, $scope.array);
 
