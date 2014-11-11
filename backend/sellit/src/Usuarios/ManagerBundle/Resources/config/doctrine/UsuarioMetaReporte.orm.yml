@@ -1,0 +1,34 @@
+Usuarios\ManagerBundle\Entity\UsuarioMetaReporte:
+    type: entity
+    table: usuario_meta_reporte
+    indexes:
+        usuario_meta_reporte_idmeta_idx:
+            columns:
+                - idmeta
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        avanceDinero:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: avance_dinero
+    manyToOne:
+        idmeta:
+            targetEntity: UsuarioMetas
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idmeta:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

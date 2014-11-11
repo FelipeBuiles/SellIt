@@ -72,7 +72,7 @@ class DefaultController extends Controller {
 
         $score = 0;
 
-        if (!is_null($calificacion)) {
+        if (sizeof($calificacion)>0) {
             foreach ($calificacion as $c) {
                 $score += $c->getCalificacion();
             }

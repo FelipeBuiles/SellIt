@@ -14,7 +14,7 @@ class OfertasController extends Controller {
 
         $producto = $data['producto'];
         $usuario = $data['usuario'];
-        $oferta = $data['oferta'];
+        $oferta_dinero = $data['oferta'];
         $comentarios = $data['comentarios'];
         
         $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->find($producto);
@@ -38,7 +38,7 @@ class OfertasController extends Controller {
             $oferta = new \Productos\ManagerBundle\Entity\ProductoOfertas();
             $oferta->setIdProducto($producto);
             $oferta->setIdUsuario($usuario);
-            $oferta->setOferta($oferta);
+            $oferta->setOferta($oferta_dinero);
             $oferta->setComentarios($comentarios);
             $oferta->setEstadoOferta('P');
                         
@@ -62,8 +62,9 @@ class OfertasController extends Controller {
             exit;
         }
 
-        $response->setData($json);
         $response->setStatusCode(200);
+        $response->setData(array('result' => true, 'message' => 'Offer  successfully sent', 'id' => $oferta->getId()));
+
         return $response;
     }
 
@@ -158,12 +159,13 @@ class OfertasController extends Controller {
                         $estado_oferta = "Pendiente";
 
                     $json_child = array(
+                        'id' => $o->getId(),
                         'producto' => array(
                             'id' => $o->getIdProducto()->getId(),
                             'nombre' => $o->getIdProducto()->getNombre()
                         ),
                         'usuario' => array(
-                            'id' => $o->getIdUsuario()->getId(),
+                            'id' => $o->getIdUsuario()->getIdFront(),
                             'nombre' => $o->getIdUsuario()->getNombre(),
                             'ruta_avatar' => $o->getIdUsuario()->getRutaAvatar()
                         ),

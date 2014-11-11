@@ -1,0 +1,39 @@
+Productos\ManagerBundle\Entity\SeguidoresMeta:
+    type: entity
+    table: seguidores_meta
+    indexes:
+        seguidores_meta_idseguidor_idx:
+            columns:
+                - idseguidor
+        seguidores_meta_idmeta_idx:
+            columns:
+                - idmeta
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    manyToOne:
+        idmeta:
+            targetEntity: UsuarioMetas
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idmeta:
+                    referencedColumnName: id
+            orphanRemoval: false
+        idseguidor:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idseguidor:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

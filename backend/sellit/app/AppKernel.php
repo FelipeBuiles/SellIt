@@ -30,6 +30,8 @@ class AppKernel extends Kernel
             new Seguidores\ManagerBundle\SeguidoresManagerBundle(),
             new Productos\CalificacionBundle\ProductosCalificacionBundle(),
             new Usuarios\LocalizacionBundle\UsuariosLocalizacionBundle(),
+            new Usuarios\MetasBundle\UsuariosMetasBundle(),
+            new Usuarios\HistoricoBundle\UsuariosHistoricoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

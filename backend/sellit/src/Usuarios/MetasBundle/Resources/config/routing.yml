@@ -1,0 +1,29 @@
+usuarios_metas_get:
+    path:     /usuario/metas/get/{idmeta}
+    defaults: { _controller: UsuariosMetasBundle:Default:get }
+    methods: [GET]
+    
+usuarios_metas_crear:
+    path:     /usuario/metas/crear
+    defaults: { _controller: UsuariosMetasBundle:Default:crear }
+    methods: [POST]
+    
+usuarios_metas_seguir:
+    path:     /usuario/metas/seguir/{idusuario}/{idmeta}
+    defaults: { _controller: UsuariosMetasBundle:Default:seguir }
+    methods: [GET]
+    
+usuarios_metas_reportar_avance:
+    path:     /usuario/metas/reportaravance
+    defaults: { _controller: UsuariosMetasBundle:Default:reportarAvance }
+    methods: [POST]
+    
+usuarios_metas_seguidas:
+    path:     /usuario/metas/seguidas/{idusuario}
+    defaults: { _controller: UsuariosMetasBundle:Default:listarMetasSeguidas }
+    methods: [GET]    
+    
+usuarios_metas_seguidores:
+    path:     /usuario/metas/seguidores/{idmeta}
+    defaults: { _controller: UsuariosMetasBundle:Default:listarSeguidoresMeta }
+    methods: [GET]    

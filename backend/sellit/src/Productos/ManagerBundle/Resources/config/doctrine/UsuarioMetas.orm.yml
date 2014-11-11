@@ -1,0 +1,47 @@
+Productos\ManagerBundle\Entity\UsuarioMetas:
+    type: entity
+    table: usuario_metas
+    indexes:
+        metas_idusuario_idx:
+            columns:
+                - idusuario
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        montoMeta:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            column: monto_meta
+        descripcion:
+            type: text
+            nullable: false
+            length: null
+            fixed: false
+            comment: ''
+        estado:
+            type: string
+            nullable: false
+            length: 1
+            fixed: false
+            comment: 'E -> en proceso, C -> cumplida, A -> Abortada'
+            default: E
+    manyToOne:
+        idusuario:
+            targetEntity: Usuarios
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                idusuario:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
