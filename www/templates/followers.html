@@ -7,8 +7,7 @@
   <ion-content>
     <div class="list">
         <a href="#/home/profile/{{follower.id}}" class="item item-thumbnail-left"
-            ng-repeat="follower in followers"
-            ng-click= "getProfile($index)">
+            ng-repeat="follower in followers">
           <img src="{{follower.ruta_avatar}}">
           <h2>{{follower.nombre}}</h2>
           <p>Back off, man. I'm a scientist.</p>

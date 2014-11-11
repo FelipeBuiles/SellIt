@@ -273,10 +273,6 @@
         $scope.followers = data;
       });
 
-    $scope.getProfile = function(index){
-      sessionStorage.profileTemp = JSON.stringify($scope.followers[index]);
-    }
-
     $scope.goBack = function() {
       $ionicNavBarDelegate.back();
     }
@@ -288,10 +284,6 @@
       .then(function(data){
         $scope.following = data;
       });
-
-    $scope.getProfile = function(index){
-      sessionStorage.profileTemp = JSON.stringify($scope.following[index]);
-    }
 
     $scope.goBack = function() {
       $ionicNavBarDelegate.back();
@@ -335,11 +327,11 @@
       });
 
     $scope.showSection = function(){
-      return (($state.params.id === $scope.profile.id) || $scope.profile.goal);
+      return ((store.get('profile').user_id === $scope.profile.id) || $scope.profile.goal);
     }
 
     $scope.showButton = function(){
-      return $state.params.id === $scope.profile.id;
+      return store.get('profile').user_id === $scope.profile.id;
     }
 
     $scope.showGoals = function(){
