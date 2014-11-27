@@ -17,3 +17,9 @@ productos_negociacion_ver_ofertas_productos:
     path:     /ofertas/listar/{idproducto}
     defaults: { _controller: ProductosNegociacionBundle:Ofertas:listar, idproducto: null }
     methods:  [GET]
+    
+    
+productos_negociacion_ver_ofertas_usuario:
+    path:     /ofertas/listarusuario/{idusuario}
+    defaults: { _controller: ProductosNegociacionBundle:Ofertas:listarUsuario, idusuario: null }
+    methods:  [GET]

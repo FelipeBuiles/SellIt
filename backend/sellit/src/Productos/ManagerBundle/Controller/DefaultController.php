@@ -120,7 +120,7 @@ class DefaultController extends Controller {
                     'keywords' => $this->getProductKeywords($producto),
                     'images' => $this->getProductImages($producto),
                     'usuario' => array(
-                        'id' => $producto->getIdUsuario()->getId(),
+                        'id' => $producto->getIdUsuario()->getIdFront(),
                         'nombre' => $producto->getIdUsuario()->getNombre(),
                         'ruta_avatar' => $producto->getIdUsuario()->getRutaAvatar()
                     ),
@@ -136,7 +136,7 @@ class DefaultController extends Controller {
                     'fecha_publicacion' => $producto->getFechaPublicacion(),
                     'keywords' => $this->getProductKeywords($producto),
                     'usuario' => array(
-                        'id' => $producto->getIdUsuario()->getId(),
+                        'id' => $producto->getIdUsuario()->getIdFront(),
                         'nombre' => $producto->getIdUsuario()->getNombre(),
                         'ruta_avatar' => $producto->getIdUsuario()->getRutaAvatar()
                     ),

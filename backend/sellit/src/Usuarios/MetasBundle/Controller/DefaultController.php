@@ -13,8 +13,17 @@ class DefaultController extends Controller {
     public function getAction($idmeta) {
         $response = new JsonResponse();
         
-         $meta = $this->getDoctrine()->getRepository('UsuariosManagerBundle:UsuarioMetas')
-                ->find($idmeta);
+
+        $usuario = $this->getDoctrine()->getRepository('UsuariosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idmeta));
+
+        if (is_null($usuario))
+            $this->sendErrorMsg('IDUSUARIO not exists');
+
+        // $meta = $this->getDoctrine()->getRepository('UsuariosManagerBundle:UsuarioMetas')
+        //        ->find($idmeta);
+
+        $meta = $this->getDoctrine()->getRepository('UsuariosManagerBundle:UsuarioMetas')
+                ->findOneBy(array('idusuario' => $usuario));
 
         if (is_null($meta))
             $this->sendErrorMsg('IDMETA not exists');
@@ -26,7 +35,7 @@ class DefaultController extends Controller {
         $json_usuario_child['latitud'] = $usuario->getLatitud();
         $json_usuario_child['longitud'] = $usuario->getLongitud();
 
-        $json['id'] = $meta->getId();
+        $json['id'] = $meta->getIdFront();
         $json['monto_meta'] = $meta->getMontoMeta();
         $json['descripcion'] = $meta->getDescripcion();
         $json['estado'] = $meta->getEstado();
@@ -104,7 +113,7 @@ class DefaultController extends Controller {
 
 
         $seguidor = new SeguidoresMeta();
-        $seguidor->setIdmeta($seguidor);
+        $seguidor->setIdmeta($meta);
         $seguidor->setIdseguidor($usuario);
 
         try {
@@ -247,7 +256,7 @@ class DefaultController extends Controller {
             $json_usuario_child['latitud'] = $usuario->getLatitud();
             $json_usuario_child['longitud'] = $usuario->getLongitud();
 
-            $json['id'] = $s->getIdmeta()->getId();
+            $json['id'] = $s->getIdmeta()->getIdFront();
             $json_child['monto_meta'] = $s->getIdmeta()->getMontoMeta();
             $json_child['descripcion'] = $s->getIdmeta()->getDescripcion();
             $json_child['estado'] = $s->getIdmeta()->getEstado();
