@@ -158,130 +158,130 @@ class DefaultController extends Controller {
           ->setFirstResult($offset)
           ->getResult();
 
-          var_dump($products); exit; 
+          var_dump($products); exit;
 
-        if (is_array($vendedor)) {
-            foreach ($vendedor as $v) {
-                if ($orderASC == "true") {
-                    $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                            ->findBy(array('idUsuario' => $v->getId()), array('id' => 'ASC'), $limit, $offset);
-                } else {
-                    $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                            ->findBy(array('idUsuario' => $v->getId()), array('id' => 'DESC'), $limit, $offset);
-                }
+          if (is_array($vendedor)) {
+          foreach ($vendedor as $v) {
+          if ($orderASC == "true") {
+          $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+          ->findBy(array('idUsuario' => $v->getId()), array('id' => 'ASC'), $limit, $offset);
+          } else {
+          $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+          ->findBy(array('idUsuario' => $v->getId()), array('id' => 'DESC'), $limit, $offset);
+          }
 
-                if (!is_null($productos)) {
+          if (!is_null($productos)) {
 
-                    foreach ($productos as $p) {
-                        if (!is_null($p->getIdCategoria())) {
-                            $categoria = $p->getIdCategoria()->getCategoria();
-                        } else {
-                            $categoria = null;
-                        }
-
-
-                        if ($include_images == true) {
-                            $json_child = array(
-                                'id' => $p->getId(),
-                                'nombre' => $p->getNombre(),
-                                'descripcion' => $p->getDescripcion(),
-                                'estado' => $p->getIdEstado()->getEstado(),
-                                'precio' => $p->getPrecio(),
-                                'categoria' => $categoria,
-                                'fecha_publicacion' => $p->getFechaPublicacion(),
-                                'keywords' => $this->getProductKeywords($p),
-                                'images' => $this->getProductImages($p),
-                                'usuario' => array(
-                                    'id' => $p->getIdUsuario()->getId(),
-                                    'nombre' => $p->getIdUsuario()->getNombre(),
-                                    'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                                ),
-                            );
-                        } else {
-                            $json_child = array(
-                                'id' => $p->getId(),
-                                'nombre' => $p->getNombre(),
-                                'descripcion' => $p->getDescripcion(),
-                                'estado' => $p->getIdEstado()->getEstado(),
-                                'precio' => $p->getPrecio(),
-                                'categoria' => $categoria,
-                                'fecha_publicacion' => $p->getFechaPublicacion(),
-                                'keywords' => $this->getProductKeywords($p),
-                                'usuario' => array(
-                                    'id' => $p->getIdUsuario()->getId(),
-                                    'nombre' => $p->getIdUsuario()->getNombre(),
-                                    'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                                ),
-                            );
-                        }
-
-                        array_push($json, $json_child);
-                    }
-                }
-            }
-        } else {
-            if ($orderASC) {
-                $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                        ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'ASC'), $limit, $offset);
-            } else {
-                $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
-                        ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'DESC'), $limit, $offset);
-            }
-
-            if (!is_null($productos)) {
-
-                foreach ($productos as $p) {
-                    if (!is_null($p->getIdCategoria())) {
-                        $categoria = $p->getIdCategoria()->getCategoria();
-                    } else {
-                        $categoria = null;
-                    }
+          foreach ($productos as $p) {
+          if (!is_null($p->getIdCategoria())) {
+          $categoria = $p->getIdCategoria()->getCategoria();
+          } else {
+          $categoria = null;
+          }
 
 
-                    if ($include_images == true) {
-                        $json_child = array(
-                            'id' => $p->getId(),
-                            'nombre' => $p->getNombre(),
-                            'descripcion' => $p->getDescripcion(),
-                            'estado' => $p->getIdEstado()->getEstado(),
-                            'precio' => $p->getPrecio(),
-                            'categoria' => $categoria,
-                            'fecha_publicacion' => $p->getFechaPublicacion(),
-                            'keywords' => $this->getProductKeywords($p),
-                            'images' => $this->getProductImages($p),
-                            'usuario' => array(
-                                'id' => $p->getIdUsuario()->getId(),
-                                'nombre' => $p->getIdUsuario()->getNombre(),
-                                'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                            ),
-                        );
-                    } else {
-                        $json_child = array(
-                            'id' => $p->getId(),
-                            'nombre' => $p->getNombre(),
-                            'descripcion' => $p->getDescripcion(),
-                            'estado' => $p->getIdEstado()->getEstado(),
-                            'precio' => $p->getPrecio(),
-                            'categoria' => $categoria,
-                            'fecha_publicacion' => $p->getFechaPublicacion(),
-                            'keywords' => $this->getProductKeywords($p),
-                            'usuario' => array(
-                                'id' => $p->getIdUsuario()->getId(),
-                                'nombre' => $p->getIdUsuario()->getNombre(),
-                                'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
-                            ),
-                        );
-                    }
+          if ($include_images == true) {
+          $json_child = array(
+          'id' => $p->getId(),
+          'nombre' => $p->getNombre(),
+          'descripcion' => $p->getDescripcion(),
+          'estado' => $p->getIdEstado()->getEstado(),
+          'precio' => $p->getPrecio(),
+          'categoria' => $categoria,
+          'fecha_publicacion' => $p->getFechaPublicacion(),
+          'keywords' => $this->getProductKeywords($p),
+          'images' => $this->getProductImages($p),
+          'usuario' => array(
+          'id' => $p->getIdUsuario()->getId(),
+          'nombre' => $p->getIdUsuario()->getNombre(),
+          'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+          ),
+          );
+          } else {
+          $json_child = array(
+          'id' => $p->getId(),
+          'nombre' => $p->getNombre(),
+          'descripcion' => $p->getDescripcion(),
+          'estado' => $p->getIdEstado()->getEstado(),
+          'precio' => $p->getPrecio(),
+          'categoria' => $categoria,
+          'fecha_publicacion' => $p->getFechaPublicacion(),
+          'keywords' => $this->getProductKeywords($p),
+          'usuario' => array(
+          'id' => $p->getIdUsuario()->getId(),
+          'nombre' => $p->getIdUsuario()->getNombre(),
+          'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+          ),
+          );
+          }
 
-                    array_push($json, $json_child);
-                }
-            }
-        }
-        } else {
-        $response->setData(array("error" => "No products to be displayed"));
-        $response->setStatusCode(404);
-        return $response;
-        }*/
+          array_push($json, $json_child);
+          }
+          }
+          }
+          } else {
+          if ($orderASC) {
+          $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+          ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'ASC'), $limit, $offset);
+          } else {
+          $productos = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')
+          ->findBy(array('idUsuario' => $vendedor->getId()), array('id' => 'DESC'), $limit, $offset);
+          }
+
+          if (!is_null($productos)) {
+
+          foreach ($productos as $p) {
+          if (!is_null($p->getIdCategoria())) {
+          $categoria = $p->getIdCategoria()->getCategoria();
+          } else {
+          $categoria = null;
+          }
+
+
+          if ($include_images == true) {
+          $json_child = array(
+          'id' => $p->getId(),
+          'nombre' => $p->getNombre(),
+          'descripcion' => $p->getDescripcion(),
+          'estado' => $p->getIdEstado()->getEstado(),
+          'precio' => $p->getPrecio(),
+          'categoria' => $categoria,
+          'fecha_publicacion' => $p->getFechaPublicacion(),
+          'keywords' => $this->getProductKeywords($p),
+          'images' => $this->getProductImages($p),
+          'usuario' => array(
+          'id' => $p->getIdUsuario()->getId(),
+          'nombre' => $p->getIdUsuario()->getNombre(),
+          'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+          ),
+          );
+          } else {
+          $json_child = array(
+          'id' => $p->getId(),
+          'nombre' => $p->getNombre(),
+          'descripcion' => $p->getDescripcion(),
+          'estado' => $p->getIdEstado()->getEstado(),
+          'precio' => $p->getPrecio(),
+          'categoria' => $categoria,
+          'fecha_publicacion' => $p->getFechaPublicacion(),
+          'keywords' => $this->getProductKeywords($p),
+          'usuario' => array(
+          'id' => $p->getIdUsuario()->getId(),
+          'nombre' => $p->getIdUsuario()->getNombre(),
+          'ruta_avatar' => $p->getIdUsuario()->getRutaAvatar()
+          ),
+          );
+          }
+
+          array_push($json, $json_child);
+          }
+          }
+          }
+          } else {
+          $response->setData(array("error" => "No products to be displayed"));
+          $response->setStatusCode(404);
+          return $response;
+          } */
 
         $response->setData($json);
         $response->setStatusCode(200);
@@ -384,6 +384,128 @@ class DefaultController extends Controller {
         $response = new JsonResponse();
         $response->setData(array('total' => $query->fetchAll()[0]['cuenta']));
         $response->setStatusCode(200);
+
+        return $response;
+    }
+
+    public function eliminarAction() {
+        $response = new JsonResponse();
+
+        $data = $this->get('request')->request->all();
+
+        $idproducto = $data['idproducto'];
+        $idusuario = $data['idusuario'];
+
+        if (empty($idproducto) || empty($idusuario))
+            $this->sendErrorMsg('IDUSUARIO and IDPRODUCTO cant be null or empty');
+
+        $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idusuario));
+
+        if (is_null($usuario))
+            $this->sendErrorMsg('IDUSUARIO not exists');
+
+        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->findOneBy(array('id' => $idproducto, 'idUsuario' => $usuario));
+
+        if (is_null($producto))
+            $this->sendErrorMsg('IDPRODUCTO not exists or IDUSUARIO isnt the owner');
+
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($producto);
+            $em->flush();
+        } catch (ORMException $ex) {
+            $errorResponse = new JsonResponse();
+            $errorResponse->setStatusCode(500);
+            $errorResponse->setData(array('error' => 'An error ocurred while deleting product', 'details' => $ex->getMessage(), 'code' => $ex->getCode()));
+            $errorResponse->send();
+            exit;
+        }
+
+        $response->setStatusCode(200);
+        $response->setData(array('result' => true, 'message' => 'Product successfully removed', 'id' => $producto->getId()));
+
+        return $response;
+    }
+
+    public function activarAction() {
+        $response = new JsonResponse();
+
+        $data = $this->get('request')->request->all();
+
+        $idproducto = $data['idproducto'];
+        $idusuario = $data['idusuario'];
+
+        if (empty($idproducto) || empty($idusuario))
+            $this->sendErrorMsg('IDUSUARIO and IDPRODUCTO cant be null or empty');
+
+        $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idusuario));
+
+        if (is_null($usuario))
+            $this->sendErrorMsg('IDUSUARIO not exists');
+
+        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->findOneBy(array('id' => $idproducto, 'idUsuario' => $usuario));
+
+        if (is_null($producto))
+            $this->sendErrorMsg('IDPRODUCTO not exists or IDUSUARIO isnt the owner');
+
+        $producto->setActivo(true);
+
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($producto);
+            $em->flush();
+        } catch (ORMException $ex) {
+            $errorResponse = new JsonResponse();
+            $errorResponse->setStatusCode(500);
+            $errorResponse->setData(array('error' => 'An error ocurred while updating product', 'details' => $ex->getMessage(), 'code' => $ex->getCode()));
+            $errorResponse->send();
+            exit;
+        }
+
+        $response->setStatusCode(200);
+        $response->setData(array('result' => true, 'message' => 'Product successfully activated', 'id' => $producto->getId()));
+
+        return $response;
+    }
+
+    public function desactivarAction() {
+        $response = new JsonResponse();
+
+        $data = $this->get('request')->request->all();
+
+        $idproducto = $data['idproducto'];
+        $idusuario = $data['idusuario'];
+
+        if (empty($idproducto) || empty($idusuario))
+            $this->sendErrorMsg('IDUSUARIO and IDPRODUCTO cant be null or empty');
+
+        $usuario = $this->getDoctrine()->getRepository('ProductosManagerBundle:Usuarios')->findOneBy(array('idFront' => $idusuario));
+
+        if (is_null($usuario))
+            $this->sendErrorMsg('IDUSUARIO not exists');
+
+        $producto = $this->getDoctrine()->getRepository('ProductosManagerBundle:Producto')->findOneBy(array('id' => $idproducto, 'idUsuario' => $usuario));
+
+        if (is_null($producto))
+            $this->sendErrorMsg('IDPRODUCTO not exists or IDUSUARIO isnt the owner');
+
+        $producto->setActivo(false);
+        
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($producto);
+            $em->flush();
+        } catch (ORMException $ex) {
+            $errorResponse = new JsonResponse();
+            $errorResponse->setStatusCode(500);
+            $errorResponse->setData(array('error' => 'An error ocurred while updating product', 'details' => $ex->getMessage(), 'code' => $ex->getCode()));
+            $errorResponse->send();
+            exit;
+        }
+
+        $response->setStatusCode(200);
+        $response->setData(array('result' => true, 'message' => 'Product successfully desactivated', 'id' => $producto->getId()));
 
         return $response;
     }

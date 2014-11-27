@@ -19,5 +19,19 @@ productos_categorias_listar:
     
 productos_contar:
     path:     /productos/contar/{idVendedor}
-    defaults: { _controller: ProductosManagerBundle:Default:contarProductos, idVendedor: null }    
+    defaults: { _controller: ProductosManagerBundle:Default:contarProductos}
     
+productos_eliminar:
+    path:     /productos/eliminar
+    defaults: { _controller: ProductosManagerBundle:Default:eliminar}
+    methods: [POST]
+    
+productos_activar:
+    path:     /productos/activar
+    defaults: { _controller: ProductosManagerBundle:Default:activar }
+    methods: [POST]
+    
+productos_desactivar:
+    path:     /productos/desactivar
+    defaults: { _controller: ProductosManagerBundle:Default:desactivar }
+    methods: [POST]
