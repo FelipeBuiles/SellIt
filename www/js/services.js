@@ -22,8 +22,7 @@
         data: { id: id, nombre: n, ruta_avatar: r },
         success: function(data) {
           if(data.message == "The user already was in the database"){
-            $state.go('preferences');
-            //$state.go('home.feed');
+            $state.go('home.feed');
           }else{
             $state.go('preferences');
           }
@@ -280,6 +279,23 @@
       })
     }
 
+    function setGoal(params) {
+      return $.ajax({
+        type: "POST",
+        url: URL + 'usuario/metas/crear',
+        async: false,
+        data: params
+      })
+    }
+
+    function getGoal(id) {
+      return $.ajax({
+        type: 'GET',
+        url: URL + 'usuario/metas/get/' + id,
+        async: false
+      })
+    }
+
     return{
       all: all,
       login: login,
@@ -306,7 +322,9 @@
       setLocation : setLocation,
       sendOffer : sendOffer,
       getOffers : getOffers,
-      acceptOffer : acceptOffer
+      acceptOffer : acceptOffer,
+      setGoal : setGoal,
+      getGoal : getGoal
     }
   });
 })();

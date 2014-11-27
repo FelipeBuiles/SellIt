@@ -74,7 +74,6 @@
         })
       }
 
-
       store.set('listarPreferencias', $scope.array);
       feedService.addPreference(store.get('profile').user_id, $scope.array);
 
@@ -138,7 +137,6 @@
       $scope.profile = auth.profile;
     };
     $scope.idProduct = $stateParams.id;
-    $scope.rate = {};
     $scope.max = 5;
     $scope.profileProd = $stateParams.profile;
     $scope.product = {};
@@ -147,6 +145,7 @@
         $scope.product = data;
         $scope.own = (data.id_usuario.id_front == $scope.profile.user_id);
       });
+
     feedService.getRating($scope.idProduct)
       .always(function(data){
         $scope.rate = data;
@@ -154,8 +153,16 @@
       })
 
     $scope.addRating = function() {
-      feedService.addRating($scope.profile, $scope.idProduct, $scope.rate);
-      console.log($scope.rate);
+      feedService.addRating(
+        $scope.profile,
+        $scope.idProduct,
+        $scope.rate)
+        .always(
+          feedService.getRating($scope.idProduct)
+          .always(function(data){
+            $scope.enter(data);
+          })
+        );
     }
 
     $scope.picked = {};
@@ -360,6 +367,13 @@
         $scope.followingCounter = data.length;
       });
 
+    $scope.goal;
+    feedService.getGoal($scope.profile.id)
+      .then(function(data){
+        $scope.goal = data;
+      });
+
+
     $scope.showSection = function(){
       return ((store.get('profile').user_id === $scope.profile.id) || $scope.profile.goal);
     }
@@ -369,7 +383,8 @@
     }
 
     $scope.showGoals = function(){
-      return $scope.profile.goals;
+      console.log($scope.profile.goal != undefined);
+      return $scope.profile.goal != undefined;
     }
 
     $scope.logout = function() {
@@ -391,6 +406,17 @@
         scope: $scope,
         animation: 'slide-in-up'
     });
+
+    $scope.setGoal = function (){
+      if($scope.profile.goalDesc && $scope.profile.salesTarget){
+        var params = {
+          idusuario: $scope.profile.id,
+          monto_meta: $scope.profile.salesTarget,
+          descripcion: $scope.profile.goalDesc
+        };
+        feedService.setGoal(params);
+      }
+    }
 
     $scope.updateInfo = function (){
       var params = {
@@ -415,7 +441,6 @@
           $scope.offers = data;
         })
       $scope.offersModal.show();
-
     }
 
     $scope.acceptOffer = function(idOffer) {
@@ -447,10 +472,10 @@
         });
       };
 
-    $scope.productos = {}
+    $scope.products = {}
     feedService.byUser($scope.profile.id)
       .always(function(data){
-        $scope.productos = data;
+        $scope.products = data;
       });
   })
 

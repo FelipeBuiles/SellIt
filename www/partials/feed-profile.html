@@ -1,5 +1,7 @@
 <div class="productFeed">
-  <img ng-src="{{products.usuario.ruta_avatar}}"/>
+  <a href="#/home/profile/{{products.usuario.id}}">
+    <img ng-src="{{products.usuario.ruta_avatar}}"/>
+  </a>
   <p id="nombre">{{products.nombre}}</p>
   <p id="precio">{{products.precio | currency}}</p>
 </div>

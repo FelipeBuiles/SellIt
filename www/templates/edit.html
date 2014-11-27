@@ -6,8 +6,27 @@
     <h1 class="title">Edit profile</h1>
   </ion-header-bar>
   <ion-content>
-    <div class="card"
-      >
+    <div class="card">
+      <div class="item item-divider">
+        Goal
+      </div>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Goal Description</span>
+        <input type="text" placeholder="why are you selling? What is your goal"
+         ng-model="profile.goalDesc">
+      </label>
+      <label class="item item-input item-floating-label">
+        <span class="input-label">Sales Target</span>
+        <input type="number" placeholder="your sales target to acomplish your goal"
+         ng-model="profile.salesTarget">
+      </label>
+    </div>
+
+    <button class="item button button-full button-positive" ng-click="setGoal()">
+      Set Goal
+    </button>
+
+    <div class="card">
       <div class="item item-divider">
         Bank Info
       </div>

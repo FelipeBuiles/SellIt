@@ -9,7 +9,7 @@
         </div>
         <div id="infoProfile" class="col col-75">
           <div class="col col-33">
-            <strong>{{productos.length}}</strong>
+            <strong>{{products.length}}</strong>
             <span>Products</span>
           </div>
           <div class="col col-33">
@@ -33,9 +33,9 @@
           </figure>
         </a>
         <section class="ng-hide showGoals" ng-show="showGoals()">
-          <span>{{profile.goals.description}}</span>
-          <figure>{{profile.goals.moneyGoal}}</figure>
-          <figure>{{profile.goals.moneyAdvance}}</figure>
+          <span>{{profile.goal.descripcion}}</span>
+          <figure>{{profile.goal.monto_meta}}</figure>
+          <figure>{{profile.goal.monto}}</figure>
         </section>
       </div>
     </section>
@@ -48,8 +48,8 @@
           </ion-radio>
       </div>
       <div class="card" ng-show="picked.value == 1">
-        <figure class= "card" ng-repeat= "producto in productos">
-          <profile-products on-hold="showOffers({{producto.id}})" on-tap="goTo({{producto.id}})"></profile-products>
+        <figure class= "card" ng-repeat= "product in products">
+          <profile-products on-hold="showOffers({{product.id}})" on-tap="goTo({{product.id}})"></profile-products>
       </div>
       <div class="card" ng-show="picked.value == 2">
         <profile-news></profile-news>

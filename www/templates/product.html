@@ -23,7 +23,9 @@
           </button>
         </section>
         <section>
-          <img ng-src="{{product.id_usuario.ruta_avatar}}"/>
+          <a href="#/home/profile/{{product.id_usuario.id_front}}">
+            <img ng-src="{{product.id_usuario.ruta_avatar}}"/>
+          </a>
         </section>
       </figcaption>
       <article id="productDesciption" class="card">
@@ -40,7 +42,6 @@
       <article id="productDesciption" class="card">
         <feed-comments name="{{product.nombre}}" profile="{{profile}}"></feed-comments>
       </article>
-
     </div>
   </ion-content>
 </ion-view>
